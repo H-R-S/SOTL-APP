@@ -1,0 +1,1 @@
+const String iqraLogo = "assets/logos/iqra_logo.png";
