@@ -48,7 +48,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: SafeArea(
         child: Scaffold(
-            extendBodyBehindAppBar: true,
             appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
