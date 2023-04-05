@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sotl/view/screens/change_password/change_password_screen.dart';
+import '../home.dart';
+import '../view/screens/change_password/change_password_screen.dart';
+import '../view/screens/dashboard/dashboard_screen.dart';
 import '../view/screens/forgot_password/forgot_password_screen.dart';
 import '../view/screens/login/login_screen.dart';
+import '../view/screens/observation/observation_screen.dart';
 import '../view/screens/otp/otp_verification_screen.dart';
+import '../view/screens/profile/profile_screen.dart';
+import '../view/screens/settings/settings_screen.dart';
 import '../view/screens/splash/splash_screen.dart';
+import '../view/screens/users/users_screen.dart';
 import 'routes_name.dart';
 
 class Routes {
-
   static Route<dynamic> generateRoute(RouteSettings settings) {
-
     switch (settings.name) {
-
       case RoutesName.splash:
         return getPageRoute(const SplashScreen());
 
@@ -20,13 +23,31 @@ class Routes {
 
       case RoutesName.forgotPassword:
         return getPageRoute(ForgotPasswordScreen());
-      
+
       case RoutesName.otp:
         return getPageRoute(OtpVerificationScreen());
-      
+
       case RoutesName.changePassword:
         return getPageRoute(ChangePasswordScreen());
-      
+
+      case RoutesName.home:
+        return getPageRoute(Home());
+
+      case RoutesName.dashboard:
+        return getPageRoute(DashboardScreen());
+
+      case RoutesName.users:
+        return getPageRoute(UsersScreen());
+
+      case RoutesName.observations:
+        return getPageRoute(ObservationScreen());
+
+      case RoutesName.settings:
+        return getPageRoute(SettingsScreen());
+
+      case RoutesName.profile:
+        return getPageRoute(ProfileScreen());
+
       default:
         return getPageRoute(LoginScreen());
     }
