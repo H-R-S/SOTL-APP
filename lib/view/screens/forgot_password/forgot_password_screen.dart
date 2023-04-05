@@ -51,18 +51,18 @@ class ForgotPasswordScreen extends StatelessWidget {
                               Center(child: Image.asset(forgotPasswordImage)),
                               const SizedBox(height: 40),
                               MyTextField(
-                                  validator: (value) =>
-                                      Validator.validateEmail(value),
+                                  // validator: (value) =>
+                                  //     Validator.validateEmail(value),
                                   controller: emailController,
                                   hint: "Email Address"),
                               const SizedBox(height: 15),
                               MyElevatedButton(
                                   title: "Submit",
                                   onTap: () {
-                                    final isValidate =
-                                        formKey.currentState!.validate();
+                                    // final isValidate =
+                                    //     formKey.currentState!.validate();
       
-                                    if (isValidate) {
+                                    // if (isValidate) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -70,7 +70,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                                                   OtpVerificationScreen(
                                                       email:
                                                           emailController.text)));
-                                    }
+                                    // }
                                   })
                             ]))))),
       ),
