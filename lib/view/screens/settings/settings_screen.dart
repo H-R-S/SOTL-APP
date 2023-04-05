@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sotl/resources/constants/style.dart';
-import 'package:sotl/routes/routes_name.dart';
-import 'package:sotl/view/widgets/snack_bar/my_snack_bar.dart';
+import '../../../routes/routes_name.dart';
 import '../../widgets/app_bar/my_app_bar.dart';
 import '../../widgets/settings_container/settings_container.dart';
+import '../../widgets/snack_bar/my_snack_bar.dart';
 import '../../widgets/user_info_container/user_info_container.dart';
 
 class SettingsScreen extends StatelessWidget {
