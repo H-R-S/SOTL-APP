@@ -67,7 +67,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ]),
             body: SingleChildScrollView(
                 child: Padding(
-                    padding: const EdgeInsets.all(20).copyWith(top: 100),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
