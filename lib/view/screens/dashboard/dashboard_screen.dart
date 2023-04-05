@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:sotl/resources/constants/style.dart';
+import '../../../resources/constants/style.dart';
 import '../../widgets/app_bar/my_app_bar.dart';
 import '../../widgets/info_container/info_container.dart';
 
