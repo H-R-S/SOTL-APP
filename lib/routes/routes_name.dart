@@ -1,5 +1,5 @@
 class RoutesName {
-
+  
   static const String splash = "splash_screen";
 
   static const String login = "login_screen";
@@ -22,4 +22,9 @@ class RoutesName {
 
   static const String profile = "profile_screen";
 
+  static const String faculty = "faculty_screen";
+
+  static const String facultyCourse = "faculty_course_screen";
+
+  static const String facultyObservation = "faculty_observation_screen";
 }
