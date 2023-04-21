@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sotl/view/screens/faculty/screens/course/course_screen.dart';
+import 'package:sotl/view/screens/faculty/screens/observation/observation_screen.dart';
 import '../home.dart';
 import '../view/screens/change_password/change_password_screen.dart';
 import '../view/screens/dashboard/dashboard_screen.dart';
+import '../view/screens/faculty/faculty.dart';
 import '../view/screens/forgot_password/forgot_password_screen.dart';
 import '../view/screens/login/login_screen.dart';
 import '../view/screens/observation/observation_screen.dart';
@@ -47,6 +50,15 @@ class Routes {
 
       case RoutesName.profile:
         return getPageRoute(ProfileScreen());
+
+      case RoutesName.faculty:
+        return getPageRoute(Faculty());
+
+      case RoutesName.facultyCourse:
+        return getPageRoute(FacultyCourseScreen());
+
+      case RoutesName.facultyObservation:
+        return getPageRoute(FacultyObservationScreen());
 
       default:
         return getPageRoute(LoginScreen());
