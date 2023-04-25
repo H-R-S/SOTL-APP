@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sotl/resources/constants/style.dart';
 
 AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
-    {
-    bool isDrawer = false,
+    {bool isDrawer = false,
     bool isProfile = false,
     bool isBack = false,
     int? index,
     Function()? onTapProfile,
     Function()? onTapBackButton,
     Widget? bottom,
-    Color backgroundColor = Colors.transparent,
+    Color backButtonColor = Colors.grey,
+    Color backgroundColor = primary,
     String? title}) {
   return AppBar(
       elevation: 0,
@@ -17,7 +18,7 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
       centerTitle: true,
       leading: isBack
           ? BackButton(
-              color: Colors.grey,
+              color: backButtonColor,
               onPressed: onTapBackButton ??
                   () {
                     Navigator.pop(context);
@@ -28,7 +29,6 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
               preferredSize: const Size.fromHeight(75), child: bottom)
           : null,
       title: Text(title ?? "",
-              style: const TextStyle(
-                fontSize: 30,
-                  color: Colors.black, fontWeight: FontWeight.w700)));
+          style: const TextStyle(
+              fontSize: 25, color: Colors.white, fontWeight: FontWeight.normal)));
 }
