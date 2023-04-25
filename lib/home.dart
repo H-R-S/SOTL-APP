@@ -38,8 +38,8 @@ class _HomeState extends State<Home> {
             selectedItemColor: primary,
             iconSize: 30,
             unselectedItemColor: primary.withOpacity(.4),
-            // showSelectedLabels: false,
-            // showUnselectedLabels: false,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
             type: BottomNavigationBarType.fixed,
             onTap: (value) {
               setState(() {
