@@ -23,39 +23,41 @@ class SettingsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         height: 60,
-        padding: const EdgeInsets.all(10),
         child: InkWell(
             onTap: onTap,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [
-                    SizedBox(
-                        width: 25,
-                        child: Stack(children: [
-                          Center(
-                              child: Icon(
-                            icon,
-                            color: iconColor ?? Colors.grey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      SizedBox(
+                          width: 25,
+                          child: Stack(children: [
+                            Center(
+                                child: Icon(
+                              icon,
+                              color: iconColor ?? Colors.grey,
+                            ))
+                          ])),
+                      Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: Text(
+                            title == null ? "" : title!,
+                            style: const TextStyle(fontSize: 18),
                           ))
-                        ])),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          title == null ? "" : title!,
-                          style: const TextStyle(fontSize: 18),
-                        ))
+                    ]),
+                    if (onTap != null)
+                      isSwitch
+                          ? Switch(value: false, onChanged: (value) {})
+                          : const Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20,
+                              color: Colors.grey,
+                            )
                   ]),
-                  if (onTap != null)
-                    isSwitch
-                        ? Switch(value: false, onChanged: (value) {})
-                        : const Icon(
-                            Icons.arrow_forward_ios,
-                            size: 20,
-                            color: Colors.grey,
-                          )
-                ])));
+            )));
   }
 }
