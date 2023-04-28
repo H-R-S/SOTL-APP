@@ -21,10 +21,10 @@ class UserCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(boxShadow: const [
           BoxShadow(
-              offset: Offset(1, 4),
-              spreadRadius: 2,
-              blurRadius: 2,
-              color: secondary)
+              color: grey,
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: Offset(0, 4)),
         ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           const CircleAvatar(
