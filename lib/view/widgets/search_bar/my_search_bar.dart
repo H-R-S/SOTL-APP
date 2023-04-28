@@ -18,7 +18,7 @@ class MySearchBar extends StatelessWidget {
       this.validator,
       this.onTap,
       required this.hint,
-      this.filledColor = Colors.white,
+      this.filledColor = light,
       this.isReadOnly = false,
       this.prefixIcon = Icons.search,
       required this.controller,
@@ -35,6 +35,7 @@ class MySearchBar extends StatelessWidget {
         onChanged: onChanged,
         controller: controller,
         decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(0),
             filled: true,
             fillColor: filledColor,
             prefixIcon: Padding(
