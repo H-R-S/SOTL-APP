@@ -12,35 +12,37 @@ class InfoContainer extends StatelessWidget {
       required this.title,
       required this.value,
       required this.onTap,
-      this.color = primary});
+      this.color = Colors.white});
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(fontSize: 20, color: Colors.white);
+    const style = TextStyle(fontSize: 18, color: primary);
 
     return InkWell(
         onTap: onTap,
         child: Container(
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30), color: color),
+            decoration: BoxDecoration(boxShadow: const [
+              BoxShadow(
+                  color: grey,
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 4)),
+            ], borderRadius: BorderRadius.circular(10), color: color),
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.supervisor_account_sharp, color: primary)),
-              const SizedBox(width: 10),
               Expanded(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: style),
-                      Text(value, overflow: TextOverflow.ellipsis, style: style)
-                    ]),
-              )
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                    Text(title,
+                        maxLines: 2, overflow: TextOverflow.clip, style: style),
+                    Text(value,
+                        overflow: TextOverflow.ellipsis,
+                        style: style.copyWith(
+                            fontSize: 22, fontWeight: FontWeight.bold))
+                  ])),
+              const Icon(Icons.person_outline, size: 30, color: primary)
             ])));
   }
 }
