@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 import '../../../resources/constants/style.dart';
 import '../../widgets/header_tag/header_tag.dart';
 import '../../widgets/search_bar/my_search_bar.dart';
@@ -13,21 +14,21 @@ class ObservationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: light,
+      appBar: MyAppBar(scaffoldKey, context, title: "Observations"),
         body: Padding(
-            padding: const EdgeInsets.all(20).copyWith(top: 50),
+            padding: const EdgeInsets.all(20),
             child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                const HeaderTag(title: "Observations"),
-                Container(
-                    decoration: BoxDecoration(
-                        color: primary,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add, color: Colors.white)))
-              ]),
-              const SizedBox(height: 20),
+              // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              //   const HeaderTag(title: "Observations"),
+              //   Container(
+              //       decoration: BoxDecoration(
+              //           color: primary,
+              //           borderRadius: BorderRadius.circular(10)),
+              //       child: IconButton(
+              //           onPressed: () {},
+              //           icon: const Icon(Icons.add, color: Colors.white)))
+              // ]),
+              // const SizedBox(height: 20),
               MySearchBar(
                   onTapSufix: () {},
                   sufixIcon: Icons.filter_list_rounded,
