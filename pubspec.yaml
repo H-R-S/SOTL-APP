@@ -37,6 +37,11 @@ dependencies:
   
   # Flutter Charts
   fl_chart: ^0.61.0
+
+  # Bottom Nav Bar
+  sliding_clipped_nav_bar: ^3.1.0+4
+  
+  # HTTP
   http: ^0.13.5
 
 dev_dependencies:
