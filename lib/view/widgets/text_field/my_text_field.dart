@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sotl/resources/constants/style.dart';
+import '../../../resources/constants/style.dart';
 
 class MyTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -8,7 +8,9 @@ class MyTextField extends StatefulWidget {
   final String hint;
   final bool isPassword;
   final int minLine;
+  final double? contentPadding;
   final Function(String)? onChanged;
+  List<String>? dropDownList;
   bool isVisible;
   final bool isReadable;
   final Function()? onTap;
@@ -18,7 +20,9 @@ class MyTextField extends StatefulWidget {
       {super.key,
       required this.controller,
       required this.hint,
+      this.dropDownList,
       this.onChanged,
+      this.contentPadding,
       this.minLine = 1,
       this.header,
       this.isRequired = false,
@@ -56,6 +60,9 @@ class _MyTextFieldState extends State<MyTextField> {
               cursorColor: primary,
               controller: widget.controller,
               decoration: InputDecoration(
+                  contentPadding: widget.contentPadding != null
+                      ? EdgeInsets.all(widget.contentPadding!)
+                      : null,
                   suffixIcon: widget.isPassword
                       ? IconButton(
                           onPressed: () {
@@ -67,9 +74,23 @@ class _MyTextFieldState extends State<MyTextField> {
                               widget.isVisible
                                   ? Icons.visibility_off_outlined
                                   : Icons.visibility_outlined,
-                              color: Colors.grey),
-                        )
-                      : null,
+                              color: Colors.grey))
+                      : widget.dropDownList != null
+                          ? PopupMenuButton<String>(
+                              position: PopupMenuPosition.under,
+                              icon: const Icon(Icons.arrow_drop_down,
+                                  color: Colors.grey),
+                              onSelected: (String value) {
+                                widget.controller.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return widget.dropDownList!
+                                    .map<PopupMenuItem<String>>((String value) {
+                                  return PopupMenuItem(
+                                      value: value, child: Text(value));
+                                }).toList();
+                              })
+                          : null,
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.grey)),
