@@ -18,53 +18,52 @@ class UsersListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: light,
         appBar: MyAppBar(scaffoldKey, context,
-            isBack: true,
-            backButtonColor: primary,
-            backgroundColor: Colors.transparent),
+            isBack: true, title: title, actionButton: Icons.person_add_alt_1),
         body: SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      HeaderTag(title: title ?? ""),
-                      Container(
-                          decoration: BoxDecoration(
-                              color: primary,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.add, color: Colors.white)))
-                    ]),
-                const SizedBox(height: 20),
-                MySearchBar(
-                    onTapSufix: () {},
-                    sufixIcon: Icons.filter_list_rounded,
-                    hint: "Search $title",
-                    controller: searchController,
-                    onChanged: (value) {}),
-                const SizedBox(height: 40),
-                GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisExtent: 200,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
-                            crossAxisCount: 2),
-                    itemCount: userList.length,
-                    itemBuilder: (context, index) {
-                      return UserCard(
-                          onTap: () {},
-                          name: userList[index]["name"],
-                          designation: userList[index]["designation"],
-                          email: userList[index]["email"]);
-                    })
-              ])),
-        ));
+            child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(children: [
+                  // Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       SizedBox(child: HeaderTag(title: title ?? "")),
+                  //       Container(
+                  //           decoration: BoxDecoration(
+                  //               color: primary,
+                  //               borderRadius: BorderRadius.circular(10)),
+                  //           child: IconButton(
+                  //               onPressed: () {},
+                  //               icon:
+                  //                   const Icon(Icons.add, color: Colors.white)))
+                  //     ]),
+                  const SizedBox(height: 20),
+                  MySearchBar(
+                      onTapSufix: () {
+                        // showModalBottomSheet(context: context, builder: (context) => Column());
+                      },
+                      sufixIcon: Icons.filter_list_rounded,
+                      hint: "Search $title",
+                      controller: searchController,
+                      onChanged: (value) {}),
+                  const SizedBox(height: 40),
+                  GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisExtent: 200,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20,
+                              crossAxisCount: 2),
+                      itemCount: userList.length,
+                      itemBuilder: (context, index) {
+                        return UserCard(
+                            onTap: () {},
+                            name: userList[index]["name"],
+                            designation: userList[index]["designation"],
+                            email: userList[index]["email"]);
+                      })
+                ]))));
   }
 }
