@@ -1,41 +1,41 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import '../../../resources/constants/logos.dart';
 import '../../../resources/constants/style.dart';
 import '../../../resources/data/user_list.dart';
+import '../../widgets/app_bar/my_app_bar.dart';
 import '../../widgets/header_tag/header_tag.dart';
 import '../../widgets/indicator/indicator.dart';
 import '../../widgets/info_container/info_container.dart';
+import '../../widgets/observation_info_container/observation_info_container.dart';
+import '../../widgets/text_field/my_text_field.dart';
 import '../users_list/users_list_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  DashboardScreen({super.key});
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  TextEditingController campusController = TextEditingController();
+  TextEditingController departmentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-        backgroundColor: light,
+        appBar: MyAppBar(scaffoldKey, context, title: "SOTL-System"),
         body: SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(20).copyWith(top: 40),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(iqraLogo, height: 80),
-                            const SizedBox(width: 10),
-                            const HeaderTag(title: "SOTL SYSTEM")
-                          ]),
-                      const SizedBox(height: 40),
-                      const HeaderTag(title: "Good Morning, Dr. Fariah"),
                       GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  mainAxisExtent: 70,
+                                  mainAxisExtent: 100,
                                   crossAxisSpacing: 20,
                                   mainAxisSpacing: 20,
                                   crossAxisCount: 2),
@@ -56,6 +56,22 @@ class DashboardScreen extends StatelessWidget {
                       const SizedBox(height: 40),
                       const HeaderTag(title: "Observation Analytics"),
                       const SizedBox(height: 10),
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                        SizedBox(
+                            width: width * 0.5,
+                            child: MyTextField(
+                                dropDownList: const [
+                                  "Main Campus",
+                                  "Bahria Campus",
+                                  "North Campus",
+                                  "Gulshan Campus",
+                                  "Airport Campus"
+                                ],
+                                contentPadding: 10,
+                                controller: campusController,
+                                hint: "Select Campus"))
+                      ]),
+                      const SizedBox(height: 20),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: const [
@@ -114,7 +130,18 @@ class DashboardScreen extends StatelessWidget {
                                       sideTitles:
                                           SideTitles(showTitles: false))),
                               backgroundColor: Colors.transparent))),
-                      const SizedBox(height: 40)
+                      const SizedBox(height: 40),
+                      ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return const ObservationInfoContainer(
+                                facultyName: "Sherazi Ahmed",
+                                observerName: "Mansoor Ebrahim",
+                                status: "Ongoing",
+                                obsPeriod: "1/2/23 - 3/4/23");
+                          })
                     ]))));
   }
 
