@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'status.dart';
+import '../enums/status.dart';
 
 class ApiResponse<T> {
   Status? status;
