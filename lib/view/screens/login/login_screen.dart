@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../resources/constants/logos.dart';
 import '../../../resources/constants/style.dart';
 import '../../../resources/validator/validator.dart';
 import '../../../routes/routes_name.dart';
+import '../../../view_models/auth/auth_view_model.dart';
 import '../../widgets/button/my_elevated_button.dart';
-import '../../widgets/snack_bar/my_snack_bar.dart';
 import '../../widgets/text_field/my_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -17,6 +18,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: SafeArea(
@@ -43,13 +46,13 @@ class LoginScreen extends StatelessWidget {
                                           fontWeight: FontWeight.normal)),
                                   const SizedBox(height: 15),
                                   MyTextField(
-                                      // validator: (value) =>
-                                      //     Validator.validateEmail(value),
+                                      validator: (value) =>
+                                          Validator.validateEmail(value),
                                       controller: emailController,
                                       hint: "Email"),
                                   MyTextField(
-                                      // validator: (value) =>
-                                      //     Validator.validatePassword(value),
+                                      validator: (value) =>
+                                          Validator.validatePassword(value),
                                       isPassword: true,
                                       isVisible: true,
                                       controller: passwordController,
@@ -70,16 +73,17 @@ class LoginScreen extends StatelessWidget {
                                       ]),
                                   const SizedBox(height: 15),
                                   MyElevatedButton(
+                                      isLoading: authViewModel.loading,
                                       onTap: () {
-                                        // final isValidate =
-                                        //     formKey.currentState!.validate();
+                                        final isValidate =
+                                            formKey.currentState!.validate();
 
-                                        // if (isValidate) {
-                                          MySnackBar(
-                                              context, "Login successfully");
-                                          Navigator.pushReplacementNamed(
-                                              context, RoutesName.home);
-                                        // }
+                                        if (isValidate) {
+                                          authViewModel.login(
+                                              context,
+                                              emailController.text.trim(),
+                                              passwordController.text.trim());
+                                        }
                                       },
                                       title: "Login")
                                 ])))))));
