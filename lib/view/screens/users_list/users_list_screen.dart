@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../resources/constants/style.dart';
+import 'package:sotl/view/screens/add_user/add_user_screen.dart';
 import '../../../resources/data/user_list.dart';
 import '../../widgets/app_bar/my_app_bar.dart';
-import '../../widgets/header_tag/header_tag.dart';
 import '../../widgets/search_bar/my_search_bar.dart';
 import '../../widgets/user_card/user_card.dart';
 
@@ -19,24 +18,18 @@ class UsersListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MyAppBar(scaffoldKey, context,
-            isBack: true, title: title, actionButton: Icons.person_add_alt_1),
+            isBack: true,
+            title: title,
+            actionButton: Icons.person_add_alt_1, onTapAction: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddUserScreen(title: title!)));
+        }),
         body: SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
-                  // Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       SizedBox(child: HeaderTag(title: title ?? "")),
-                  //       Container(
-                  //           decoration: BoxDecoration(
-                  //               color: primary,
-                  //               borderRadius: BorderRadius.circular(10)),
-                  //           child: IconButton(
-                  //               onPressed: () {},
-                  //               icon:
-                  //                   const Icon(Icons.add, color: Colors.white)))
-                  //     ]),
                   const SizedBox(height: 20),
                   MySearchBar(
                       onTapSufix: () {
