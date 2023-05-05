@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sotl/view_models/course/course_view_model.dart';
 import 'routes/routes.dart';
 import 'routes/routes_name.dart';
+import 'view_models/auth/auth_view_model.dart';
+import 'view_models/user/user_view_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +15,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SOTL-APP',
-      initialRoute: RoutesName.login,
-      onGenerateRoute: Routes.generateRoute,
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => AuthViewModel()),
+          ChangeNotifierProvider(create: (context) => CourseViewModel()),
+          ChangeNotifierProvider(create: (context) => UserViewModel())
+        ],
+        builder: (context, snapshot) {
+          return const MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'SOTL-APP',
+              initialRoute: RoutesName.splash,
+              onGenerateRoute: Routes.generateRoute);
+        });
   }
 }
