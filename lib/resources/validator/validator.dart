@@ -17,6 +17,8 @@ class Validator {
       return "Email is Required";
     } else if (!regExp.hasMatch(email)) {
       return "Invalid Email";
+    } else if (!email.endsWith("@iqra.edu.pk")) {
+      return "Please enter a valid @iqra.edu.pk email address";
     }
     return null;
   }
@@ -24,8 +26,8 @@ class Validator {
   static String? validatePassword(String? value) {
     if (value!.isEmpty) {
       return "Password is required.";
-    } else if (value.length < 6) {
-      return "Password must be 6 or more characters.";
+    } else if (value.length < 8) {
+      return "Password must be 8 or more characters.";
     }
     return null;
   }
@@ -33,8 +35,8 @@ class Validator {
   static String? validateConfirmPassword(String? value, String? password) {
     if (value!.isEmpty) {
       return "Password is required.";
-    } else if (value.length < 6) {
-      return "Password must be 6 or more characters.";
+    } else if (value.length < 8) {
+      return "Password must be 8 or more characters.";
     } else if (value != password) {
       return "Password and Confirm Password are not same.";
     }
