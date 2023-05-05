@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../resources/constants/style.dart';
 import '../../../routes/routes_name.dart';
 import '../../widgets/app_bar/my_app_bar.dart';
 import '../../widgets/settings_container/settings_container.dart';
 import '../../widgets/snack_bar/my_snack_bar.dart';
-import '../../widgets/user_info_container/user_info_container.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
