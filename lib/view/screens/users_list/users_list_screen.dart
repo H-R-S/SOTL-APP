@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sotl/view/screens/add_faculty/add_faculty_screen.dart';
 import 'package:sotl/view/screens/add_user/add_user_screen.dart';
 import '../../../resources/data/user_list.dart';
 import '../../widgets/app_bar/my_app_bar.dart';
@@ -24,7 +25,7 @@ class UsersListScreen extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AddUserScreen(title: title!)));
+                  builder: (context) => AddFacultyScreen()));
         }),
         body: SingleChildScrollView(
             child: Padding(
