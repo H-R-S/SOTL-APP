@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/user/user_model.dart';
 import '../../repository/auth/auth_repository.dart';
 import '../../routes/routes_name.dart';
@@ -46,5 +47,11 @@ class AuthViewModel with ChangeNotifier {
       setLoading(false);
       MySnackBar(context, error.toString());
     });
+  }
+
+  Future<bool> logOut() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.remove('token');
+    return true;
   }
 }
