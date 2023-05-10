@@ -1,10 +1,11 @@
 class CourseModel {
-  int? id;
+  String? id;
   String? name;
   String? department;
   String? campus;
-  bool? elective;
-  bool? depthElective;
+  bool? isElective;
+  bool? isDepthElective;
+  int? credits;
   List<Slots>? slots;
 
   CourseModel(
@@ -12,8 +13,9 @@ class CourseModel {
       this.name,
       this.department,
       this.campus,
-      this.elective,
-      this.depthElective,
+      this.isElective,
+      this.isDepthElective,
+      this.credits,
       this.slots});
 
   CourseModel.fromJson(Map<String, dynamic> json) {
@@ -21,8 +23,9 @@ class CourseModel {
     name = json['name'];
     department = json['department'];
     campus = json['campus'];
-    elective = json['elective'];
-    depthElective = json['depthElective'];
+    isElective = json['isElective'];
+    isDepthElective = json['isDepthElective'];
+    credits = json['credits'];
     if (json['slots'] != null) {
       slots = <Slots>[];
       json['slots'].forEach((v) {
@@ -31,14 +34,15 @@ class CourseModel {
     }
   }
 
-  Map<dynamic, dynamic> toJson() {
-    final Map<dynamic, dynamic> data = <dynamic, dynamic>{};
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['department'] = department;
     data['campus'] = campus;
-    data['elective'] = elective;
-    data['depthElective'] = depthElective;
+    data['isElective'] = isElective;
+    data['isDepthElective'] = isDepthElective;
+    data['credits'] = credits;
     if (slots != null) {
       data['slots'] = slots!.map((v) => v.toJson()).toList();
     }
@@ -47,21 +51,25 @@ class CourseModel {
 }
 
 class Slots {
-  int? id;
+  String? id;
   String? time;
   String? location;
   String? day;
-  int? coursesId;
-  dynamic facultyId;
-  dynamic faculty;
+  String? courseId;
+  int? facultyId;
+  dynamic slotFacultyId;
+  dynamic slotObserverId;
+  Faculty? faculty;
 
   Slots(
       {this.id,
       this.time,
       this.location,
       this.day,
-      this.coursesId,
+      this.courseId,
       this.facultyId,
+      this.slotFacultyId,
+      this.slotObserverId,
       this.faculty});
 
   Slots.fromJson(Map<String, dynamic> json) {
@@ -69,9 +77,12 @@ class Slots {
     time = json['time'];
     location = json['location'];
     day = json['day'];
-    coursesId = json['coursesId'];
+    courseId = json['courseId'];
     facultyId = json['facultyId'];
-    faculty = json['faculty'];
+    slotFacultyId = json['slotFacultyId'];
+    slotObserverId = json['slotObserverId'];
+    faculty =
+        json['faculty'] != null ? Faculty.fromJson(json['faculty']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -80,9 +91,32 @@ class Slots {
     data['time'] = time;
     data['location'] = location;
     data['day'] = day;
-    data['coursesId'] = coursesId;
+    data['courseId'] = courseId;
     data['facultyId'] = facultyId;
-    data['faculty'] = faculty;
+    data['slotFacultyId'] = slotFacultyId;
+    data['slotObserverId'] = slotObserverId;
+    if (faculty != null) {
+      data['faculty'] = faculty!.toJson();
+    }
+    return data;
+  }
+}
+
+class Faculty {
+  String? name;
+  String? email;
+
+  Faculty({this.name, this.email});
+
+  Faculty.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    email = json['email'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['email'] = email;
     return data;
   }
 }
