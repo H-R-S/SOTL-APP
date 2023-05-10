@@ -9,10 +9,9 @@ class SplashServices {
   Future<UserModel> getUserData() => UserViewModel().getUser();
 
   void checkAuthentication(BuildContext context) async {
-    final user = Provider.of<UserViewModel>(context, listen: false);
 
     getUserData().then((value) {
-      if (value.token == "null" || value.token == "") {
+      if (value.token == "null" || value.token == "" || value.token == null) {
 
         Navigator.pushReplacementNamed(context, RoutesName.login);
       } else {
