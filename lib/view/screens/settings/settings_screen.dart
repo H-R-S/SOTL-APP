@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../routes/routes_name.dart';
+import '../../../view_models/auth/auth_view_model.dart';
 import '../../widgets/app_bar/my_app_bar.dart';
 import '../../widgets/settings_container/settings_container.dart';
 import '../../widgets/snack_bar/my_snack_bar.dart';
@@ -11,9 +14,10 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
-        appBar:
-            MyAppBar(scaffoldKey, context, title: "Settings"),
+        appBar: MyAppBar(scaffoldKey, context, title: "Settings"),
         body: Padding(
             padding: const EdgeInsets.only(top: 20),
             child:
@@ -58,8 +62,10 @@ class SettingsScreen extends StatelessWidget {
                   icon: Icons.logout,
                   title: "Logout",
                   onTap: () {
-                    MySnackBar(context, "Logout");
-                    Navigator.pushReplacementNamed(context, RoutesName.login);
+                    authViewModel.logOut().then((value) {
+                      Navigator.of(context, rootNavigator: true)
+                          .pushReplacementNamed(RoutesName.login);
+                    });
                   })
             ])));
   }
