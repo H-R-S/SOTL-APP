@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../resources/constants/style.dart';
 
 class MyElevatedButton extends StatelessWidget {
@@ -31,7 +30,8 @@ class MyElevatedButton extends StatelessWidget {
             child: Center(
               child: isLoading
                   ? SizedBox(
-                      height: 30,
+                      height: 25,
+                      width: 25,
                       child: Center(
                           child: CircularProgressIndicator(
                               color: contentColor ?? Colors.white)))
