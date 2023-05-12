@@ -45,6 +45,8 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
     super.initState();
   }
 
+  List<String> courseIdList = [];
+
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
@@ -52,29 +54,30 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
     return Scaffold(
       appBar: MyAppBar(scaffoldKey, context, title: "Add Faculty"),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: ChangeNotifierProvider<CourseViewModel>(
-              create: (context) => courseViewModel,
-              child:
-                  Consumer<CourseViewModel>(builder: (context, value, child) {
-                switch (value.courseList.status) {
-                  case Status.ERROR:
-                    if (kDebugMode) {
-                      print(value.courseList.message);
-                    }
-                    return Container();
+        child: Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: ChangeNotifierProvider<CourseViewModel>(
+                create: (context) => courseViewModel,
+                child:
+                    Consumer<CourseViewModel>(builder: (context, value, child) {
+                  switch (value.courseList.status) {
+                    case Status.ERROR:
+                      if (kDebugMode) {
+                        print(value.courseList.message);
+                      }
+                      return Container();
 
-                  case Status.COMPLETED:
-                    final course = value.courseList.data!
-                        .where((course) => course.slots!
-                            .every((slot) => slot.facultyId == null))
-                        .toList();
+                    case Status.COMPLETED:
+                      final course = value.courseList.data!
+                          .where((course) => course.slots!
+                              .every((slot) => slot.facultyId == null))
+                          .toList();
 
-                    final slots = <Slots>[];
+                      final slots = <Slots>[];
 
-                    return Column(
-                      children: [
+                      return Column(children: [
                         MyTextField(
                             header: "Full Name",
                             isRequired: true,
@@ -82,6 +85,13 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                                 Validator.validateForm(value, "Full Name"),
                             controller: nameController,
                             hint: "Full Name"),
+                        MyTextField(
+                            header: "Email",
+                            isRequired: true,
+                            validator: (value) =>
+                                Validator.validateEmail(value),
+                            controller: emailController,
+                            hint: "Email"),
                         MyTextField(
                             header: "Campus",
                             isRequired: true,
@@ -91,7 +101,7 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                                 .toList(),
                             validator: (value) =>
                                 Validator.validateForm(value, "Full Name"),
-                            controller: emailController,
+                            controller: campusController,
                             hint: "Campus"),
                         MyTextField(
                             header: "Department",
@@ -128,9 +138,7 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                             items: slots,
                             hint: "Select Slots",
                             onChanged: (value) {
-                              courseIdController.value = courseIdController
-                                  .value
-                                  .copyWith(text: value!.courseId);
+                              courseIdList.add(value!.id.toString());
                             }),
                         MyTextField(
                             header: "Password",
@@ -156,31 +164,43 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                             isLoading: userViewModel.loading,
                             title: "Add Faculty",
                             onTap: () {
-                              // final isValidate =
-                              //     formKey.currentState!.validate();
+                              final isValidate =
+                                  formKey.currentState!.validate();
 
-                              // if (isValidate) {
-                              userViewModel.createUser(
-                                  context,
-                                  UserModel(
-                                      name: nameController.text.trim(),
-                                      campus: campusController.text,
-                                      department: departmentController.text,
-                                      role: roleController.text),
-                                  passwordController.text.trim(),
-                                  courseId: courseIdController.text.trim());
-                            }
-                            // }
-                            ),
+                              if (isValidate) {
+                                userViewModel
+                                    .createUser(
+                                        context,
+                                        UserModel(
+                                            name: nameController.text.trim(),
+                                            email: emailController.text.trim(),
+                                            campus: campusController.text,
+                                            department:
+                                                departmentController.text,
+                                            role: roleController.text),
+                                        passwordController.text.trim(),
+                                        courseId: courseIdList)
+                                    .then((value) {
+                                  nameController.clear();
+                                  emailController.clear();
+                                  campusController.clear();
+                                  departmentController.clear();
+                                  roleController.clear();
+                                  courseIdController.clear();
+                                  passwordController.clear();
+                                  confirmPasswordController.clear();
+                                });
+                              }
+                            }),
                         const SizedBox(height: 40)
-                      ],
-                    );
+                      ]);
 
-                  default:
-                    return const Center(
-                        child: CircularProgressIndicator(color: primary));
-                }
-              })),
+                    default:
+                      return const Center(
+                          child: CircularProgressIndicator(color: primary));
+                  }
+                })),
+          ),
         ),
       ),
     );
