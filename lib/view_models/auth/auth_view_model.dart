@@ -22,14 +22,18 @@ class AuthViewModel with ChangeNotifier {
 
   Future<void> login(
       BuildContext context, String email, String password) async {
+    setLoading(true);
     _authRepo.loginApi({"email": email, "password": password}).then((value) {
       if (value.token != null) {
-        print(value);
-
         final userPreference =
             Provider.of<UserViewModel>(context, listen: false);
 
-        userPreference.saveUser(UserModel(token: value.token.toString()));
+        userPreference.saveUser(UserModel(
+            id: value.id,
+            email: value.email,
+            name: value.name,
+            role: value.role,
+            token: value.token.toString()));
 
         if (kDebugMode) {
           print(value.token);
