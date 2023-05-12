@@ -6,6 +6,8 @@ class AppUrl {
 
   static var creatUserEndPoint = "$baseUrl/api/create";
 
+  static var getUserEndPoint = "$baseUrl/api/user/";
+
   static var getAllUsersEndPoint = "$baseUrl/api/users";
 
   static var updateUserEndPoint = "$baseUrl/api/update";
