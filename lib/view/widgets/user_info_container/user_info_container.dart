@@ -16,34 +16,40 @@ class UserInfoContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(
-        fontSize: 20, color: Colors.white, fontWeight: FontWeight.normal);
+    const style =
+        TextStyle(fontSize: 20, color: primary, fontWeight: FontWeight.normal);
 
     return InkWell(
         onTap: onTap,
         child: Container(
-          height: 100,
+            margin: const EdgeInsets.all(20).copyWith(top: 0),
             padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: primary),
-            child: Row(
-              children: [
+            decoration: BoxDecoration(boxShadow: const [
+              BoxShadow(
+                  color: grey,
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: Offset(0, 3))
+            ], borderRadius: BorderRadius.circular(15), color: Colors.white),
+            child: Row(children: [
               const CircleAvatar(
                   radius: 30,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.person, color: primary, size: 30)),
+                  backgroundColor: primary,
+                  child: Icon(Icons.person, color: Colors.white, size: 30)),
               const SizedBox(width: 20),
               Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(name, style: style.copyWith(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 5),
-                FittedBox(
-                    child: Text(email,
-                        style: style.copyWith(color: Colors.white54))),
-                const SizedBox(height: 5),
-                Text(role, style: style)
-              ])
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name,
+                        style: style.copyWith(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 5),
+                    Text(email,
+                        style: style.copyWith(
+                            color: primary.withOpacity(0.6))),
+                    const SizedBox(height: 5),
+                    Text(role, style: style)
+                  ])
             ])));
   }
 }
