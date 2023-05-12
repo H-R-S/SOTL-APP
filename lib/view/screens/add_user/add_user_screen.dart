@@ -128,11 +128,12 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                   context,
                                   UserModel(
                                       name: nameController.text.trim(),
+                                      email: emailController.text.trim(),
                                       campus: campusController.text,
                                       department: departmentController.text,
                                       role: roleController.text),
                                   passwordController.text.trim(),
-                                  courseId: "");
+                                  courseId: []);
                             }
                           })
                     ])))));
