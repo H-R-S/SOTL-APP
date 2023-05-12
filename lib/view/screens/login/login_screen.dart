@@ -32,13 +32,7 @@ class LoginScreen extends StatelessWidget {
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(iqraLogo, height: 250),
-                                  const SizedBox(height: 15),
-                                  const Text("SOTL SYSTEM",
-                                      style: TextStyle(
-                                          color: primary,
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.bold)),
+                                  Image.asset(sotlLogo, height: 250),
                                   const SizedBox(height: 15),
                                   const Text("Please Sign-in to your account",
                                       style: TextStyle(
