@@ -1,11 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/departments.dart';
 import 'package:sotl/data/enums/roles.dart';
-import 'package:sotl/data/enums/status.dart';
-import 'package:sotl/models/user/user_model.dart';
-import 'package:sotl/view/widgets/search_drop_down/search_drop_down.dart';
 import 'package:sotl/view_models/course/course_view_model.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../data/enums/campus.dart';
@@ -124,16 +120,16 @@ class _AddUserScreenState extends State<AddUserScreen> {
                             final isValidate = formKey.currentState!.validate();
 
                             if (isValidate) {
-                              userViewModel.createUser(
-                                  context,
-                                  UserModel(
-                                      name: nameController.text.trim(),
-                                      email: emailController.text.trim(),
-                                      campus: campusController.text,
-                                      department: departmentController.text,
-                                      role: roleController.text),
-                                  passwordController.text.trim(),
-                                  courseId: []);
+                              // userViewModel.createUser(
+                              //     context,
+                              //     UserModel(
+                              //         name: nameController.text.trim(),
+                              //         email: emailController.text.trim(),
+                              //         campus: campusController.text,
+                              //         department: departmentController.text,
+                              //         role: roleController.text),
+                              //     passwordController.text.trim(),
+                              //     courseId: []);
                             }
                           })
                     ])))));

@@ -16,19 +16,23 @@ class UserViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> createUser(BuildContext context, UserModel user, String password,
-      {required List<String> courseId}) async {
+  Future<void> createUser(BuildContext context, UserModel user,
+      {required String password, required List<String> courseId}) async {
     setLoading(true);
     getUser().then((value) {
-      final header = {'Authorization': 'Bearer ${value.token}'};
+      debugPrint("courses: ${courseId.toString()}");
+
+      final header = {
+        'Authorization': 'Bearer ${value.token}'
+      };
       _userRepo.createUserApi(header, {
-        "name": user.name,
-        "email": user.email,
-        "password": password,
-        "role": user.role,
-        "campus": user.campus,
-        "department": user.department,
-        "course": courseId
+        "name": "Irfan",
+        "email": "irfan@iqra.edu.pk",
+        "password": "12345678",
+        "role": "Faculty",
+        "campus": "Main_Campus",
+        "department": "Fest",
+        "courses": courseId as String
       }).then((value) {
         setLoading(false);
         if (value.token != null && value.token != "") {

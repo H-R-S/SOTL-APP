@@ -70,10 +70,10 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                       return Container();
 
                     case Status.COMPLETED:
-                      final course = value.courseList.data!
-                          .where((course) => course.slots!
-                              .every((slot) => slot.facultyId == null))
-                          .toList();
+                      final course = value.courseList.data!;
+                      // .where((course) => course.slots!
+                      //     .every((slot) => slot.facultyId == null))
+                      // .toList();
 
                       final slots = <Slots>[];
 
@@ -129,7 +129,10 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                             items: course,
                             hint: "Select Course",
                             onChanged: (value) {
-                              slots.addAll(value!.slots!);
+                              slots.clear();
+                              slots.addAll(value!.slots!
+                                  .where((slot) => slot.facultyId == null));
+                              print(value.slots);
                             }),
                         const SizedBox(height: 15),
                         SlotDropDown(
@@ -164,33 +167,32 @@ class _AddFacultyScreenState extends State<AddFacultyScreen> {
                             isLoading: userViewModel.loading,
                             title: "Add Faculty",
                             onTap: () {
-                              final isValidate =
-                                  formKey.currentState!.validate();
+                              // final isValidate =
+                              //     formKey.currentState!.validate();
 
-                              if (isValidate) {
-                                userViewModel
-                                    .createUser(
-                                        context,
-                                        UserModel(
-                                            name: nameController.text.trim(),
-                                            email: emailController.text.trim(),
-                                            campus: campusController.text,
-                                            department:
-                                                departmentController.text,
-                                            role: roleController.text),
-                                        passwordController.text.trim(),
-                                        courseId: courseIdList)
-                                    .then((value) {
-                                  nameController.clear();
-                                  emailController.clear();
-                                  campusController.clear();
-                                  departmentController.clear();
-                                  roleController.clear();
-                                  courseIdController.clear();
-                                  passwordController.clear();
-                                  confirmPasswordController.clear();
-                                });
-                              }
+                              // if (isValidate) {
+                              userViewModel
+                                  .createUser(
+                                      context,
+                                      UserModel(
+                                          name: nameController.text.trim(),
+                                          email: emailController.text.trim(),
+                                          campus: campusController.text,
+                                          department: departmentController.text,
+                                          role: roleController.text),
+                                      password: passwordController.text.trim(),
+                                      courseId: courseIdList)
+                                  .then((value) {
+                                nameController.clear();
+                                emailController.clear();
+                                campusController.clear();
+                                departmentController.clear();
+                                roleController.clear();
+                                courseIdController.clear();
+                                passwordController.clear();
+                                confirmPasswordController.clear();
+                              });
+                              // }
                             }),
                         const SizedBox(height: 40)
                       ]);
