@@ -42,7 +42,7 @@ class AuthViewModel with ChangeNotifier {
 
         setLoading(false);
 
-        Navigator.pushReplacementNamed(context, RoutesName.home);
+        Navigator.pushReplacementNamed(context, RoutesName.splash);
       }
     }).onError((error, stackTrace) {
       if (kDebugMode) {
