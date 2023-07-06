@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+
 import '../../../models/course/course_model.dart';
 import '../../../resources/constants/style.dart';
 
@@ -12,8 +13,7 @@ class SearchDropDown extends StatelessWidget {
   final Function(String?) onChanged;
 
   const SearchDropDown(
-      {super.key,
-      required this.items,
+      {required this.items,
       required this.hint,
       required this.onChanged,
       this.selectedItem,
@@ -59,8 +59,7 @@ class CourseDropDown extends StatelessWidget {
   final Function(CourseModel?) onChanged;
 
   const CourseDropDown(
-      {super.key,
-      required this.items,
+      {required this.items,
       required this.hint,
       required this.onChanged,
       this.selectedItem,
@@ -109,8 +108,7 @@ class SlotDropDown extends StatelessWidget {
   final Function(Slots?) onChanged;
 
   const SlotDropDown(
-      {super.key,
-      required this.items,
+      {required this.items,
       required this.hint,
       required this.onChanged,
       this.selectedItem,
@@ -149,3 +147,8 @@ class SlotDropDown extends StatelessWidget {
     ]);
   }
 }
+
+
+
+
+

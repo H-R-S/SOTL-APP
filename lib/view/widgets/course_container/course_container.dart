@@ -5,7 +5,7 @@ class CourseContainer extends StatelessWidget {
   final String name, timings, instructorName;
 
   const CourseContainer(
-      {super.key,
+      {
       required this.name,
       required this.timings,
       required this.instructorName});

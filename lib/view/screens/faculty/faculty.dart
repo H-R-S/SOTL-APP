@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sotl/view/screens/faculty/screens/course/course_screen.dart';
-import 'package:sotl/view/screens/faculty/screens/home/home_screen.dart';
-import 'package:sotl/view/screens/faculty/screens/observation/observation_screen.dart';
 import '../../../resources/constants/style.dart';
-import '../settings/settings_screen.dart';
+import '../common/screens/settings/settings_screen.dart';
+import 'screens/course/course_screen.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/observation/observation_screen.dart';
 
 class Faculty extends StatefulWidget {
   const Faculty({super.key});

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:sotl/resources/constants/style.dart';
+import '../../../resources/constants/style.dart';
 
 class MyTextButton extends StatelessWidget {
   final String title;

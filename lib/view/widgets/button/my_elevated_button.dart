@@ -10,8 +10,7 @@ class MyElevatedButton extends StatelessWidget {
   final bool isLoading;
 
   const MyElevatedButton(
-      {super.key,
-      required this.title,
+      {required this.title,
       required this.onTap,
       this.customWidth,
       this.isLoading = false,
@@ -23,7 +22,7 @@ class MyElevatedButton extends StatelessWidget {
     return InkWell(
         onTap: onTap,
         child: Container(
-          width: customWidth ?? double.infinity,
+            width: customWidth ?? double.infinity,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10), color: buttonColor),

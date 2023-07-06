@@ -3,7 +3,7 @@ import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/course_container/course_container.dart';
 
 class FacultyCourseScreen extends StatelessWidget {
-  FacultyCourseScreen({super.key});
+  FacultyCourseScreen({Key? key});
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 

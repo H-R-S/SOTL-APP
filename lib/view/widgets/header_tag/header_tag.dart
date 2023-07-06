@@ -8,9 +8,12 @@ class HeaderTag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const style =
-        TextStyle(color: primary, fontSize: 35, fontWeight: FontWeight.bold);
-
-    return FittedBox(child: Text(title, style: style));
+    return FittedBox(
+        child: Text(title,
+            style: TextStyle(
+                color: Styles.fontColor,
+                fontSize: 22,
+                letterSpacing: 0.2,
+                fontWeight: FontWeight.bold)));
   }
 }

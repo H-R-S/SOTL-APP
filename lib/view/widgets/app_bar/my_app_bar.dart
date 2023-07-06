@@ -14,33 +14,40 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
     Widget? bottom,
     Color backButtonColor = Colors.grey,
     Color backgroundColor = primary,
-    String? title}) {
+    String? title,
+    Widget? actionData}) {
   return AppBar(
-      leadingWidth: 30,
-      toolbarHeight: 75,
+      leadingWidth: isBack ? 40 : 80,
+      // toolbarHeight: 75,
       elevation: 0,
-      backgroundColor: backgroundColor,
-      centerTitle: actionButton != null ? false : isCenter,
-      actions: [
-        Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-                onPressed: onTapAction,
-                icon: Icon(actionButton, size: 30, color: Colors.white)))
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      // actionButton != null ? false : isCenter,
+      actions: <Widget>[
+        actionData ?? const SizedBox(width: 0.0, height: 0.0),
       ],
       leading: isBack
           ? BackButton(
-              color: Colors.white,
-              onPressed: onTapBackButton ??
-                  () {
-                    Navigator.pop(context);
-                  })
-          : null,
+              color: Styles.fontColor,
+              onPressed: onTapBackButton ?? () => Navigator.pop(context))
+          : Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: Image.asset(
+                "assets/logos/iqra_logo.png",
+                width: 60,
+                height: 60,
+              ),
+            ),
       bottom: bottom != null
           ? PreferredSize(
-              preferredSize: const Size.fromHeight(75), child: bottom)
+              preferredSize: const Size.fromHeight(40), child: bottom)
           : null,
-      title: Text(title ?? "",
-          style: const TextStyle(
-              fontSize: 30, color: Colors.white, fontWeight: FontWeight.w500)));
+      title: title != null
+          ? FittedBox(
+              child: Text(title,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Styles.fontColor,
+                      fontWeight: FontWeight.w600)))
+          : null);
 }

@@ -14,8 +14,7 @@ class MySearchBar extends StatelessWidget {
   final Function()? onTapSufix;
 
   const MySearchBar(
-      {super.key,
-      this.validator,
+      {this.validator,
       this.onTap,
       required this.hint,
       this.filledColor = light,
@@ -37,7 +36,7 @@ class MySearchBar extends StatelessWidget {
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(0),
             filled: true,
-            fillColor: filledColor,
+            fillColor: Colors.white,
             prefixIcon: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 10),
                 child: Icon(prefixIcon, color: grey)),
@@ -51,12 +50,12 @@ class MySearchBar extends StatelessWidget {
             hintText: hint,
             enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(30)),
+                borderRadius: BorderRadius.circular(20)),
             focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(30)),
+                borderRadius: BorderRadius.circular(20)),
             border: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(30))));
+                borderRadius: BorderRadius.circular(20))));
   }
 }

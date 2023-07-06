@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import '../../../resources/constants/style.dart';
 
@@ -17,8 +18,7 @@ class MyTextField extends StatefulWidget {
   final String? Function(String?)? validator;
 
   MyTextField(
-      {super.key,
-      required this.controller,
+      {super.key, required this.controller,
       required this.hint,
       this.dropDownList,
       this.onChanged,
@@ -40,11 +40,13 @@ class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 1),
         child: Column(children: [
           if (widget.header != null)
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Text(widget.header!, style: const TextStyle(fontSize: 16)),
+              Text(widget.header!,
+                  style:
+                      TextStyle(fontSize: 16, color: Styles.fontColor)),
               const SizedBox(width: 3),
               if (widget.isRequired)
                 const Text("*",
@@ -60,9 +62,8 @@ class _MyTextFieldState extends State<MyTextField> {
               cursorColor: primary,
               controller: widget.controller,
               decoration: InputDecoration(
-                  contentPadding: widget.contentPadding != null
-                      ? EdgeInsets.all(widget.contentPadding!)
-                      : null,
+                  contentPadding: const EdgeInsets.all(10),
+                  labelStyle: TextStyle(color: Styles.fontColor),
                   suffixIcon: widget.isPassword
                       ? IconButton(
                           onPressed: () {
@@ -90,7 +91,10 @@ class _MyTextFieldState extends State<MyTextField> {
                                       value: value, child: Text(value));
                                 }).toList();
                               })
-                          : null,
+                      : null,
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.grey)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.grey)),
