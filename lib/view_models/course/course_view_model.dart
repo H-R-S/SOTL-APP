@@ -1,10 +1,20 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import '../../data/responses/api_responses.dart';
 import '../../models/course/course_model.dart';
 import '../../repository/course/course_repository.dart';
+import '../../view/widgets/snack_bar/my_snack_bar.dart';
 
 class CourseViewModel with ChangeNotifier {
   final _courseRepo = CourseRepository();
+
+  bool _loading = false;
+
+  bool get loading => _loading;
+
+  setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
 
   ApiResponse<List<CourseModel>> courseList = ApiResponse.loading();
 
@@ -17,12 +27,24 @@ class CourseViewModel with ChangeNotifier {
     setCourseList(ApiResponse.loading());
 
     _courseRepo.fetchAllCourses().then((value) {
-
       setCourseList(ApiResponse.completed(value));
-      
     }).onError((error, stackTrace) {
-
       setCourseList(ApiResponse.error(error.toString()));
+    });
+  }
+
+  Future<void> assignedCourse(
+      BuildContext context, int facultyId, List<int> slotId) async {
+    setLoading(true);
+
+    final body = {"slots": slotId};
+
+    _courseRepo.assignedCourseApi(facultyId, body).then((value) {
+      setLoading(false);
+      MySnackBar(context, "Course Assigned");
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      MySnackBar(context, error.toString());
     });
   }
 }
