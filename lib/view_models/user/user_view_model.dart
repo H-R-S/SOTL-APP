@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../data/responses/api_responses.dart';
 import '../../models/user/user_model.dart';
 import '../../repository/user/user_repository.dart';
 import '../../view/widgets/snack_bar/my_snack_bar.dart';
@@ -16,15 +17,30 @@ class UserViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  ApiResponse<List<UserModel>> usersList = ApiResponse.loading();
+
+  setUsersList(ApiResponse<List<UserModel>> response) {
+    usersList = response;
+    notifyListeners();
+  }
+
+  Future<void> getAllUsers() async {
+    setUsersList(ApiResponse.loading());
+
+    _userRepo.getAllUsersApi().then((value) {
+      setUsersList(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setUsersList(ApiResponse.error(error.toString()));
+    });
+  }
+
   Future<void> createUser(BuildContext context, UserModel user,
       {required String password, required List<String> courseId}) async {
     setLoading(true);
     getUser().then((value) {
       debugPrint("courses: ${courseId.toString()}");
 
-      final header = {
-        'Authorization': 'Bearer ${value.token}'
-      };
+      final header = {'Authorization': 'Bearer ${value.token}'};
       _userRepo.createUserApi(header, {
         "name": "Irfan",
         "email": "irfan@iqra.edu.pk",
@@ -37,13 +53,13 @@ class UserViewModel with ChangeNotifier {
         setLoading(false);
         if (value.token != null && value.token != "") {
           MySnackBar(context, "User Added");
-          print(value);
+          debugPrint(value.toString());
         } else {
           MySnackBar(context, "Something went wrong!.");
         }
       }).onError((error, stackTrace) {
         setLoading(false);
-        print("err: $error");
+        debugPrint("err: $error");
         MySnackBar(context, error.toString());
       });
     });
