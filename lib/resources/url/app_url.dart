@@ -13,4 +13,6 @@ class AppUrl {
   static var updateUserEndPoint = "$baseUrl/api/update";
 
   static var getAllCoursesEndPoint = "$baseUrl/api/courses";
+
+  static var getAllObservationsEndPoint = "$baseUrl/observations";
 }
