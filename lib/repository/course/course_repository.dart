@@ -16,4 +16,15 @@ class CourseRepository {
       rethrow;
     }
   }
+
+  Future<void> assignedCourseApi(int userId, dynamic data) async {
+    try {
+      dynamic response = await apiServices.getPutApiResponse(
+          "${AppUrl.getAllCoursesEndPoint}/user/$userId", data);
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
