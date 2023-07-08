@@ -6,6 +6,17 @@ import '../../resources/url/app_url.dart';
 class UserRepository {
   BaseApiServices apiServices = NetworkApiService();
 
+  Future<List<UserModel>> getAllUsersApi() async {
+    try {
+      List<dynamic> response =
+          await apiServices.getApiResponse(AppUrl.getAllUsersEndPoint);
+
+      return response = (response).map((e) => UserModel.fromJson(e)).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<UserModel> getUserApi(int id) async {
     try {
       dynamic response =
