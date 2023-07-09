@@ -5,21 +5,19 @@ class CourseContainer extends StatelessWidget {
   final String name, timings, instructorName;
 
   const CourseContainer(
-      {
+      {super.key,
       required this.name,
       required this.timings,
       required this.instructorName});
 
   @override
   Widget build(BuildContext context) {
-    const style = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
-
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: secondary)),
+            border: Border.all(color: primary)),
         child: Row(children: [
           const CircleAvatar(
               backgroundColor: primary,
@@ -27,12 +25,12 @@ class CourseContainer extends StatelessWidget {
               child: Icon(Icons.person, size: 40, color: Colors.white)),
           const SizedBox(width: 10),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(name, style: style),
+            Text(name, style: Styles.h2),
             const SizedBox(height: 5),
-            Text(timings, style: style),
+            Text(timings, style: Styles.h3),
             const SizedBox(height: 5),
             Text(instructorName,
-                style: style.copyWith(
+                style: Styles.subHeading.copyWith(
                     fontWeight: FontWeight.normal, color: Colors.grey))
           ])
         ]));
