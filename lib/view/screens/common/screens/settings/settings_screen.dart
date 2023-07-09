@@ -70,10 +70,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: "Dark Mode",
                   icon: Icons.dark_mode_outlined,
                   onTap: () {}),
-              SettingsContainer(
-                  title: "Appearance",
-                  icon: Icons.settings_outlined,
-                  onTap: () {}),
+              // SettingsContainer(
+              //     title: "Appearance",
+              //     icon: Icons.settings_outlined,
+              //     onTap: () {}),
               const SizedBox(height: 10),
               headingText("Support"),
               SettingsContainer(
