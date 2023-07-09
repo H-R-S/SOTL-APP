@@ -13,7 +13,7 @@ import '../../../../widgets/text_field/my_text_field.dart';
 class AddUserScreen extends StatefulWidget {
   final String title;
 
-  const AddUserScreen({required this.title});
+  const AddUserScreen({super.key, required this.title});
 
   @override
   State<AddUserScreen> createState() => _AddUserScreenState();
