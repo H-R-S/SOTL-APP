@@ -51,7 +51,7 @@ class UsersScreen extends StatelessWidget {
                                           title: facultyList[index]["name"])));
                             },
                             title: facultyList[index]["name"],
-                            value: facultyList[index]["value"].toString());
+                            value: facultyList[index]["value"]);
                       })
                 ]))));
   }
