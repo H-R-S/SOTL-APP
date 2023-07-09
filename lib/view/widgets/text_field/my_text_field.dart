@@ -40,7 +40,7 @@ class _MyTextFieldState extends State<MyTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 1),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Column(children: [
           if (widget.header != null)
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
