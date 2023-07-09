@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         ],
         builder: (context, snapshot) {
           return MaterialApp(
-              theme: themeData(),
+              theme: themeData().copyWith(useMaterial3: true),
               debugShowCheckedModeBanner: false,
               title: 'SOTL-APP',
               initialRoute: RoutesName.splash,
