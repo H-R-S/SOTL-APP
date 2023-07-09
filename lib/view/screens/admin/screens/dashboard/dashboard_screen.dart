@@ -1,27 +1,49 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:sotl/view/screens/admin/widgets/welcome_container.dart';
+import 'package:provider/provider.dart';
 import '../../../../../resources/constants/logos.dart';
 import '../../../../../resources/constants/style.dart';
 import '../../../../../resources/data/user_list.dart';
+import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/header_tag/header_tag.dart';
 import '../../../../widgets/indicator/indicator.dart';
 import '../../../../widgets/info_container/info_container.dart';
 import '../../../../widgets/observation_info_container/observation_info_container.dart';
 import '../../../../widgets/text_field/my_text_field.dart';
+import '../../widgets/welcome_container.dart';
 import '../users_list/users_list_screen.dart';
 
-class DashboardScreen extends StatelessWidget {
-  DashboardScreen({super.key});
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
 
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   final TextEditingController campusController = TextEditingController();
   final TextEditingController departmentController = TextEditingController();
 
+  bool isHOD = false;
+
+  String userName = "";
+
   @override
   Widget build(BuildContext context) {
+    final userViewModel = Provider.of<UserViewModel>(context);
+
+    userViewModel.getUser().then((value) {
+      setState(() {
+        if (value.role == "Head_of_Department") {
+          isHOD = true;
+        }
+        userName = value.name!;
+      });
+    });
+
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -39,8 +61,7 @@ class DashboardScreen extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Hi Sheraz,",
-                          style: Styles.h1),
+                      Text("Hi $userName,", style: Styles.h1),
                       const SizedBox(height: 15),
                       const SotlWelcomeContainer(),
                       const SizedBox(height: 25),
@@ -98,7 +119,7 @@ class DashboardScreen extends StatelessWidget {
                           UsersListScreen(title: facultyList[index]["name"])));
             },
             title: facultyList[index]["name"],
-            value: facultyList[index]["value"].toString(),
+            value: facultyList[index]["value"],
           );
         });
   }
