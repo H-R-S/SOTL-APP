@@ -1,57 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sotl/view/widgets/button/my_elevated_button.dart';
+import '../../../../../data/enums/status.dart';
 import '../../../../../resources/constants/style.dart';
-import '../../../../../resources/data/user_list.dart';
+import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
+import '../../../../widgets/loading_indicator/my_loading_indicator.dart';
 import '../../../../widgets/search_bar/my_search_bar.dart';
+import '../../../../widgets/text_field/my_text_field.dart';
 import '../../../../widgets/user_card/user_card.dart';
 import '../add_faculty/add_faculty_screen.dart';
 
-class UsersListScreen extends StatelessWidget {
+class UsersListScreen extends StatefulWidget {
   final String? title;
 
-  UsersListScreen({super.key, required this.title});
+  const UsersListScreen({super.key, required this.title});
 
+  @override
+  State<UsersListScreen> createState() => _UsersListScreenState();
+}
+
+class _UsersListScreenState extends State<UsersListScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController roleController = TextEditingController();
+
+  UserViewModel userViewModel = UserViewModel();
+
+  @override
+  void initState() {
+    userViewModel.getAllUsers();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(
-          scaffoldKey,
-          context,
-          isBack: true,
-          title: title,
-          actionData: Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.all(3),
-            decoration: const BoxDecoration(
-              color: primary,
-              shape: BoxShape.circle,
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                customBorder: const CircleBorder(),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddFacultyScreen()));
-                },
-                child: const Center(
-                  child: Icon(Icons.add),
-                ),
-              ),
-            ),
-          ),
-          actionButton: Icons.person_add_alt_1,
-        ),
-        //      onTapAction: () {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => AddFacultyScreen()));
-        // }),
+        appBar: MyAppBar(scaffoldKey, context,
+            title: widget.title,
+            actionData: Container(
+                margin: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.all(3),
+                decoration:
+                    const BoxDecoration(color: primary, shape: BoxShape.circle),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddFacultyScreen()));
+                    },
+                    child: const Center(
+                        child: Icon(Icons.add, color: Colors.white))))),
         body: SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -59,42 +60,69 @@ class UsersListScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   MySearchBar(
                       onTapSufix: () {
-                        // showModalBottomSheet(context: context, builder: (context) => Column());
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) => Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      MyTextField(
+                                          isReadable: true,
+                                          controller: roleController,
+                                          dropDownList: const [
+                                            "Observer",
+                                            "Faculty"
+                                          ],
+                                          hint: "Select Role"),
+                                      MyTextField(
+                                          isReadable: true,
+                                          controller: roleController,
+                                          dropDownList: const [
+                                            "FEST"
+                                          ],
+                                          hint: "Select Department"),
+                                      const SizedBox(height: 20),
+                                      MyElevatedButton(
+                                          title: "Apply Filter", onTap: () {}),
+                                      const SizedBox(height: 40)
+                                    ],
+                                  ),
+                                ));
                       },
                       sufixIcon: Icons.filter_list_rounded,
-                      hint: "Search $title",
+                      hint: "Search ${widget.title}",
                       controller: searchController,
                       onChanged: (value) {}),
                   const SizedBox(height: 30),
-                  ListView.builder(
-                      itemCount: 10,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return UserCard(
-                            onTap: () {},
-                            name: userList[index % 4]["name"],
-                            designation: userList[index % 4]["designation"],
-                            email: userList[index % 4]["email"]);
-                      })
+                  ChangeNotifierProvider<UserViewModel>(
+                      create: (context) => userViewModel,
+                      child: Consumer<UserViewModel>(
+                          builder: (context, value, child) {
+                        switch (value.usersList.status) {
+                          case Status.ERROR:
+                            debugPrint(value.usersList.message);
+                            return Container();
 
-                  // GridView.builder(
-                  //     shrinkWrap: true,
-                  //     physics: const NeverScrollableScrollPhysics(),
-                  //     gridDelegate:
-                  //         const SliverGridDelegateWithFixedCrossAxisCount(
-                  //             mainAxisExtent: 250,
-                  //             crossAxisSpacing: 20,
-                  //             mainAxisSpacing: 20,
-                  //             crossAxisCount: 2),
-                  //     itemCount: userList.length,
-                  //     itemBuilder: (context, index) {
-                  //       return UserCard(
-                  //           onTap: () {},
-                  //           name: userList[index]["name"],
-                  //           designation: userList[index]["designation"],
-                  //           email: userList[index]["email"]);
-                  //     })
+                          case Status.COMPLETED:
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: value.usersList.data!.length,
+                                itemBuilder: (context, index) {
+                                  final user = value.usersList.data![index];
+
+                                  return UserCard(
+                                      onTap: () {},
+                                      name: user.name ?? "",
+                                      designation: user.designation ?? "",
+                                      email: user.email ?? "");
+                                });
+
+                          default:
+                            return const MyLoadingIndicator();
+                        }
+                      }))
                 ]))));
   }
 }
