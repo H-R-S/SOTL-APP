@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../view/screens/admin/admin.dart';
+import '../view/screens/admin/screens/initiate_observation/initiate_observation_screen.dart';
 import '../view/screens/common/screens/change_password/change_password_screen.dart';
 import '../view/screens/admin/screens/dashboard/dashboard_screen.dart';
 import '../view/screens/faculty/faculty.dart';
@@ -7,8 +8,7 @@ import '../view/screens/faculty/screens/course/course_screen.dart';
 import '../view/screens/faculty/screens/observation/observation_screen.dart';
 import '../view/screens/common/screens/forgot_password/forgot_password_screen.dart';
 import '../view/screens/common/screens/login/login_screen.dart';
-import '../view/screens/common/screens/observation/init_observation_screen.dart';
-import '../view/screens/common/screens/observation/observation_screen.dart';
+import '../view/screens/admin/screens/observation/observation_screen.dart';
 import '../view/screens/common/screens/otp/otp_verification_screen.dart';
 import '../view/screens/common/screens/profile/profile_screen.dart';
 import '../view/screens/common/screens/rubrics/rubrics_screen.dart';
@@ -63,7 +63,7 @@ class Routes {
         return getPageRoute(FacultyObservationScreen());
 
       case RoutesName.initiateObservation:
-        return getPageRoute(InitiateObservation());
+        return getPageRoute(InitiateObservationScreen());
 
       case RoutesName.rubrics:
         return getPageRoute(const RubricScreen());
