@@ -17,6 +17,15 @@ class UserViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  String _userRole = "";
+
+  String get userRole => _userRole;
+
+  setUserRole(String value) {
+    _userRole = value;
+    notifyListeners();
+  }
+
   ApiResponse<List<UserModel>> usersList = ApiResponse.loading();
 
   setUsersList(ApiResponse<List<UserModel>> response) {
@@ -73,7 +82,7 @@ class UserViewModel with ChangeNotifier {
     sp.setString('email', user.email.toString());
     sp.setString('name', user.name.toString());
     sp.setString('role', user.role.toString());
-
+    setUserRole(user.role.toString());
     notifyListeners();
 
     return true;
