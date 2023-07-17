@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../resources/constants/style.dart';
+import '../../../theme/theme_provider.dart';
 
+// ignore: non_constant_identifier_names
 AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
     {bool isDrawer = false,
     bool isProfile = false,
     bool isBack = false,
     bool isCenter = true,
     int? index,
-    IconData? actionButton,
     Function()? onTapAction,
     Function()? onTapProfile,
     Function()? onTapBackButton,
@@ -15,17 +17,34 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
     Color backButtonColor = Colors.grey,
     Color backgroundColor = primary,
     String? title,
-    Widget? actionData}) {
+    bool isActionButtonCircle = true,
+    IconData? actionIcon}) {
+  final themeProvider = Provider.of<ThemeProvider>(context);
+
+  bool isDark = themeProvider.currentTheme == ThemeData.dark();
+
   return AppBar(
       leadingWidth: isBack ? 40 : 80,
-      // toolbarHeight: 75,
       elevation: 0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: isDark ? dark : Colors.transparent,
       centerTitle: true,
-      // actionButton != null ? false : isCenter,
-      actions: <Widget>[
-        actionData ?? const SizedBox(width: 0.0, height: 0.0),
-      ],
+      actions: actionIcon != null
+          ? [
+              Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: InkWell(
+                    onTap: onTapAction,
+                    child: CircleAvatar(
+                        radius: 15,
+                        backgroundColor:
+                            isActionButtonCircle ? primary : Colors.transparent,
+                        child: Icon(actionIcon,
+                            size: 30,
+                            color:
+                                isActionButtonCircle ? Colors.white : primary)),
+                  ))
+            ]
+          : null,
       leading: isBack
           ? BackButton(
               color: Styles.fontColor,
