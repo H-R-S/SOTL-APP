@@ -1,35 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'routes/routes.dart';
 import 'routes/routes_name.dart';
-import 'theme/theme_colors.dart';
+import 'theme/theme_provider.dart';
 import 'view_models/auth/auth_view_model.dart';
 import 'view_models/course/course_view_model.dart';
+import 'view_models/observation/observation_view_model.dart';
 import 'view_models/user/user_view_model.dart';
 
-void main() {
+int? initScreen;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  initScreen = preferences.getInt('initScreen');
+  await preferences.setInt('initScreen', 1);
+  final isDark = preferences.getBool("isDark") ?? false;
+  runApp(MyApp(isDark: isDark));
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+class MyApp extends StatefulWidget {
+  final bool isDark;
 
+  const MyApp({super.key, this.isDark = false});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (context) => ThemeProvider()),
           ChangeNotifierProvider(create: (context) => AuthViewModel()),
           ChangeNotifierProvider(create: (context) => CourseViewModel()),
+          ChangeNotifierProvider(create: (context) => ObservationViewModel()),
           ChangeNotifierProvider(create: (context) => UserViewModel())
         ],
-        builder: (context, snapshot) {
-          return MaterialApp(
-              theme: themeData().copyWith(useMaterial3: true),
-              debugShowCheckedModeBanner: false,
-              title: 'SOTL-APP',
-              initialRoute: RoutesName.splash,
-              onGenerateRoute: Routes.generateRoute);
-        });
+        child: ChangeNotifierProvider<ThemeProvider>(
+          create: (context) => ThemeProvider(isDark: widget.isDark),
+          builder: (context, child) {
+            final theme = Provider.of<ThemeProvider>(context);
+
+            return MaterialApp(
+                  theme: theme.currentTheme.copyWith(useMaterial3: true),
+                  debugShowCheckedModeBanner: false,
+                  title: 'SOTL-APP',
+                  initialRoute: RoutesName.splash,
+                  onGenerateRoute: Routes.generateRoute);
+          }
+        )
+        );
   }
 }
 
