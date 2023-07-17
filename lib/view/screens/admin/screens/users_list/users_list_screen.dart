@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/view/widgets/button/my_elevated_button.dart';
 import '../../../../../data/enums/status.dart';
-import '../../../../../resources/constants/style.dart';
 import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/loading_indicator/my_loading_indicator.dart';
 import '../../../../widgets/search_bar/my_search_bar.dart';
 import '../../../../widgets/text_field/my_text_field.dart';
 import '../../../../widgets/user_card/user_card.dart';
-import '../add_faculty/add_faculty_screen.dart';
 
 class UsersListScreen extends StatefulWidget {
   final String? title;
@@ -37,22 +35,11 @@ class _UsersListScreenState extends State<UsersListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(scaffoldKey, context,
-            title: widget.title,
-            actionData: Container(
-                margin: const EdgeInsets.only(right: 10),
-                padding: const EdgeInsets.all(3),
-                decoration:
-                    const BoxDecoration(color: primary, shape: BoxShape.circle),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AddFacultyScreen()));
-                    },
-                    child: const Center(
-                        child: Icon(Icons.add, color: Colors.white))))),
+        appBar: MyAppBar(
+          scaffoldKey,
+          context,
+          title: widget.title,
+        ),
         body: SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -78,9 +65,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
                                       MyTextField(
                                           isReadable: true,
                                           controller: roleController,
-                                          dropDownList: const [
-                                            "FEST"
-                                          ],
+                                          dropDownList: const ["FEST"],
                                           hint: "Select Department"),
                                       const SizedBox(height: 20),
                                       MyElevatedButton(
