@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../resources/constants/style.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/button/my_elevated_button.dart';
 import '../../../../widgets/snack_bar/my_snack_bar.dart';
@@ -40,24 +39,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               context,
               title: "Profile",
               isBack: true,
-              actionData: Container(
-                margin: const EdgeInsets.only(right: 10),
-                padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(
-                  color: primary,
-                  shape: BoxShape.circle,
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    customBorder: const CircleBorder(),
-                    onTap: () {},
-                    child: const Center(
-                      child: Icon(Icons.edit),
-                    ),
-                  ),
-                ),
-              ),
             ),
             body: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
