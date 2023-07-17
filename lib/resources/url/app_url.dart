@@ -1,5 +1,4 @@
 class AppUrl {
-
   static var baseUrl = "https://sotl-server.vercel.app";
 
   static var loginEndPoint = "$baseUrl/api/login";
@@ -14,5 +13,9 @@ class AppUrl {
 
   static var getAllCoursesEndPoint = "$baseUrl/api/courses";
 
-  static var getAllObservationsEndPoint = "$baseUrl/observations";
+  static var initiateObservationEndPoint = "$baseUrl/api/observation/initiate";
+
+  static var startObservationSchedulingEndPoint = "$baseUrl/api/observation/scheduling";
+
+  static var getAllObservationsEndPoint = "$baseUrl/api/observations";
 }
