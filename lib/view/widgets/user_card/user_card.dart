@@ -6,7 +6,8 @@ class UserCard extends StatelessWidget {
   final Function() onTap;
 
   const UserCard(
-      {required this.onTap,
+      {super.key,
+      required this.onTap,
       required this.name,
       required this.designation,
       required this.email});
@@ -38,22 +39,6 @@ class UserCard extends StatelessWidget {
                     fontSize: 10,
                     fontWeight: FontWeight.w500),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 5.0),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-              decoration: BoxDecoration(
-                color: primary,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                "Send Message",
-                style: TextStyle(
-                    color: Styles.whiteColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ),
             )
           ],
         ),
@@ -69,11 +54,6 @@ class UserCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           child: const Icon(Icons.person_outline, size: 30, color: primary),
         ),
-        // CircleAvatar(
-        //   radius: 40,
-        //   backgroundColor: Colors.grey[200],
-        //   child: Icon(Icons.person, size: 60, color: primary),
-        // ),
         title: Text(name,
             style: TextStyle(
                 color: Styles.fontColor,
@@ -81,30 +61,5 @@ class UserCard extends StatelessWidget {
                 fontWeight: FontWeight.w500)),
       ),
     );
-    // Container(
-    //     padding: const EdgeInsets.all(10),
-    //     decoration: BoxDecoration(boxShadow: const [
-    //       BoxShadow(
-    //           color: grey,
-    //           spreadRadius: 1,
-    //           blurRadius: 5,
-    //           offset: Offset(0, 4)),
-    //     ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
-    //     child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //       const CircleAvatar(
-    //           radius: 40,
-    //           backgroundColor: primary,
-    //           child: Icon(Icons.person, size: 60, color: Colors.white)),
-    //       const SizedBox(height: 10),
-    //       Text(name, style: style),
-    //       const SizedBox(height: 10),
-    //       Text(designation,
-    //           style: style.copyWith(
-    //               fontSize: 18,
-    //               fontWeight: FontWeight.normal,
-    //               color: secondary)),
-    //       const SizedBox(height: 10),
-    //       FittedBox(child: Text(email, style: style))
-    //     ]));
   }
 }
