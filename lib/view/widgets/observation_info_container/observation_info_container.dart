@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import '../../../resources/constants/style.dart';
 import '../../../routes/routes_name.dart';
 
+// ignore: must_be_immutable
 class ObservationInfoContainer extends StatelessWidget {
-  final Color statusColor;
+  Color statusColor;
   final String facultyName, observerName, status, obsPeriod;
 
-  const ObservationInfoContainer(
-      {super.key, this.statusColor = Colors.white,
+  ObservationInfoContainer(
+      {super.key,
+      this.statusColor = Colors.white,
       required this.facultyName,
       required this.observerName,
       required this.status,
@@ -16,6 +18,14 @@ class ObservationInfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const style = TextStyle(fontSize: 16, color: primary);
+
+    if (status == "Pending") {
+      statusColor = active;
+    } else if (status == "Completed") {
+      statusColor = primary;
+    } else if (status == "Ongoing") {
+      statusColor = secondary;
+    }
 
     return Container(
         decoration: BoxDecoration(
@@ -107,8 +117,7 @@ class ObservationInfoContainer extends StatelessWidget {
                           children: [
                             Text("Faculty",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             // const SizedBox(height: 10),
                             Text(facultyName,
                                 style: style.copyWith(
@@ -118,8 +127,7 @@ class ObservationInfoContainer extends StatelessWidget {
                             const SizedBox(height: 10),
                             Text("Observer",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Text(observerName,
                                 style: style.copyWith(
                                     fontSize: 14,
@@ -128,8 +136,7 @@ class ObservationInfoContainer extends StatelessWidget {
                             const SizedBox(height: 10),
                             Text("Progress",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
@@ -158,8 +165,7 @@ class ObservationInfoContainer extends StatelessWidget {
                           children: [
                             Text("Head of Department",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Text("Calculus And Analytical Geometry",
                                 style: style.copyWith(
                                     fontSize: 14,
@@ -168,8 +174,7 @@ class ObservationInfoContainer extends StatelessWidget {
                             const SizedBox(height: 10),
                             Text("Observer Slot",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Text("July / 12 / 2023 ( 04:30 PM - 05:30)",
                                 style: style.copyWith(
                                     fontSize: 14,
@@ -178,8 +183,7 @@ class ObservationInfoContainer extends StatelessWidget {
                             const SizedBox(height: 10),
                             Text("Faculty Slot",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Text("July / 12 / 2023 ( 04:30 PM - 05:30)",
                                 style: style.copyWith(
                                     fontSize: 14,
@@ -188,8 +192,7 @@ class ObservationInfoContainer extends StatelessWidget {
                             const SizedBox(height: 10),
                             Text("Teaching Plan",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Text("Submitted",
                                 style: style.copyWith(
                                     fontSize: 14,
@@ -198,8 +201,7 @@ class ObservationInfoContainer extends StatelessWidget {
                             const SizedBox(height: 10),
                             Text("Status",
                                 style: style.copyWith(
-                                    fontSize: 10,
-                                    color: Styles.fontColor)),
+                                    fontSize: 10, color: Styles.fontColor)),
                             Text("Ongoing",
                                 style: style.copyWith(
                                     fontSize: 14,
