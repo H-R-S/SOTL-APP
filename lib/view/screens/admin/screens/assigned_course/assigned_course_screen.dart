@@ -20,7 +20,9 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   final formKey = GlobalKey<FormState>();
 
-  final TextEditingController nameController = TextEditingController();
+  final TextEditingController facultyController = TextEditingController();
+  final TextEditingController courseController = TextEditingController();
+  final TextEditingController slotController = TextEditingController();
 
   UserViewModel userViewModel = UserViewModel();
   CourseViewModel courseViewModel = CourseViewModel();
@@ -35,7 +37,7 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: light,
+        backgroundColor: light,
         appBar: MyAppBar(scaffoldKey, context,
             isBack: true, title: "Assigned Course"),
         body: Padding(
@@ -58,7 +60,10 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
                         return FacultyDropDown(
                             items: faculty,
                             hint: "Search Faculty",
-                            onChanged: (value) {});
+                            onChanged: (value) {
+                              facultyController.value = facultyController.value
+                                  .copyWith(text: value!.id.toString());
+                            });
 
                       default:
                         return const MyLoadingIndicator();
@@ -77,10 +82,26 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
                       case Status.COMPLETED:
                         final course = value.courseList.data!;
 
-                        return CourseDropDown(
-                            items: course,
-                            hint: "Search Course",
-                            onChanged: (value) {});
+                        return Column(children: [
+                          CourseDropDown(
+                              items: course,
+                              hint: "Search Course",
+                              onChanged: (value) {
+                                courseController.value = courseController.value
+                                    .copyWith(text: value!.id.toString());
+
+                                setState(() {});
+                              }),
+                          const SizedBox(height: 20),
+                          if (courseController.text != "")
+                            SlotDropDown(
+                                items: course[0].slots!,
+                                hint: "Select Slot",
+                                onChanged: (value) {
+                                  slotController.value = slotController.value
+                                      .copyWith(text: value!.id.toString());
+                                })
+                        ]);
 
                       default:
                         return Container();
