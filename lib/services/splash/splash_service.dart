@@ -15,6 +15,7 @@ class SplashServices {
         debugPrint("Role: ${value.role}");
 
         if (value.role == "Admin" ||
+            value.role == "Dean" ||
             value.role == "Campus_Director" ||
             value.role == "Head_of_Department") {
           Navigator.pushReplacementNamed(context, RoutesName.admin);
