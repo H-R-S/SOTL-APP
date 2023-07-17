@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../../resources/constants/style.dart';
+import '../../../theme/theme_provider.dart';
 
 // ignore: must_be_immutable
 class SettingsContainer extends StatefulWidget {
@@ -15,7 +16,8 @@ class SettingsContainer extends StatefulWidget {
   bool trailingIcon;
 
   SettingsContainer(
-      {super.key, this.isHeader = false,
+      {super.key,
+      this.isHeader = false,
       this.title,
       required this.icon,
       this.iconColor,
@@ -32,6 +34,10 @@ class SettingsContainer extends StatefulWidget {
 class _SettingsContainerState extends State<SettingsContainer> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    bool isDark = themeProvider.currentTheme == ThemeData.dark();
+
     return SizedBox(
         height: 60,
         child: InkWell(
@@ -53,13 +59,21 @@ class _SettingsContainerState extends State<SettingsContainer> {
                         padding: const EdgeInsets.only(left: 30),
                         child: Text(
                           widget.title == null ? "" : widget.title!,
-                          style: TextStyle(
-                              fontSize: 16, color: Styles.fontColor),
+                          style:
+                              TextStyle(fontSize: 16, color: Styles.fontColor),
                         ))
                   ]),
                   if (widget.onTap != null)
                     widget.isSwitch
-                        ? Switch(value: false, onChanged: (value) {})
+                        ? Switch(
+                            inactiveTrackColor: Colors.grey,
+                            activeTrackColor: primary,
+                            value: isDark,
+                            onChanged: (value) {
+                              setState(() {
+                                isDark = value;
+                              });
+                            })
                         : widget.trailingIcon != true
                             ? const SizedBox(
                                 width: 0.0,
