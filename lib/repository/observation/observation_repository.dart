@@ -6,6 +6,17 @@ import '../../resources/url/app_url.dart';
 class ObservationRepository {
   BaseApiServices apiService = NetworkApiService();
 
+  Future<void> initiateObservationApi(dynamic data, header) async {
+    try {
+      dynamic response = await apiService.getPostApiResponseWithHeader(
+          AppUrl.initiateObservationEndPoint, header, data);
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<List<ObservationModel>> getAllObservationsApi() async {
     try {
       List<dynamic> response =
