@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/theme/theme_provider.dart';
 import '../../../../../resources/constants/style.dart';
 import '../../../../../routes/routes_name.dart';
 import '../../../../../view_models/auth/auth_view_model.dart';
@@ -65,20 +66,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   title: "Notifications",
                   icon: Icons.notifications_none_outlined,
                   onTap: () {}),
-              SettingsContainer(
-                  isSwitch: true,
-                  title: "Dark Mode",
-                  icon: Icons.dark_mode_outlined,
-                  onTap: () {}),
-              // SettingsContainer(
-              //     title: "Appearance",
-              //     icon: Icons.settings_outlined,
-              //     onTap: () {}),
+              Consumer<ThemeProvider>(builder: (context, value, child) {
+                final isDark = value.currentTheme == ThemeData.dark();
+
+                return SettingsContainer(
+                    isSwitch: true,
+                    title: "${isDark ? "Light" : "Dark"} Mode",
+                    icon: isDark ? Icons.dark_mode_outlined : Icons.dark_mode_outlined,
+                    onTap: value.toggleTheme);
+              }),
               const SizedBox(height: 10),
               headingText("Support"),
               SettingsContainer(
                   title: "Rate & Review",
-                  icon: Icons.dark_mode_outlined,
+                  icon: Icons.star_border,
                   onTap: () {}),
               SettingsContainer(
                   title: "Help",
