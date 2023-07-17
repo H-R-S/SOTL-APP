@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../resources/constants/style.dart';
+import '../../../theme/theme_provider.dart';
 import 'screens/courses/courses_screen.dart';
 import 'screens/dashboard/dashboard_screen.dart';
-import '../common/screens/observation/observation_screen.dart';
+import 'screens/observation/observation_screen.dart';
 import '../common/screens/settings/settings_screen.dart';
 import 'screens/users_list/users_list_screen.dart';
 
@@ -33,6 +35,10 @@ class _AdminState extends State<Admin> {
       SettingsScreen()
     ];
 
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    bool isDark = themeProvider.currentTheme == ThemeData.dark();
+
     return Scaffold(
         backgroundColor: light,
         // body: screens[selectedIndex],
@@ -42,7 +48,7 @@ class _AdminState extends State<Admin> {
             children: screens),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Styles.scaffoldBgColor,
+            backgroundColor: isDark ? dark : Styles.scaffoldBgColor,
             onTap: (index) {
               setState(() {
                 selectedIndex = index;
@@ -52,7 +58,7 @@ class _AdminState extends State<Admin> {
                   curve: Curves.easeOutQuad);
             },
             iconSize: 30,
-            selectedItemColor: primary,
+            selectedItemColor: isDark ? Colors.white : primary,
             unselectedItemColor: Colors.grey,
             currentIndex: selectedIndex,
             items: [
