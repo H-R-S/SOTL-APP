@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/models/observation/initiate_model.dart';
 import 'package:sotl/view/widgets/snack_bar/my_snack_bar.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../data/responses/api_responses.dart';
@@ -34,18 +35,26 @@ class ObservationViewModel with ChangeNotifier {
     userViewModel.getUser().then((value) {
       final header = {'Authorization': 'Bearer ${value.token}'};
 
-      _observationRepo.initiateObservationApi({
-        "facultyId": facultyId,
-        "observerId": observerId,
-        "hodId": value.id.toString(),
-        "semester": semester,
-        "courseId": courseId
-      }, header).then((value) {
+      _observationRepo
+          .initiateObservationApi(
+              InitiateModel(
+                facultyIds: [int.parse(facultyId)].toList(),
+                observerId: int.parse(observerId),
+                hodId: int.parse(value.id.toString()),
+                semester: semester.toString(),
+              ).toJson(),
+              header)
+          .then((value) {
         setLoading(false);
-        MySnackBar(context, "Observation Initiated");
+
+        if (value.existed!.isNotEmpty) {
+          MySnackBar(context, value.existed![0].message!);
+        } else {
+          MySnackBar(context, "Observation Initiated");
+        }
       }).onError((error, stackTrace) {
         setLoading(false);
-        debugPrint(error.toString());
+        debugPrint("err: ${error.toString()}");
         MySnackBar(context, error.toString());
       });
     });

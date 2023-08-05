@@ -14,7 +14,7 @@ class ObservationModel {
   Faculty? faculty;
   Faculty? observer;
   Faculty? hod;
-  dynamic course;
+  Course? course;
 
   ObservationModel(
       {this.id,
@@ -49,11 +49,10 @@ class ObservationModel {
     createdAt = json['createdAt'];
     faculty =
         json['faculty'] != null ? Faculty.fromJson(json['faculty']) : null;
-    observer = json['observer'] != null
-        ? Faculty.fromJson(json['observer'])
-        : null;
+    observer =
+        json['observer'] != null ? Faculty.fromJson(json['observer']) : null;
     hod = json['hod'] != null ? Faculty.fromJson(json['hod']) : null;
-    course = json['course'];
+    course = json['course'] != null ? Course.fromJson(json['course']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -79,7 +78,9 @@ class ObservationModel {
     if (hod != null) {
       data['hod'] = hod!.toJson();
     }
-    data['course'] = course;
+    if (course != null) {
+      data['course'] = course!.toJson();
+    }
     return data;
   }
 }
@@ -102,6 +103,47 @@ class Faculty {
     data['id'] = id;
     data['name'] = name;
     data['email'] = email;
+    return data;
+  }
+}
+
+class Course {
+  int? id;
+  String? courseCode;
+  String? name;
+  String? campus;
+  bool? isElective;
+  bool? isDepthElective;
+  int? credits;
+
+  Course(
+      {this.id,
+      this.courseCode,
+      this.name,
+      this.campus,
+      this.isElective,
+      this.isDepthElective,
+      this.credits});
+
+  Course.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    courseCode = json['courseCode'];
+    name = json['name'];
+    campus = json['campus'];
+    isElective = json['isElective'];
+    isDepthElective = json['isDepthElective'];
+    credits = json['credits'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['courseCode'] = courseCode;
+    data['name'] = name;
+    data['campus'] = campus;
+    data['isElective'] = isElective;
+    data['isDepthElective'] = isDepthElective;
+    data['credits'] = credits;
     return data;
   }
 }

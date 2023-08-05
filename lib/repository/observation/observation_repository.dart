@@ -1,17 +1,19 @@
 import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';
+import '../../models/observation/initiate_observation_model.dart';
 import '../../models/observation/observation_model.dart';
 import '../../resources/url/app_url.dart';
 
 class ObservationRepository {
   BaseApiServices apiService = NetworkApiService();
 
-  Future<void> initiateObservationApi(dynamic data, header) async {
+  Future<InitiateObservationModel> initiateObservationApi(
+      dynamic data, header) async {
     try {
       dynamic response = await apiService.getPostApiResponseWithHeader(
           AppUrl.initiateObservationEndPoint, header, data);
 
-      return response;
+      return response = InitiateObservationModel.fromJson(response);
     } catch (e) {
       rethrow;
     }

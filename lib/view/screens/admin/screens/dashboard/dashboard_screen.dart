@@ -33,12 +33,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final userViewModel = Provider.of<UserViewModel>(context);
 
     userViewModel.getUser().then((value) {
-      setState(() {
-        if (value.role == "Head_of_Department") {
-          isHOD = true;
-        }
-        userName = value.name!;
-      });
+      if (context.mounted) {
+        setState(() {
+          if (value.role == "Head_of_Department") {
+            isHOD = true;
+          }
+          userName = value.name!;
+        });
+      }
     });
 
     double width = MediaQuery.of(context).size.width;

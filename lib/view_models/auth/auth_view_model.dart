@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,9 +34,7 @@ class AuthViewModel with ChangeNotifier {
             role: value.role,
             token: value.token.toString()));
 
-        if (kDebugMode) {
-          print(value.token);
-        }
+        debugPrint(value.token);
         MySnackBar(context, "Login successful");
 
         setLoading(false);
@@ -45,9 +42,7 @@ class AuthViewModel with ChangeNotifier {
         Navigator.pushReplacementNamed(context, RoutesName.splash);
       }
     }).onError((error, stackTrace) {
-      if (kDebugMode) {
-        print(error);
-      }
+      debugPrint(error.toString());
       setLoading(false);
       MySnackBar(context, error.toString());
     });

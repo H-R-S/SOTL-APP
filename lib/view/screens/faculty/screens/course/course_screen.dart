@@ -39,34 +39,32 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
             padding: const EdgeInsets.all(20),
             child: ChangeNotifierProvider<CourseViewModel>(
                 create: (context) => courseViewModel,
-                builder: (context, snapshot) {
-                  return Consumer<CourseViewModel>(
-                      builder: (context, value, child) {
-                    switch (value.courseList.status) {
-                      case Status.ERROR:
-                        debugPrint(value.courseList.message);
-                        return Container();
+                child:
+                    Consumer<CourseViewModel>(builder: (context, value, child) {
+                  switch (value.courseList.status) {
+                    case Status.ERROR:
+                      debugPrint(value.courseList.message);
+                      return Container();
 
-                      case Status.COMPLETED:
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: value.courseList.data!.length,
-                            itemBuilder: (context, index) {
-                              final course = value.courseList.data![index];
+                    case Status.COMPLETED:
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: value.courseList.data!.length,
+                          itemBuilder: (context, index) {
+                            final course = value.courseList.data![index];
 
-                              return CourseContainer(
-                                  name: course.name ?? "",
-                                  timings:
-                                      "${course.slots![0].location} (${course.slots![0].time})",
-                                  instructorName:
-                                      course.slots![0].faculty!.name ?? "");
-                            });
+                            return CourseContainer(
+                                name: course.name ?? "",
+                                timings:
+                                    "${course.slots![0].location} (${course.slots![0].time})",
+                                instructorName:
+                                    course.slots![0].faculty!.name ?? "");
+                          });
 
-                      default:
-                        return const MyLoadingIndicator();
-                    }
-                  });
-                })));
+                    default:
+                      return const MyLoadingIndicator();
+                  }
+                }))));
   }
 }

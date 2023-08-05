@@ -24,6 +24,7 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
   bool isDark = themeProvider.currentTheme == ThemeData.dark();
 
   return AppBar(
+      scrolledUnderElevation: 0,
       leadingWidth: isBack ? 40 : 80,
       elevation: 0,
       backgroundColor: isDark ? dark : Colors.transparent,

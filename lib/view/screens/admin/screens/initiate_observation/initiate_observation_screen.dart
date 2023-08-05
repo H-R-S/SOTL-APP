@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sotl/view_models/observation/observation_view_model.dart';
-
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/course/course_view_model.dart';
+import '../../../../../view_models/observation/observation_view_model.dart';
 import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/button/my_elevated_button.dart';
@@ -28,6 +27,8 @@ class _InitiateObservationScreenState extends State<InitiateObservationScreen> {
 
   UserViewModel userViewModel = UserViewModel();
   CourseViewModel courseViewModel = CourseViewModel();
+
+  List<int> facultyIdList = [];
 
   @override
   void initState() {
@@ -88,33 +89,13 @@ class _InitiateObservationScreenState extends State<InitiateObservationScreen> {
                             return const MyLoadingIndicator();
                         }
                       })),
-                  ChangeNotifierProvider<CourseViewModel>(
-                      create: (context) => courseViewModel,
-                      child: Consumer<CourseViewModel>(
-                          builder: (context, value, child) {
-                        switch (value.courseList.status) {
-                          case Status.ERROR:
-                            debugPrint(value.courseList.message);
-                            return Container();
-
-                          case Status.COMPLETED:
-                            final courses = value.courseList.data!;
-
-                            return Column(children: [
-                              CourseDropDown(
-                                  items: courses,
-                                  hint: "Select Course",
-                                  onChanged: (value) {
-                                    courseController.value = courseController
-                                        .value
-                                        .copyWith(text: value!.id.toString());
-                                  })
-                            ]);
-
-                          default:
-                            return Container();
-                        }
-                      })),
+                  SearchDropDown(
+                      items: const ["Spring", "Summer", "Fall"],
+                      hint: "Select Semester",
+                      onChanged: (value) {
+                        semesterController.value =
+                            semesterController.value.copyWith(text: value);
+                      }),
                   const SizedBox(height: 40),
                   MyElevatedButton(
                       isLoading: observationViewModel.loading,

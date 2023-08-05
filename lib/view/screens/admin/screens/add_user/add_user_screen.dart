@@ -126,9 +126,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                         isRequired: true,
                                         isReadable: true,
                                         onChanged: (value) {
-                                          setState(() {
-                                            
-                                          });
+                                          setState(() {});
                                         },
                                         dropDownList: Roles.values
                                             .map((i) =>
@@ -141,30 +139,29 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                         hint: "Role"),
                                     const SizedBox(height: 10),
                                     if (roleController.text == "Faculty")
-                                    CourseDropDown(
-                                        header: "Courses",
-                                        isRequired: true,
-                                        items: course,
-                                        hint: "Select Course",
-                                        onChanged: (value) {
-                                          slots.clear();
-                                          slots.addAll(value!.slots!.where(
-                                              (slot) =>
-                                                  slot.facultyId == null));
-                                          debugPrint(value.slots.toString());
-                                        }),
+                                      CourseDropDown(
+                                          header: "Courses",
+                                          isRequired: true,
+                                          items: course,
+                                          hint: "Select Course",
+                                          onChanged: (value) {
+                                            slots.clear();
+                                            slots.addAll(value!.slots!.where(
+                                                (slot) =>
+                                                    slot.facultyId == null));
+                                            debugPrint(value.slots.toString());
+                                          }),
                                     const SizedBox(height: 15),
-                                                                        if (roleController.text == "Faculty")
-
-                                    SlotDropDown(
-                                        header: "Slots",
-                                        isRequired: true,
-                                        items: slots,
-                                        hint: "Select Slots",
-                                        onChanged: (value) {
-                                          courseIdList
-                                              .add(value!.id.toString());
-                                        }),
+                                    if (roleController.text == "Faculty")
+                                      SlotDropDown(
+                                          header: "Slots",
+                                          isRequired: true,
+                                          items: slots,
+                                          hint: "Select Slots",
+                                          onChanged: (value) {
+                                            courseIdList
+                                                .add(value!.id.toString());
+                                          }),
                                     MyTextField(
                                         header: "Password",
                                         isRequired: true,
@@ -207,8 +204,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                                         campus: campusController
                                                             .text,
                                                         department:
-                                                            departmentController
-                                                                .text,
+                                                            Department(),
                                                         role: roleController
                                                             .text),
                                                     password: passwordController

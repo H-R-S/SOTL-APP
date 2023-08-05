@@ -10,7 +10,7 @@ class AuthRespository {
     try {
       dynamic response =
           await apiServices.getPostApiResponse(AppUrl.loginEndPoint, data);
-
+      print(response);
       return response = UserModel.fromJson(response);
     } catch (e) {
       rethrow;

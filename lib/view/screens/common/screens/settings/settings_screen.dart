@@ -70,10 +70,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 final isDark = value.currentTheme == ThemeData.dark();
 
                 return SettingsContainer(
-                    isSwitch: true,
-                    title: "${isDark ? "Light" : "Dark"} Mode",
-                    icon: isDark ? Icons.dark_mode_outlined : Icons.dark_mode_outlined,
-                    onTap: value.toggleTheme);
+                  isSwitch: true,
+                  title: "${isDark ? "Light" : "Dark"} Mode",
+                  icon: isDark
+                      ? Icons.dark_mode_outlined
+                      : Icons.dark_mode_outlined,
+                  // onTap: value.toggleTheme
+                );
               }),
               const SizedBox(height: 10),
               headingText("Support"),

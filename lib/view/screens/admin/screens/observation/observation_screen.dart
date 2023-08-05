@@ -18,7 +18,7 @@ class ObservationScreen extends StatefulWidget {
 
 class _ObservationScreenState extends State<ObservationScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  
+
   final TextEditingController searchController = TextEditingController();
   final TextEditingController facultyController = TextEditingController();
   final TextEditingController observerController = TextEditingController();
@@ -39,53 +39,55 @@ class _ObservationScreenState extends State<ObservationScreen> {
             title: "Observations", actionIcon: Icons.add, onTapAction: () {
           Navigator.pushNamed(context, RoutesName.initiateObservation);
         }),
-        body: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: Column(children: [
-              MySearchBar(
-                  onTapSufix: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) => ObservationFilter(
-                            course: courseController,
-                            faculty: facultyController,
-                            observer: observerController));
-                  },
-                  sufixIcon: Icons.filter_list_rounded,
-                  hint: "Search",
-                  controller: searchController,
-                  onChanged: (value) {}),
-              const SizedBox(height: 20),
-              ChangeNotifierProvider<ObservationViewModel>(
-                  create: (context) => observationViewModel,
-                  child: Consumer<ObservationViewModel>(
-                      builder: (context, value, child) {
-                    switch (value.observationsList.status) {
-                      case Status.ERROR:
-                        debugPrint(value.observationsList.message);
-                        return Container();
+        body: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: Column(children: [
+                MySearchBar(
+                    onTapSufix: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) => ObservationFilter(
+                              course: courseController,
+                              faculty: facultyController,
+                              observer: observerController));
+                    },
+                    sufixIcon: Icons.filter_list_rounded,
+                    hint: "Search",
+                    controller: searchController,
+                    onChanged: (value) {}),
+                const SizedBox(height: 20),
+                ChangeNotifierProvider<ObservationViewModel>(
+                    create: (context) => observationViewModel,
+                    child: Consumer<ObservationViewModel>(
+                        builder: (context, value, child) {
+                      switch (value.observationsList.status) {
+                        case Status.ERROR:
+                          debugPrint(value.observationsList.message);
+                          return Container();
 
-                      case Status.COMPLETED:
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: value.observationsList.data!.length,
-                            itemBuilder: (context, index) {
-                              final obs = value.observationsList.data![index];
-                              debugPrint(value.observationsList.data!.length
-                                  .toString());
+                        case Status.COMPLETED:
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: value.observationsList.data!.length,
+                              itemBuilder: (context, index) {
+                                final obs = value.observationsList.data![index];
+                                debugPrint(value.observationsList.data!.length
+                                    .toString());
 
-                              return ObservationInfoContainer(
-                                  facultyName: obs.faculty!.name ?? "",
-                                  observerName: obs.observer!.name ?? "",
-                                  status: obs.observationStatus ?? "",
-                                  obsPeriod: obs.starting ?? "");
-                            });
+                                return ObservationInfoContainer(
+                                    facultyName: obs.faculty!.name ?? "",
+                                    observerName: obs.observer!.name ?? "",
+                                    status: obs.observationStatus ?? "",
+                                    obsPeriod: obs.starting ?? "");
+                              });
 
-                      default:
-                        return const MyLoadingIndicator();
-                    }
-                  }))
-            ])));
+                        default:
+                          return const MyLoadingIndicator();
+                      }
+                    }))
+              ])),
+        ));
   }
 }
