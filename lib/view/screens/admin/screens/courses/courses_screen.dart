@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/view/widgets/course_container/course_skeleton_container.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/course/course_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
@@ -95,7 +96,14 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                 });
 
                           default:
-                            return const MyLoadingIndicator();
+                            return ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: 5,
+                              itemBuilder: (context, index) =>
+                                  const CourseSkeletonContainer(),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 30),
+                            );
                         }
                       }))
                 ]))));
