@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/view/widgets/observation_card/observation_skeleton_card.dart';
+import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/observation/observation_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
-import '../../../../widgets/loading_indicator/my_loading_indicator.dart';
-import '../../../../widgets/observation_info_container/observation_info_container.dart';
+import '../../../../widgets/observation_card/observation_card.dart';
 
 class FacultyObservationScreen extends StatefulWidget {
   const FacultyObservationScreen({super.key});
@@ -27,6 +28,8 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userViiewModel = Provider.of<UserViewModel>(context);
+
     return Scaffold(
         appBar: MyAppBar(scaffoldKey, context, title: "Observations"),
         body: Padding(
@@ -44,19 +47,28 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
                       return ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: value.observationsList.data!.length,
+                          itemCount: value.observationsList.data!
+                              .where((obs) =>
+                                  obs.facultyId == userViiewModel.userId)
+                              .toList()
+                              .length,
                           itemBuilder: (context, index) {
-                            final obs = value.observationsList.data![index];
+                            final obs = value.observationsList.data!
+                                .where((obs) =>
+                                    obs.facultyId == userViiewModel.userId)
+                                .toList()[index];
 
-                            return ObservationInfoContainer(
-                                facultyName: obs.faculty!.name ?? "",
-                                observerName: obs.observer!.name ?? "",
-                                status: obs.observationStatus ?? "Pending",
-                                obsPeriod: obs.semester ?? "");
+                            return ObservationCard(obs: obs);
                           });
 
                     default:
-                      return const MyLoadingIndicator();
+                      return ListView.separated(
+                        itemCount: 5,
+                        itemBuilder: (context, index) =>
+                            const ObservationSkeletonCard(),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 30),
+                      );
                   }
                 }))));
   }

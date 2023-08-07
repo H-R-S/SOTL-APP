@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
-import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
+import 'package:sotl/view/widgets/course_container/course_skeleton_container.dart';
 import 'package:sotl/view_models/course/course_view_model.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
@@ -47,12 +47,19 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                       return Container();
 
                     case Status.COMPLETED:
+                      final filteredCourses =
+                          value.courseList.data!.where((course) {
+                        return course.slots!.any(
+                          (slot) => slot.facultyId == userViewModel.userId,
+                        );
+                      }).toList();
+
                       return ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: value.courseList.data!.length,
+                          itemCount: filteredCourses.length,
                           itemBuilder: (context, index) {
-                            final course = value.courseList.data![index];
+                            final course = filteredCourses[index];
 
                             return CourseContainer(
                                 name: course.name ?? "",
@@ -63,7 +70,14 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                           });
 
                     default:
-                      return const MyLoadingIndicator();
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (context, index) =>
+                            const CourseSkeletonContainer(),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 30),
+                      );
                   }
                 }))));
   }
