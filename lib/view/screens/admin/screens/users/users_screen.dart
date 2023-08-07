@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../resources/data/user_list.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
-import '../../../../widgets/info_container/info_container.dart';
+import '../../../../widgets/all_users_card/all_users_card.dart';
 import '../users_list/users_list_screen.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -42,7 +42,7 @@ class UsersScreen extends StatelessWidget {
                               crossAxisCount: 2),
                       itemCount: facultyList.length,
                       itemBuilder: (context, index) {
-                        return InfoContainer(
+                        return AllUsersCard(
                             onTap: () {
                               Navigator.push(
                                   context,
