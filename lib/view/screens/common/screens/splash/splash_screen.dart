@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
-          child: Image.asset(sotlLogo, height: 200),
+          child: Image.asset(iqraLogo, height: 200),
         ));
   }
 }
