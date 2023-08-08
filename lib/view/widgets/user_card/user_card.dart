@@ -14,15 +14,10 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // const style =
-    //     TextStyle(color: primary, fontSize: 20, fontWeight: FontWeight.bold);
-
     return Container(
-      // margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
           color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
-        // trailing:
         isThreeLine: true,
         trailing: const Icon(Icons.more_vert),
         subtitle: Column(
