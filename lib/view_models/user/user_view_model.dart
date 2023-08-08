@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/responses/api_responses.dart';
@@ -53,21 +55,23 @@ class UserViewModel with ChangeNotifier {
   }
 
   Future<void> createUser(BuildContext context, UserModel user,
-      {required String password, required List<String> courseId}) async {
+      {required String password, required List<int> courseId}) async {
     setLoading(true);
     getUser().then((value) {
-      debugPrint("courses: ${courseId.toString()}");
-
       final header = {'Authorization': 'Bearer ${value.token}'};
-      _userRepo.createUserApi(header, {
-        "name": "Irfan",
-        "email": "irfan@iqra.edu.pk",
-        "password": "12345678",
-        "role": "Faculty",
-        "campus": "Main_Campus",
-        "department": "Fest",
-        "courses": courseId as String
-      }).then((value) {
+      _userRepo
+          .createUserApi(
+              header,
+              jsonEncode({
+                "name": user.name,
+                "email": user.email,
+                "password": password,
+                "role": user.role,
+                "campus": user.campus,
+                "department": user.department,
+                if (user.role == "Faculty") "courses": courseId
+              }))
+          .then((value) {
         setLoading(false);
         if (value.token != null && value.token != "") {
           MySnackBar(context, "User Added");
