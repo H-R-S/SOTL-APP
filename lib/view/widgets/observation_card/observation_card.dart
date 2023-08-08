@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:sotl/view/screens/faculty/screens/observation_detail/observation_detail_screen.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../models/observation/observation_model.dart';
 import '../../../resources/constants/style.dart';
-import '../../../routes/routes_name.dart';
 
 // ignore: must_be_immutable
 class ObservationCard extends StatelessWidget {
@@ -88,8 +88,11 @@ class ObservationCard extends StatelessWidget {
                   childrenPadding: const EdgeInsets.symmetric(
                       vertical: 5.0, horizontal: 10.0),
                   title: GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, RoutesName.rubrics),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ObservationDetailScreen(
+                                observationId: obs.id!))),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
