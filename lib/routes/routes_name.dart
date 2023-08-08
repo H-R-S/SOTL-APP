@@ -15,6 +15,8 @@ class RoutesName {
 
   static const String users = "users_screen";
 
+  static const String addUser = "add_user_screen";
+
   static const String observations = "observations_screen";
 
   static const String settings = "settings_screen";

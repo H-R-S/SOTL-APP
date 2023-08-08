@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sotl/view/screens/admin/screens/add_user/add_user_screen.dart';
 import '../view/screens/admin/admin.dart';
 import '../view/screens/admin/screens/initiate_observation/initiate_observation_screen.dart';
 import '../view/screens/common/screens/change_password/change_password_screen.dart';
@@ -40,6 +41,9 @@ class Routes {
 
       case RoutesName.users:
         return getPageRoute(UsersScreen());
+
+      case RoutesName.addUser:
+        return getPageRoute(AddUserScreen());
 
       case RoutesName.observations:
         return getPageRoute(ObservationScreen());
