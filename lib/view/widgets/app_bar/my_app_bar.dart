@@ -28,7 +28,7 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
       leadingWidth: isBack ? 40 : 80,
       elevation: 0,
       backgroundColor: isDark ? dark : Colors.transparent,
-      centerTitle: true,
+      centerTitle: isCenter,
       actions: actionIcon != null
           ? [
               Padding(
@@ -60,7 +60,7 @@ AppBar MyAppBar(GlobalKey<ScaffoldState> key, BuildContext context,
             ),
       bottom: bottom != null
           ? PreferredSize(
-              preferredSize: const Size.fromHeight(40), child: bottom)
+              preferredSize: const Size.fromHeight(60), child: bottom)
           : null,
       title: title != null
           ? FittedBox(
