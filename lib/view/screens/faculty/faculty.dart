@@ -52,7 +52,9 @@ class _FacultyState extends State<Faculty> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.library_books_outlined), label: "Courses"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.calendar_today), label: "Observations"),
+                  activeIcon: Icon(Icons.calendar_month),
+                  icon: Icon(Icons.calendar_today),
+                  label: "Observations"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings_outlined), label: "Settings")
             ]));

@@ -44,22 +44,41 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
                       return Container();
 
                     case Status.COMPLETED:
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: value.observationsList.data!
-                              .where((obs) =>
-                                  obs.facultyId == userViiewModel.userId)
-                              .toList()
-                              .length,
-                          itemBuilder: (context, index) {
-                            final obs = value.observationsList.data!
+                      if (userViiewModel.userRole == "Faculty") {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: value.observationsList.data!
                                 .where((obs) =>
                                     obs.facultyId == userViiewModel.userId)
-                                .toList()[index];
+                                .toList()
+                                .length,
+                            itemBuilder: (context, index) {
+                              final obs = value.observationsList.data!
+                                  .where((obs) =>
+                                      obs.facultyId == userViiewModel.userId)
+                                  .toList()[index];
 
-                            return ObservationCard(obs: obs);
-                          });
+                              return ObservationCard(obs: obs);
+                            });
+                      } else {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: value.observationsList.data!
+                                .where((obs) =>
+                                    obs.observerId == userViiewModel.userId)
+                                .toList()
+                                .length,
+                            itemBuilder: (context, index) {
+                              final obs = value.observationsList.data!
+                                  .where((obs) =>
+                                      obs.observerId == userViiewModel.userId)
+                                  .toList()[index];
+
+                              return ObservationCard(obs: obs);
+                            });
+                      }
 
                     default:
                       return ListView.separated(

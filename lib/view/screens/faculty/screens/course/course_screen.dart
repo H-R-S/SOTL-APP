@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
-import 'package:sotl/view/widgets/course_container/course_skeleton_container.dart';
+import 'package:sotl/view/widgets/course_card/course_skeleton_card.dart';
 import 'package:sotl/view_models/course/course_view_model.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
-import '../../../../widgets/course_container/course_container.dart';
+import '../../../../widgets/course_card/course_card.dart';
 
 class FacultyCourseScreen extends StatefulWidget {
   const FacultyCourseScreen({super.key});
@@ -61,7 +61,8 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                           itemBuilder: (context, index) {
                             final course = filteredCourses[index];
 
-                            return CourseContainer(
+                            return CourseCard(
+                              onTap: () {},
                                 name: course.name ?? "",
                                 timings:
                                     "${course.slots![0].location} (${course.slots![0].time})",
@@ -74,7 +75,7 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                         shrinkWrap: true,
                         itemCount: 5,
                         itemBuilder: (context, index) =>
-                            const CourseSkeletonContainer(),
+                            const CourseSkeletonCard(),
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 30),
                       );
