@@ -6,7 +6,7 @@ import 'screens/courses/courses_screen.dart';
 import 'screens/dashboard/dashboard_screen.dart';
 import 'screens/observation/observation_screen.dart';
 import '../common/screens/settings/settings_screen.dart';
-import 'screens/users_list/users_list_screen.dart';
+import 'screens/users/users_screen.dart';
 
 class Admin extends StatefulWidget {
   const Admin({super.key});
@@ -29,7 +29,7 @@ class _AdminState extends State<Admin> {
   Widget build(BuildContext context) {
     List<Widget> screens = [
       DashboardScreen(),
-      UsersListScreen(title: "Search Faculty"),
+      UsersScreen(),
       CoursesScreen(),
       ObservationScreen(),
       SettingsScreen()

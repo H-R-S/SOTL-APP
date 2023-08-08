@@ -16,9 +16,9 @@ import '../../../../widgets/search_drop_down/search_drop_down.dart';
 import '../../../../widgets/text_field/my_text_field.dart';
 
 class AddUserScreen extends StatefulWidget {
-  final String title;
+  final String? title;
 
-  const AddUserScreen({super.key, required this.title});
+  const AddUserScreen({super.key, this.title});
 
   @override
   State<AddUserScreen> createState() => _AddUserScreenState();
@@ -46,7 +46,9 @@ class _AddUserScreenState extends State<AddUserScreen> {
     super.initState();
   }
 
-  List<String> courseIdList = [];
+  List<int> courseIdList = [];
+
+  bool isFaculty = false;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +128,11 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                         isRequired: true,
                                         isReadable: true,
                                         onChanged: (value) {
-                                          setState(() {});
+                                          if (value == "Faculty") {
+                                            setState(() {
+                                              isFaculty = true;
+                                            });
+                                          }
                                         },
                                         dropDownList: Roles.values
                                             .map((i) =>
@@ -152,16 +158,14 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                             debugPrint(value.slots.toString());
                                           }),
                                     const SizedBox(height: 15),
-                                    if (roleController.text == "Faculty")
-                                      SlotDropDown(
-                                          header: "Slots",
-                                          isRequired: true,
-                                          items: slots,
-                                          hint: "Select Slots",
-                                          onChanged: (value) {
-                                            courseIdList
-                                                .add(value!.id.toString());
-                                          }),
+                                    SlotDropDown(
+                                        header: "Slots",
+                                        isRequired: true,
+                                        items: slots,
+                                        hint: "Select Slots",
+                                        onChanged: (value) {
+                                          courseIdList.add(value!.id!);
+                                        }),
                                     MyTextField(
                                         header: "Password",
                                         isRequired: true,

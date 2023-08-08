@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sotl/view/widgets/course_container/course_skeleton_container.dart';
+import 'package:sotl/view/widgets/course_card/course_skeleton_card.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/course/course_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/button/my_elevated_button.dart';
-import '../../../../widgets/course_container/course_container.dart';
-import '../../../../widgets/loading_indicator/my_loading_indicator.dart';
+import '../../../../widgets/course_card/course_card.dart';
 import '../../../../widgets/search_bar/my_search_bar.dart';
 import '../add_course/add_course_screen.dart';
 import '../assigned_course/assigned_course_screen.dart';
@@ -61,16 +60,17 @@ class _CoursesScreenState extends State<CoursesScreen> {
                     const SizedBox(height: 40)
                   ])));
         }),
-        body: SingleChildScrollView(
-            child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(children: [
-                  MySearchBar(
-                      hint: "Search Courses",
-                      controller: searchController,
-                      onChanged: (value) {}),
-                  const SizedBox(height: 20),
-                  ChangeNotifierProvider<CourseViewModel>(
+        body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(children: [
+              MySearchBar(
+                  hint: "Search Courses",
+                  controller: searchController,
+                  onChanged: (value) {}),
+              const SizedBox(height: 10),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: ChangeNotifierProvider<CourseViewModel>(
                       create: (context) => courseViewModel,
                       child: Consumer<CourseViewModel>(
                           builder: (context, value, child) {
@@ -87,12 +87,13 @@ class _CoursesScreenState extends State<CoursesScreen> {
                                 itemBuilder: (context, index) {
                                   final course = value.courseList.data![index];
 
-                                  return CourseContainer(
+                                  return CourseCard(
+                                      onTap: () {},
                                       name: course.name ?? "",
                                       timings:
                                           "${course.slots![0].location} (${course.slots![0].time})",
                                       instructorName:
-                                          course.slots![0].faculty!.name ?? "");
+                                          course.slots![0].faculty?.name ?? "");
                                 });
 
                           default:
@@ -100,12 +101,14 @@ class _CoursesScreenState extends State<CoursesScreen> {
                               shrinkWrap: true,
                               itemCount: 5,
                               itemBuilder: (context, index) =>
-                                  const CourseSkeletonContainer(),
+                                  const CourseSkeletonCard(),
                               separatorBuilder: (context, index) =>
                                   const SizedBox(height: 30),
                             );
                         }
-                      }))
-                ]))));
+                      })),
+                ),
+              )
+            ])));
   }
 }

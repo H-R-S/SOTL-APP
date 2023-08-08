@@ -101,12 +101,17 @@ class _InitiateObservationScreenState extends State<InitiateObservationScreen> {
                       isLoading: observationViewModel.loading,
                       title: "Initiate",
                       onTap: () {
-                        observationViewModel.initiateObservation(
-                            context,
-                            facultyController.text,
-                            observerController.text,
-                            courseController.text,
-                            semesterController.text);
+                        observationViewModel
+                            .initiateObservation(
+                                context,
+                                facultyController.text,
+                                observerController.text,
+                                semesterController.text)
+                            .then((value) {
+                          facultyController.clear();
+                          observerController.clear();
+                          semesterController.clear();
+                        });
                       })
                 ]))));
   }
