@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/models/observation/initiate_model.dart';
@@ -26,23 +28,25 @@ class ObservationViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> initiateObservation(BuildContext context, String facultyId,
-      observerId, courseId, semester) async {
+  Future<void> initiateObservation(
+      BuildContext context, String facultyId, observerId, semester) async {
     setLoading(true);
 
     final userViewModel = Provider.of<UserViewModel>(context, listen: false);
 
     userViewModel.getUser().then((value) {
-      final header = {'Authorization': 'Bearer ${value.token}'};
+      final header = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${value.token}'
+      };
 
       _observationRepo
           .initiateObservationApi(
-              InitiateModel(
-                facultyIds: [int.parse(facultyId)].toList(),
+              jsonEncode(InitiateModel(
                 observerId: int.parse(observerId),
                 hodId: int.parse(value.id.toString()),
                 semester: semester.toString(),
-              ).toJson(),
+              ).toJson()),
               header)
           .then((value) {
         setLoading(false);
