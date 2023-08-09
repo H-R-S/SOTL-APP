@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sotl/resources/constants/style.dart';
-import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/informed_observation_sub_screen.dart';
+import 'package:sotl/view/screens/common/screens/rubrics/rubrics_screen.dart';
+import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/informed_observation_scheduling.dart';
+import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/teaching_plan.dart';
 import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 
 class ObservationDetailScreen extends StatefulWidget {
@@ -44,6 +46,7 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: MyAppBar(scaffoldKey, context,
             title: "Detail Observation",
             isBack: true,
@@ -107,8 +110,8 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             children: [
-              InformedObservationSubScreen(),
-              Container(),
+              InformedObservationScheduling(),
+              RubricScreen(),
               Container(),
               Container(),
             ]));

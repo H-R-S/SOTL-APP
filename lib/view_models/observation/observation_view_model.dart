@@ -73,4 +73,14 @@ class ObservationViewModel with ChangeNotifier {
       setObservationsList(ApiResponse.error(error.toString()));
     });
   }
+
+  bool _isCourseSelect = false;
+
+  bool get isCourseSelect => _isCourseSelect;
+
+  setCourseSelected(bool value) {
+    _isCourseSelect = value;
+    debugPrint("Updated: $_isCourseSelect");
+    notifyListeners();
+  }
 }
