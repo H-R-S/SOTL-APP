@@ -218,7 +218,11 @@ class ObservationViewModel with ChangeNotifier {
     setLoading(true);
 
     final data = {
-      {"observationsId": observationId, "observerAccepted": true}
+      {
+        "observationsId": observationId,
+        "observerAccepted": true,
+        "status": "Completed"
+      }
     };
 
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
