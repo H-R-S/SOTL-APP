@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sotl/resources/constants/style.dart';
 import 'package:sotl/view/screens/common/screens/rubrics/rubrics_screen.dart';
 import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/informed_observation_scheduling.dart';
-import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/teaching_plan.dart';
 import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 
 class ObservationDetailScreen extends StatefulWidget {
@@ -44,6 +43,7 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(widget.observationId.toString());
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -59,28 +59,28 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("INFORMED",
+                        Text("Step 01",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 0
                                     ? primary
                                     : Colors.black)),
                         const SizedBox(width: 10),
-                        Text("INFORMED",
+                        Text("Step 02",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 1
                                     ? primary
                                     : Colors.black)),
                         const SizedBox(width: 10),
-                        Text("INFORMED",
+                        Text("Step 03",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 2
                                     ? primary
                                     : Colors.black)),
                         const SizedBox(width: 10),
-                        Text("INFORMED",
+                        Text("Step 04",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 3
@@ -110,7 +110,9 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             children: [
-              InformedObservationScheduling(),
+              InformedObservationScheduling(
+                observationId: widget.observationId,
+              ),
               RubricScreen(),
               Container(),
               Container(),

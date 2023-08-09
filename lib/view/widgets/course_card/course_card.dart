@@ -28,15 +28,22 @@ class CourseCard extends StatelessWidget {
                 radius: 30,
                 child: Icon(Icons.person, size: 40, color: Colors.white)),
             const SizedBox(width: 10),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(name, style: Styles.h2),
-              const SizedBox(height: 5),
-              Text(timings, style: Styles.h3),
-              const SizedBox(height: 5),
-              Text(instructorName,
-                  style: Styles.subHeading.copyWith(
-                      fontWeight: FontWeight.normal, color: Colors.grey))
-            ])
+            Expanded(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Styles.h2),
+                    const SizedBox(height: 5),
+                    Text(timings, style: Styles.h3),
+                    const SizedBox(height: 5),
+                    Text(instructorName,
+                        style: Styles.subHeading.copyWith(
+                            fontWeight: FontWeight.normal, color: Colors.grey))
+                  ]),
+            )
           ])),
     );
   }

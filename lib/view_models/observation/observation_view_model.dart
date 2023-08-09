@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/models/observation/detail_observation_model.dart';
 import 'package:sotl/models/observation/initiate_model.dart';
 import 'package:sotl/view/widgets/snack_bar/my_snack_bar.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
@@ -21,13 +22,6 @@ class ObservationViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  ApiResponse<List<ObservationModel>> observationsList = ApiResponse.loading();
-
-  setObservationsList(ApiResponse<List<ObservationModel>> response) {
-    observationsList = response;
-    notifyListeners();
-  }
-
   Future<void> initiateObservation(
       BuildContext context, String facultyId, observerId, semester) async {
     setLoading(true);
@@ -43,6 +37,7 @@ class ObservationViewModel with ChangeNotifier {
       _observationRepo
           .initiateObservationApi(
               jsonEncode(InitiateModel(
+                facultyIds: [int.parse(facultyId)],
                 observerId: int.parse(observerId),
                 hodId: int.parse(value.id.toString()),
                 semester: semester.toString(),
@@ -64,6 +59,13 @@ class ObservationViewModel with ChangeNotifier {
     });
   }
 
+  ApiResponse<List<ObservationModel>> observationsList = ApiResponse.loading();
+
+  setObservationsList(ApiResponse<List<ObservationModel>> response) {
+    observationsList = response;
+    notifyListeners();
+  }
+
   Future<void> getAllObservations() async {
     setObservationsList(ApiResponse.loading());
 
@@ -82,5 +84,50 @@ class ObservationViewModel with ChangeNotifier {
     _isCourseSelect = value;
     debugPrint("Updated: $_isCourseSelect");
     notifyListeners();
+  }
+
+  ApiResponse<DetailObservationModel> observationDetail = ApiResponse.loading();
+
+  setObservationDetail(ApiResponse<DetailObservationModel> response) {
+    observationDetail = response;
+    notifyListeners();
+  }
+
+  Future<void> getAllObservationById(int id) async {
+    setObservationDetail(ApiResponse.loading());
+
+    _observationRepo.getObservationByIdApi(id).then((value) {
+      setObservationDetail(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setObservationDetail(ApiResponse.error(error.toString()));
+    });
+  }
+
+  Future<void> startScheduling(BuildContext context,
+      {required int observationId,
+      required int facultyId,
+      required int courseId}) async {
+    setLoading(true);
+
+    final data = {
+      "observationsId": observationId,
+      "facultyId": facultyId,
+      "courseId": courseId
+    };
+
+    _observationRepo.getScheduleObservationApi(data).then((value) {
+      setLoading(false);
+      Navigator.pop(context);
+
+      if (value["error"] != null) {
+        MySnackBar(context, value["error"]);
+      } else {
+        MySnackBar(context, "Observation Scheduling Started.");
+        Navigator.pop(context);
+      }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      MySnackBar(context, error.toString());
+    });
   }
 }

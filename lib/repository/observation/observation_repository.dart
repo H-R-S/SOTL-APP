@@ -1,3 +1,4 @@
+import 'package:sotl/models/observation/detail_observation_model.dart';
 import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';
 import '../../models/observation/initiate_observation_model.dart';
@@ -26,6 +27,28 @@ class ObservationRepository {
 
       return response =
           (response).map((e) => ObservationModel.fromJson(e)).toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<DetailObservationModel> getObservationByIdApi(int id) async {
+    try {
+      dynamic response = await apiService
+          .getApiResponse("${AppUrl.getAllObservationsEndPoint}/$id");
+
+      return response = DetailObservationModel.fromJson(response);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> getScheduleObservationApi(dynamic data) async {
+    try {
+      dynamic response = await apiService.getPostApiResponse(
+          AppUrl.startObservationSchedulingEndPoint, data);
+
+      return response;
     } catch (e) {
       rethrow;
     }

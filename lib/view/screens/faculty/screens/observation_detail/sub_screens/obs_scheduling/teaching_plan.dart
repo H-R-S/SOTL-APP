@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sotl/resources/constants/style.dart';
 
-class TeachingPlan extends StatefulWidget {
-  const TeachingPlan({super.key});
+class TeachingPlanWidget extends StatefulWidget {
+  const TeachingPlanWidget({super.key});
 
   @override
-  State<TeachingPlan> createState() => _TeachingPlanState();
+  State<TeachingPlanWidget> createState() => _TeachingPlanWidgetState();
 }
 
-class _TeachingPlanState extends State<TeachingPlan> {
+class _TeachingPlanWidgetState extends State<TeachingPlanWidget> {
   TextEditingController ans1Controller = TextEditingController();
   TextEditingController ans2Controller = TextEditingController();
   TextEditingController ans3Controller = TextEditingController();

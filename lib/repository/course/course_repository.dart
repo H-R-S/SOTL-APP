@@ -10,10 +10,8 @@ class CourseRepository {
     try {
       List<dynamic> response =
           await apiServices.getApiResponse(AppUrl.getAllCoursesEndPoint);
-      print("res: $response");
       return response = (response).map((e) => CourseModel.fromJson(e)).toList();
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

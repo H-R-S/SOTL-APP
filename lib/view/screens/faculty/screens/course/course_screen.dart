@@ -54,6 +54,9 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                         );
                       }).toList();
 
+                      debugPrint(userViewModel.userId.toString());
+                      debugPrint(filteredCourses.length.toString());
+
                       return ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -62,7 +65,7 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                             final course = filteredCourses[index];
 
                             return CourseCard(
-                              onTap: () {},
+                                onTap: () {},
                                 name: course.name ?? "",
                                 timings:
                                     "${course.slots![0].location} (${course.slots![0].time})",

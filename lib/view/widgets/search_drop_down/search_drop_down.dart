@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:sotl/models/observation/detail_observation_model.dart';
 
 import '../../../models/course/course_model.dart';
 import '../../../models/user/user_model.dart';
@@ -138,6 +139,56 @@ class CourseDropDown extends StatelessWidget {
           child: DropdownSearch<CourseModel>(
               itemAsString: (CourseModel course) {
                 return "${course.name}";
+              },
+              popupProps: const PopupProps.menu(
+                showSearchBox: true,
+                // showSelectedItems: true,
+              ),
+              items: items,
+              // selectedItem: selectedItem,
+              dropdownDecoratorProps: DropDownDecoratorProps(
+                  dropdownSearchDecoration: InputDecoration(hintText: hint)),
+              onChanged: onChanged))
+    ]);
+  }
+}
+
+class CourseSlotDropDown extends StatelessWidget {
+  final String? header;
+  final bool isRequired;
+  final String hint;
+  final List<CourseSlots> items;
+  final CourseSlots? selectedItem;
+  final Function(CourseSlots?) onChanged;
+
+  const CourseSlotDropDown(
+      {super.key,
+      required this.items,
+      required this.hint,
+      required this.onChanged,
+      this.selectedItem,
+      this.header,
+      this.isRequired = false});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      if (header != null)
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Text(header!, style: const TextStyle(fontSize: 16)),
+          const SizedBox(width: 3),
+          if (isRequired)
+            const Text("*", style: TextStyle(fontSize: 16, color: Colors.red))
+        ]),
+      const SizedBox(height: 5),
+      Container(
+          padding: const EdgeInsets.only(left: 10, right: 5, top: 5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: grey)),
+          child: DropdownSearch<CourseSlots>(
+              itemAsString: (CourseSlots course) {
+                return "${course.course!.name}";
               },
               popupProps: const PopupProps.menu(
                 showSearchBox: true,

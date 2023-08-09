@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/data/enums/status.dart';
+import 'package:sotl/models/observation/detail_observation_model.dart';
 import 'package:sotl/resources/constants/style.dart';
 import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/teaching_plan.dart';
+import 'package:sotl/view/screens/faculty/screens/observation_detail/widgets/select_course_bottom_sheet.dart';
+import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
 import 'package:sotl/view_models/observation/observation_view_model.dart';
 
 class InformedObservationScheduling extends StatefulWidget {
-  const InformedObservationScheduling({super.key});
+  final int observationId;
+
+  const InformedObservationScheduling({super.key, required this.observationId});
 
   @override
   State<InformedObservationScheduling> createState() =>
@@ -15,6 +21,15 @@ class InformedObservationScheduling extends StatefulWidget {
 class _InformedObservationSchedulingState
     extends State<InformedObservationScheduling> {
   ObservationViewModel observationModel = ObservationViewModel();
+
+  final TextEditingController courseIdController = TextEditingController();
+
+  @override
+  void initState() {
+    observationModel.getAllObservationById(widget.observationId);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,73 +40,92 @@ class _InformedObservationSchedulingState
             create: (context) => observationModel,
             child: Consumer<ObservationViewModel>(
                 builder: (context, value, child) {
-              return SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "INFORMED OBSERVATION SCHEDULING",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 20),
-                      const Row(
+              switch (value.observationDetail.status) {
+                case Status.ERROR:
+                  debugPrint("err: ${value.observationDetail.message}");
+                  return Container();
+
+                case Status.COMPLETED:
+                  final obsDetail = value.observationDetail.data!;
+                  debugPrint("courseId: ${obsDetail.courseId.toString()}");
+
+                  return SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Slot By Observer: ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            "Slot By Observer: ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      const Row(
-                        children: [
-                          Text(
-                            "Slot By Observer: ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            "Slot By Observer: ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Text(
-                            "Teaching Plan: ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              print('Text Tapped!');
-                            },
-                            child: const Text(
-                              "Download",
-                              style: TextStyle(
-                                color: Colors.blue,
-                                decoration: TextDecoration.underline,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      value.isCourseSelect
-                          ? TeachingPlan()
-                          : courseNotSelected(context)
-                    ]),
-              );
+                          // const Text(
+                          //   "INFORMED OBSERVATION SCHEDULING",
+                          //   style: TextStyle(
+                          //       fontSize: 16, fontWeight: FontWeight.bold),
+                          // ),
+                          // const SizedBox(height: 20),
+                          // const Row(
+                          //   children: [
+                          //     Text(
+                          //       "Slot By Observer: ",
+                          //       style: TextStyle(fontSize: 16),
+                          //     ),
+                          //     Text(
+                          //       "Slot By Observer: ",
+                          //       style: TextStyle(fontSize: 16),
+                          //     ),
+                          //   ],
+                          // ),
+                          // const Row(
+                          //   children: [
+                          //     Text(
+                          //       "Slot By Observer: ",
+                          //       style: TextStyle(fontSize: 16),
+                          //     ),
+                          //     Text(
+                          //       "Slot By Observer: ",
+                          //       style: TextStyle(fontSize: 16),
+                          //     ),
+                          //   ],
+                          // ),
+                          // Row(
+                          //   children: [
+                          //     const Text(
+                          //       "Teaching Plan: ",
+                          //       style: TextStyle(fontSize: 16),
+                          //     ),
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         print('Text Tapped!');
+                          //       },
+                          //       child: const Text(
+                          //         "Download",
+                          //         style: TextStyle(
+                          //           color: Colors.blue,
+                          //           decoration: TextDecoration.underline,
+                          //           fontSize: 16,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          const SizedBox(height: 20),
+                          obsDetail.courseId != null
+                              ? TeachingPlanWidget()
+                              : courseNotSelected(context,
+                                  courses: obsDetail.faculty!.courseSlots!,
+                                  facultyId: obsDetail.facultyId!,
+                                  observationId: obsDetail.id!)
+                        ]),
+                  );
+
+                default:
+                  return const MyLoadingIndicator();
+              }
             }),
           )),
     );
   }
 
-  Widget courseNotSelected(context) {
+  Widget courseNotSelected(context,
+      {required List<CourseSlots> courses,
+      required int facultyId,
+      required int observationId}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -104,7 +138,12 @@ class _InformedObservationSchedulingState
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
-              _showAlertDialog(context);
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) => SelectCourseBottomSheet(
+                      courses: courses,
+                      observationId: observationId,
+                      facultyId: facultyId));
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: primary,

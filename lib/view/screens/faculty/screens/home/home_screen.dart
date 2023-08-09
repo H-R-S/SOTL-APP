@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sotl/view/screens/admin/widgets/welcome_container.dart';
 import 'package:sotl/view/widgets/all_users_card/all_users_card.dart';
-import 'package:sotl/view_models/observation/observation_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 
 class FacultyHomeScreen extends StatelessWidget {
