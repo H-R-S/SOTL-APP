@@ -45,9 +45,36 @@ class ObservationRepository {
 
   Future<dynamic> getScheduleObservationApi(dynamic data) async {
     try {
-      dynamic response = await apiService.getPostApiResponse(
-          AppUrl.startObservationSchedulingEndPoint, data);
+      dynamic response = await apiService.getPostApiResponseWithHeader(
+          AppUrl.startObservationSchedulingEndPoint,
+          {'Content-Type': 'application/json'},
+          data);
 
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> getSubmitTeachingPlanApi(dynamic data) async {
+    try {
+      dynamic response = await apiService.getPutApiResponseWithHeader(
+          AppUrl.startObservationSchedulingEndPoint,
+          {'Content-Type': 'application/json'},
+          data);
+
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> getUpdateTimeSlotApi(dynamic data) async {
+    try {
+      dynamic response = await apiService.getPutApiResponseWithHeader(
+          AppUrl.startObservationSchedulingEndPoint,
+          {'Content-Type': 'application/json'},
+          data);
       return response;
     } catch (e) {
       rethrow;

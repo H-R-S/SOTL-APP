@@ -41,10 +41,12 @@ class SelectCourseBottomSheet extends StatelessWidget {
                 debugPrint("fID: $facultyId");
                 debugPrint("OID: $observationId");
                 debugPrint("cID: ${courseId.text}");
-                observationViewModel.startScheduling(context,
-                    observationId: observationId,
-                    facultyId: facultyId,
-                    courseId: int.parse(courseId.text));
+                observationViewModel
+                    .startScheduling(context,
+                        observationId: observationId,
+                        facultyId: facultyId,
+                        courseId: int.parse(courseId.text))
+                    .then((value) {});
               }),
           const SizedBox(height: 40)
         ],

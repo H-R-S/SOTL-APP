@@ -59,28 +59,28 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("Step 01",
+                        Text("SCHEDULING",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 0
                                     ? primary
                                     : Colors.black)),
                         const SizedBox(width: 10),
-                        Text("Step 02",
+                        Text("OBSERVATION",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 1
                                     ? primary
                                     : Colors.black)),
                         const SizedBox(width: 10),
-                        Text("Step 03",
+                        Text("MEETING",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 2
                                     ? primary
                                     : Colors.black)),
                         const SizedBox(width: 10),
-                        Text("Step 04",
+                        Text("UNINFORMED",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: currentIndex == 3

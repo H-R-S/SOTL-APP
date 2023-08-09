@@ -4,9 +4,11 @@ import 'package:sotl/data/enums/status.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
 import 'package:sotl/resources/constants/style.dart';
 import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/teaching_plan.dart';
+import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/select_slot_screen.dart';
 import 'package:sotl/view/screens/faculty/screens/observation_detail/widgets/select_course_bottom_sheet.dart';
 import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
 import 'package:sotl/view_models/observation/observation_view_model.dart';
+import 'package:sotl/view_models/user/user_view_model.dart';
 
 class InformedObservationScheduling extends StatefulWidget {
   final int observationId;
@@ -32,6 +34,7 @@ class _InformedObservationSchedulingState
 
   @override
   Widget build(BuildContext context) {
+    final userViewModel = Provider.of<UserViewModel>(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Padding(
@@ -53,12 +56,12 @@ class _InformedObservationSchedulingState
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const Text(
-                          //   "INFORMED OBSERVATION SCHEDULING",
-                          //   style: TextStyle(
-                          //       fontSize: 16, fontWeight: FontWeight.bold),
-                          // ),
-                          // const SizedBox(height: 20),
+                          const Text(
+                            "INFORMED OBSERVATION SCHEDULING",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 20),
                           // const Row(
                           //   children: [
                           //     Text(
@@ -105,12 +108,34 @@ class _InformedObservationSchedulingState
                           //   ],
                           // ),
                           const SizedBox(height: 20),
-                          obsDetail.courseId != null
-                              ? TeachingPlanWidget()
-                              : courseNotSelected(context,
-                                  courses: obsDetail.faculty!.courseSlots!,
-                                  facultyId: obsDetail.facultyId!,
-                                  observationId: obsDetail.id!)
+                          if (userViewModel.userRole == "Observer")
+                            obsDetail.courseId != null
+                                ? obsDetail.obsRequest!.facultyAccepted!
+                                    ? Container()
+                                    : const Text(
+                                        "The Teaching Plan not submitted by Faculty yet!",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.red,
+                                            fontSize: 16))
+                                : courseNotSelected(context,
+                                    courses: obsDetail.faculty!.courseSlots!,
+                                    facultyId: obsDetail.facultyId!,
+                                    observationId: obsDetail.id!)
+                          else if (obsDetail
+                                  .obsRequest!.teachingPlan![0].editedBy !=
+                              null)
+                            SelectSlotScreen(
+                                observerSlots:
+                                    obsDetail.obsRequest!.timeSlotByObserver ??
+                                        [],
+                                observationId: obsDetail.id!,
+                                facultyId: obsDetail.facultyId!,
+                                courses: obsDetail.faculty!.courseSlots!)
+                          else
+                            TeachingPlanWidget(
+                                teachingPlan:
+                                    obsDetail.obsRequest!.teachingPlan![0])
                         ]),
                   );
 
@@ -198,7 +223,7 @@ class _InformedObservationSchedulingState
                             border: Border.all(color: primary),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text("Embedded Systems"),
+                          child: const Text("Embedded Systems"),
                         ),
                       ],
                     );

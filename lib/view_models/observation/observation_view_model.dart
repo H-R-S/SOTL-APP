@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
@@ -115,7 +114,7 @@ class ObservationViewModel with ChangeNotifier {
       "courseId": courseId
     };
 
-    _observationRepo.getScheduleObservationApi(data).then((value) {
+    _observationRepo.getScheduleObservationApi(jsonEncode(data)).then((value) {
       setLoading(false);
       Navigator.pop(context);
 
@@ -123,8 +122,114 @@ class ObservationViewModel with ChangeNotifier {
         MySnackBar(context, value["error"]);
       } else {
         MySnackBar(context, "Observation Scheduling Started.");
-        Navigator.pop(context);
+        notifyListeners();
       }
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      Navigator.pop(context);
+      MySnackBar(context, error.toString());
+    });
+  }
+
+  Future<void> submitTeachingPlan(BuildContext context,
+      {required List<Steps> steps,
+      required int templateId,
+      required int facultyId}) async {
+    setLoading(true);
+
+    final data = {
+      {
+        "templateResponse": steps,
+        "templateId": templateId,
+        "editedBy": facultyId
+      }
+    };
+
+    _observationRepo.getSubmitTeachingPlanApi(jsonEncode(data)).then((value) {
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      MySnackBar(context, error.toString());
+    });
+  }
+
+  Future<void> updateFacultyTimeSlot(BuildContext context,
+      {required List<int> slotIds,
+      required int observationId,
+      required int facultyId}) async {
+    setLoading(true);
+
+    final data = {
+      {"observationsId": observationId, "timeSlotsByFaculty": slotIds}
+    };
+
+    _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
+      setLoading(false);
+      MySnackBar(context, "Slot Updated");
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      MySnackBar(context, error.toString());
+    });
+  }
+
+  Future<void> updateObserverTimeSlot(BuildContext context,
+      {required int slotId,
+      required int observationId,
+      required int facultyId}) async {
+    setLoading(true);
+
+    final data = {
+      {"observationsId": observationId, "timeSlotByObserver": slotId}
+    };
+
+    _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
+      setLoading(false);
+      MySnackBar(context, "Slot Updated");
+
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      MySnackBar(context, error.toString());
+    });
+  }
+
+  Future<void> confirmFacultyTimeSlot(BuildContext context,
+      {required int observationId}) async {
+    setLoading(true);
+
+    final data = {
+      {"observationsId": observationId, "facultyAccepted": true}
+    };
+
+    _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
+      setLoading(false);
+      MySnackBar(context, "Observation Updated");
+
+      notifyListeners();
+    }).onError((error, stackTrace) {
+      setLoading(false);
+      MySnackBar(context, error.toString());
+    });
+  }
+
+  Future<void> confirmObserverTimeSlot(BuildContext context,
+      {required int observationId}) async {
+    setLoading(true);
+
+    final data = {
+      {
+        "observationsId": observationId,
+        "observerAccepted": true,
+        "status": "Ongoing"
+      }
+    };
+
+    _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
+      setLoading(false);
+      MySnackBar(context, "Observation Updated");
+
+      notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
       MySnackBar(context, error.toString());
