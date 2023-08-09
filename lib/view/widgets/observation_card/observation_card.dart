@@ -55,11 +55,11 @@ class ObservationCard extends StatelessWidget {
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               if (obs.starting != null) ...[
                 Text(DateFormat.MMM().format(DateTime.parse(obs.starting!)),
-                    style: style),
+                    style: style.copyWith(fontSize: 16)),
                 Text(DateFormat.d().format(DateTime.parse(obs.starting!)),
-                    style: style),
+                    style: style.copyWith(fontSize: 16)),
                 Text(DateFormat.E().format(DateTime.parse(obs.starting!)),
-                    style: style),
+                    style: style.copyWith(fontSize: 16)),
               ] else ...[
                 Text("---", style: style),
                 Text("---", style: style),

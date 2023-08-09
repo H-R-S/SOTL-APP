@@ -25,7 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final TextEditingController departmentController = TextEditingController();
 
   bool isHOD = false;
-
+  bool setStateOnce = false;
   String userName = "";
 
   @override
@@ -33,13 +33,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final userViewModel = Provider.of<UserViewModel>(context);
 
     userViewModel.getUser().then((value) {
+      debugPrint("role: ${value.role}");
       if (context.mounted) {
-        setState(() {
-          if (value.role == "Head_of_Department") {
-            isHOD = true;
-          }
-          userName = value.name!;
-        });
+        if (setStateOnce == false) {
+          setState(() {
+            setStateOnce = true;
+            if (value.role == "Head_of_Department") {
+              isHOD = true;
+            }
+            userName = value.name!;
+          });
+        }
       }
     });
 

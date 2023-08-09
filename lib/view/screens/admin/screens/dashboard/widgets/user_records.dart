@@ -118,37 +118,71 @@ class _UserRecordsState extends State<UserRecords> {
                         ],
                       ),
                     if (isAdmin || isCampusDirector || isDean || isHOD)
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AllUsersCard(
-                              title: "Observers",
-                              value: users
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisExtent: 150,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: 2,
+                        itemBuilder: (context, index) {
+                          final title = index == 0 ? "Observers" : "Faculty";
+                          final value = index == 0
+                              ? users
                                   .where((user) => user.role == "Observer")
-                                  .length,
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const AddUserScreen(
-                                                title: "Observer")));
-                              },
-                            ),
-                            AllUsersCard(
-                                title: "Faculty",
-                                value: users
-                                    .where((user) => user.role == "Faculty")
-                                    .length,
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AddUserScreen(
-                                                  title: "Faculty")));
-                                })
-                          ])
+                                  .length
+                              : users
+                                  .where((user) => user.role == "Faculty")
+                                  .length;
+
+                          return AllUsersCard(
+                            title: title,
+                            value: value,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const AddUserScreen(
+                                          title: "Observer")));
+                            },
+                          );
+                        },
+                      )
+                    // Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       AllUsersCard(
+                    //         title: "Observers",
+                    //         value: users
+                    //             .where((user) => user.role == "Observer")
+                    //             .length,
+                    //         onTap: () {
+                    //           Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                   builder: (context) =>
+                    //                       const AddUserScreen(
+                    //                           title: "Observer")));
+                    //         },
+                    //       ),
+                    //       AllUsersCard(
+                    //           title: "Faculty",
+                    //           value: users
+                    //               .where((user) => user.role == "Faculty")
+                    //               .length,
+                    //           onTap: () {
+                    //             Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                     builder: (context) =>
+                    //                         const AddUserScreen(
+                    //                             title: "Faculty")));
+                    //           })
+                    //     ])
                   ]);
 
                 default:

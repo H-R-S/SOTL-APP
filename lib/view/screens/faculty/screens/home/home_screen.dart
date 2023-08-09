@@ -21,13 +21,43 @@ class FacultyHomeScreen extends StatelessWidget {
           children: [
             const SotlWelcomeContainer(),
             const SizedBox(height: 20),
-            Consumer<ObservationViewModel>(builder: (context, value, child) {
-              return AllUsersCard(
-                  title: "Observations", value: 1, onTap: () {});
-            })
+            records(),
+            const SizedBox(height: 40),
+            // Consumer<ObservationViewModel>(builder: (context, value, child) {
+            //   return AllUsersCard(
+            //       title: "Observations", value: 1, onTap: () {});
+            // })
           ],
         ),
       )),
     );
+  }
+
+  Widget records() {
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisExtent: 150,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            crossAxisCount: 2),
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return AllUsersCard(
+              title: "Observations",
+              value: 1,
+              onTap: () {
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => UsersListScreen(
+                //             title: facultyList[index]
+                //                 ["name"])));
+              }
+              // title: facultyList[index]["name"],
+              // value: facultyList[index]["value"].toString());
+              );
+        });
   }
 }
