@@ -59,6 +59,9 @@ dependencies:
   # SVG
   flutter_svg: ^2.0.6
 
+  # syncfusion_sliders 
+  syncfusion_flutter_sliders: ^22.2.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

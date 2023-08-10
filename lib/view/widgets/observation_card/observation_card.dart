@@ -88,11 +88,14 @@ class ObservationCard extends StatelessWidget {
                   childrenPadding: const EdgeInsets.symmetric(
                       vertical: 5.0, horizontal: 10.0),
                   title: GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ObservationDetailScreen(
-                                observationId: obs.id!))),
+                    onTap: () {
+                      debugPrint("Value of obs.id: ${obs.id}");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ObservationDetailScreen(
+                                  observationId: obs.id!)));
+                    },
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/data/enums/status.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
 import 'package:sotl/models/observation/initiate_model.dart';
 import 'package:sotl/view/widgets/snack_bar/my_snack_bar.dart';
@@ -62,6 +63,7 @@ class ObservationViewModel with ChangeNotifier {
 
   setObservationsList(ApiResponse<List<ObservationModel>> response) {
     observationsList = response;
+
     notifyListeners();
   }
 
@@ -89,6 +91,16 @@ class ObservationViewModel with ChangeNotifier {
 
   setObservationDetail(ApiResponse<DetailObservationModel> response) {
     observationDetail = response;
+    if (response.status == Status.COMPLETED) {
+      if (observationDetail.data!.obsRequest!.status == "Ongoing") {
+        setPageController(0);
+      }
+      if (observationDetail.data!.obsRequest!.status == "Completed") {
+        // setCurrentIndex(1);
+        setPageController(1);
+        debugPrint("CurreNT iNDEX: $_currentIndex");
+      }
+    }
     notifyListeners();
   }
 
@@ -160,7 +172,8 @@ class ObservationViewModel with ChangeNotifier {
     setLoading(true);
 
     final data = {
-      {"observationsId": observationId, "timeSlotsByFaculty": slotIds}
+      "observationsId": observationId,
+      "timeSlotsByFaculty": slotIds
     };
 
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
@@ -174,13 +187,12 @@ class ObservationViewModel with ChangeNotifier {
   }
 
   Future<void> updateObserverTimeSlot(BuildContext context,
-      {required int slotId,
-      required int observationId,
-      required int facultyId}) async {
+      {required List<int> slotId, required int observationId}) async {
     setLoading(true);
 
     final data = {
-      {"observationsId": observationId, "timeSlotByObserver": slotId}
+      "observationsId": observationId,
+      "timeSlotByObserver": slotId,
     };
 
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
@@ -234,5 +246,54 @@ class ObservationViewModel with ChangeNotifier {
       setLoading(false);
       MySnackBar(context, error.toString());
     });
+  }
+
+  int _currentIndex = 0;
+  final controller = PageController(initialPage: 0);
+
+  setPageController(int index) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (controller.hasClients) {
+        controller.animateToPage(index,
+            duration: Duration(milliseconds: 1), curve: Curves.easeInOut);
+      }
+    });
+
+    debugPrint("Has Client ${controller.hasClients}");
+  }
+
+  setCurrentIndex(int index) {
+    _currentIndex = index;
+
+    debugPrint("Value of index: $_currentIndex");
+    notifyListeners();
+  }
+
+  getCurrentIndex() => _currentIndex;
+
+  // getIndex(observationId) {
+  //   debugPrint("OBS ID: $observationId");
+
+  //   getAllObservationById(observationId).then((value) {
+  //     debugPrint("Status: ${observationDetail.data!.obsRequest!.status}");
+
+  //     notifyListeners();
+  //   }).onError((error, stackTrace) {
+  //     debugPrint("err: ${error.toString()}");
+  //     setPageController(0);
+  //     // setCurrentIndex(0);
+  //   });
+  // }
+
+  double valuefunction() {
+    if (getCurrentIndex() == 0) {
+      return 0.25;
+    } else if (getCurrentIndex() == 1) {
+      return 0.5;
+    } else if (getCurrentIndex() == 2) {
+      return 0.75;
+    } else {
+      return 1;
+    }
   }
 }

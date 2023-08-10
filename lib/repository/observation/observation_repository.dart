@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
 import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';
@@ -36,7 +39,7 @@ class ObservationRepository {
     try {
       dynamic response = await apiService
           .getApiResponse("${AppUrl.getAllObservationsEndPoint}/$id");
-
+      log("Reponse: $response");
       return response = DetailObservationModel.fromJson(response);
     } catch (e) {
       rethrow;
@@ -73,7 +76,9 @@ class ObservationRepository {
     try {
       dynamic response = await apiService.getPutApiResponseWithHeader(
           AppUrl.startObservationSchedulingEndPoint,
-          {'Content-Type': 'application/json'},
+          {
+            'Content-Type': 'application/json',
+          },
           data);
       return response;
     } catch (e) {

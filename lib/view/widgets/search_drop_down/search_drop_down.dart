@@ -188,7 +188,7 @@ class CourseSlotDropDown extends StatelessWidget {
               border: Border.all(color: grey)),
           child: DropdownSearch<CourseSlots>(
               itemAsString: (CourseSlots course) {
-                return "${course.course!.name}";
+                return "${course.course!.name} ${course.time} (${course.location})";
               },
               popupProps: const PopupProps.menu(
                 showSearchBox: true,

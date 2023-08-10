@@ -362,7 +362,7 @@ class ScoringSlider extends StatefulWidget {
 
 class _ScoringSliderState extends State<ScoringSlider> {
   double _currentScore = 0.0; // Initial score value
-  String score = "Non Demonstrating";
+  String score = "Non Demonstrating(0)";
   displayCat(newValue) {
     if (newValue == 0.0) {
       score = "Non Demonstrating (0)";
@@ -397,8 +397,9 @@ class _ScoringSliderState extends State<ScoringSlider> {
           ' $score',
           style: style.copyWith(fontSize: 14, color: Styles.fontColor),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Slider(
+          label: _currentScore.toStringAsFixed(1),
           value: _currentScore,
           min: 0,
           max: 4,
