@@ -11,7 +11,7 @@ import '../../../../widgets/snack_bar/my_snack_bar.dart';
 class OtpVerificationScreen extends StatefulWidget {
   final String? email;
 
-  OtpVerificationScreen({this.email});
+  const OtpVerificationScreen({super.key, this.email});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();

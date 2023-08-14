@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
 import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';

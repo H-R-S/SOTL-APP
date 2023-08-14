@@ -18,7 +18,6 @@ class _TeachingPlanWidgetState extends State<TeachingPlanWidget> {
   TextEditingController ans4Controller = TextEditingController();
   TextEditingController ans5Controller = TextEditingController();
   TextEditingController ans6Controller = TextEditingController();
-
   TextEditingController textController = TextEditingController();
 
   @override
@@ -215,7 +214,7 @@ class _TeachingPlanWidgetState extends State<TeachingPlanWidget> {
                             border: Border.all(color: primary),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text("Wednesday | 8:30 | E601"),
+                          child: const Text("Wednesday | 8:30 | E601"),
                         ),
                       ],
                     );
@@ -229,118 +228,8 @@ class _TeachingPlanWidgetState extends State<TeachingPlanWidget> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4)),
                       backgroundColor: primary),
-                  onPressed: () => _selectDateByObserver(context),
-                  child: const Text(
-                    'Start Scheduling',
-                    style: TextStyle(color: Colors.white),
-                  )),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4)),
-                    backgroundColor: primary,
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(color: Colors.white),
-                  )),
-            ],
-          );
-        });
-  }
-
-  void _selectDateByObserver(context) {
-    DateTime selectedDate = DateTime.now();
-    String datePicked = "dd/mm/yyyy";
-
-    Future<void> _selectDate(BuildContext context) async {
-      final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
-      if (picked != null && picked != selectedDate) {
-        setState(() {
-          selectedDate = picked;
-          datePicked = picked.toString(); // Update the TextField value
-        });
-      }
-    }
-
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            title: const Text("Select Observation Date"),
-            content: SizedBox(
-              width: MediaQuery.of(context).size.width *
-                  0.7, // Change as per your requirement
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text("Select Faculty Slot"),
-                  const SizedBox(height: 10.0),
-                  SizedBox(
-                    height: 80,
-                    child: Scrollbar(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 10,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 5.0),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5.0, horizontal: 5.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: primary),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text("Wednesday | 8:30 | E601"),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20.0),
-                  const Text("Provide Date"),
-                  const SizedBox(height: 10.0),
-                  GestureDetector(
-                    onTap: () => _selectDate(context),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 10.0),
-                      width: MediaQuery.of(context).size.width *
-                          0.7, // Change as per your requirement
-                      decoration: BoxDecoration(
-                        border: Border.all(color: primary),
-                      ),
-                      child: Text(datePicked),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            actions: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4)),
-                      backgroundColor: primary),
                   onPressed: () {},
+                  // _selectDateByObserver(context),
                   child: const Text(
                     'Start Scheduling',
                     style: TextStyle(color: Colors.white),

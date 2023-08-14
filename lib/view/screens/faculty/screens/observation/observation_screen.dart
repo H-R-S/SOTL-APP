@@ -47,7 +47,7 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
                       if (userViiewModel.userRole == "Faculty") {
                         return ListView.builder(
                             shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                            // physics: const NeverScrollableScrollPhysics(),
                             itemCount: value.observationsList.data!
                                 .where((obs) =>
                                     obs.facultyId == userViiewModel.userId)
@@ -64,7 +64,7 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
                       } else {
                         return ListView.builder(
                             shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                            // physics: const NeverScrollableScrollPhysics(),
                             itemCount: value.observationsList.data!
                                 .where((obs) =>
                                     obs.observerId == userViiewModel.userId)

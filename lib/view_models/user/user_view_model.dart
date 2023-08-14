@@ -54,6 +54,16 @@ class UserViewModel with ChangeNotifier {
     });
   }
 
+  // Future<void> getUserById({required int userId}) async{
+  //   setUsersList(ApiResponse.loading());
+
+  //   _userRepo.getUserApi(userId).then((value) {
+  //     setUsersList(ApiResponse.completed(value));
+  //   }).onError((error, stackTrace) {
+  //     setUsersList(ApiResponse.error(error.toString()));
+  //   });
+  // }
+
   Future<void> createUser(BuildContext context, UserModel user,
       {required String password, required List<int> courseId}) async {
     setLoading(true);

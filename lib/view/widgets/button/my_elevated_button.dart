@@ -10,7 +10,7 @@ class MyElevatedButton extends StatelessWidget {
   final bool isLoading;
 
   const MyElevatedButton(
-      {required this.title,
+      {super.key, required this.title,
       required this.onTap,
       this.customWidth,
       this.isLoading = false,

@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
-import 'package:sotl/models/observation/observation_model.dart';
 import 'package:sotl/resources/constants/style.dart';
 import 'package:sotl/view/screens/common/screens/rubrics/rubrics_screen.dart';
 import 'package:sotl/view/screens/faculty/screens/observation_detail/sub_screens/obs_scheduling/informed_observation_scheduling.dart';
@@ -48,9 +49,11 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
         builder: (context, value, child) {
           switch (value.observationDetail.status) {
             case Status.ERROR:
-              return const Scaffold(
+              debugPrint("Error is: ${value.observationDetail.message}");
+              return Scaffold(
                 body: Center(
-                  child: Text("Error Occured"),
+                  child: Text(
+                      "Error Occured : ${value.observationDetail.message}"),
                 ),
               );
 
@@ -134,7 +137,7 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
                         observationId: widget.observationId,
                         observationModel: observationModel,
                       ),
-                      RubricScreen(),
+                      const RubricScreen(),
                       Container(),
                       Container(),
                     ]),

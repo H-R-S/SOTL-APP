@@ -77,7 +77,7 @@ class ObservationSkeletonCard extends StatelessWidget {
                           ),
                         )
                       ]),
-                  children: [],
+                  children: const [],
                 ),
               ),
             ),

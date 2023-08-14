@@ -31,22 +31,22 @@ class Routes {
         return getPageRoute(ForgotPasswordScreen());
 
       case RoutesName.otp:
-        return getPageRoute(OtpVerificationScreen());
+        return getPageRoute(const OtpVerificationScreen());
 
       case RoutesName.changePassword:
         return getPageRoute(ChangePasswordScreen());
 
       case RoutesName.dashboard:
-        return getPageRoute(DashboardScreen());
+        return getPageRoute(const DashboardScreen());
 
       case RoutesName.users:
-        return getPageRoute(UsersScreen());
+        return getPageRoute(const UsersScreen());
 
       case RoutesName.addUser:
-        return getPageRoute(AddUserScreen());
+        return getPageRoute(const AddUserScreen());
 
       case RoutesName.observations:
-        return getPageRoute(ObservationScreen());
+        return getPageRoute(const ObservationScreen());
 
       case RoutesName.settings:
         return getPageRoute(const SettingsScreen());
@@ -61,13 +61,13 @@ class Routes {
         return getPageRoute(const Faculty());
 
       case RoutesName.facultyCourse:
-        return getPageRoute(FacultyCourseScreen());
+        return getPageRoute(const FacultyCourseScreen());
 
       case RoutesName.facultyObservation:
-        return getPageRoute(FacultyObservationScreen());
+        return getPageRoute(const FacultyObservationScreen());
 
       case RoutesName.initiateObservation:
-        return getPageRoute(InitiateObservationScreen());
+        return getPageRoute(const InitiateObservationScreen());
 
       case RoutesName.rubrics:
         return getPageRoute(const RubricScreen());

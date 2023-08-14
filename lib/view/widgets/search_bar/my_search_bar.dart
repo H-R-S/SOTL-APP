@@ -14,7 +14,7 @@ class MySearchBar extends StatelessWidget {
   final Function()? onTapSufix;
 
   const MySearchBar(
-      {this.validator,
+      {super.key, this.validator,
       this.onTap,
       required this.hint,
       this.filledColor = light,

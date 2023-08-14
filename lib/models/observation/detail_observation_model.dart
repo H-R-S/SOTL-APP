@@ -253,7 +253,7 @@ class ObsRequest {
   bool? observerAccepted;
   List<TimeSlotByObserver>? timeSlotByObserver;
   List<TimeSlotByFaculty>? timeSlotsByFaculty;
-  List<TeachingPlan>? teachingPlan;
+  TeachingPlan? teachingPlan;
   List<dynamic>? reasons;
 
   ObsRequest(
@@ -287,12 +287,9 @@ class ObsRequest {
         timeSlotsByFaculty!.add(TimeSlotByFaculty.fromJson(v));
       });
     }
-    if (json['teachingPlan'] != null) {
-      teachingPlan = <TeachingPlan>[];
-      json['teachingPlan'].forEach((v) {
-        teachingPlan!.add(TeachingPlan.fromJson(v));
-      });
-    }
+    teachingPlan = json['teachingPlan'] != null
+        ? new TeachingPlan.fromJson(json['teachingPlan'])
+        : null;
     if (json['reasons'] != null) {
       reasons = <dynamic>[];
       json['reasons'].forEach((v) {
@@ -317,8 +314,8 @@ class ObsRequest {
       data['timeSlotsByFaculty'] =
           timeSlotsByFaculty!.map((v) => v.toJson()).toList();
     }
-    if (teachingPlan != null) {
-      data['teachingPlan'] = teachingPlan!.map((v) => v.toJson()).toList();
+    if (this.teachingPlan != null) {
+      data['teachingPlan'] = this.teachingPlan!.toJson();
     }
     if (reasons != null) {
       data['reasons'] = reasons!.map((v) => v.toJson()).toList();

@@ -55,7 +55,8 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                       }).toList();
 
                       debugPrint(userViewModel.userId.toString());
-                      debugPrint(filteredCourses.length.toString());
+                      debugPrint(
+                          "Filtered  ${filteredCourses.length.toString()}");
 
                       return ListView.builder(
                           shrinkWrap: true,

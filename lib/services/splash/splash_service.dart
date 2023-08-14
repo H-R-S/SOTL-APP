@@ -14,6 +14,7 @@ class SplashServices {
       } else {
         debugPrint("Token: ${value.token}");
         debugPrint("Role: ${value.role}");
+        debugPrint("Name: ${value.name}");
 
         final userViewModel =
             Provider.of<UserViewModel>(context, listen: false);
@@ -28,9 +29,11 @@ class SplashServices {
             value.role == "Head_of_Department") {
           Navigator.pushReplacementNamed(context, RoutesName.admin);
         }
+        // Get User By Id for Faculty
         if (value.role == "Faculty" || value.role == "Observer") {
           Navigator.pushReplacementNamed(context, RoutesName.faculty);
         }
+        // Get User By Id for Observer
       }
     }).onError((error, stackTrace) {
       debugPrint(error.toString());

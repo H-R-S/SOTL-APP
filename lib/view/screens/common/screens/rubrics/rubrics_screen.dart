@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../../resources/constants/style.dart';
-import '../../../../widgets/app_bar/my_app_bar.dart';
 
 class RubricScreen extends StatefulWidget {
   const RubricScreen({super.key});
@@ -91,32 +90,32 @@ class _RubricScreenState extends State<RubricScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("SCORE BY FACULTY:"),
+                        const Text("SCORE BY FACULTY:"),
                         Text("0.0 / 80", style: style2),
-                        SizedBox(height: 10.0),
-                        Text("FINAL SCORE:"),
+                        const SizedBox(height: 10.0),
+                        const Text("FINAL SCORE:"),
                         Text("0.0 / 80", style: style2),
-                        Column(
+                        const Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [],
                         )
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("SCORE BY OBSERVER:"),
+                        const Text("SCORE BY OBSERVER:"),
                         Text("0.0 / 80", style: style2),
-                        SizedBox(height: 10.0),
-                        Text("SCORE PERCENTAGE:"),
+                        const SizedBox(height: 10.0),
+                        const Text("SCORE PERCENTAGE:"),
                         Text(
                           "0.0%",
                           style: style2,
@@ -287,7 +286,7 @@ class _RubricScreenState extends State<RubricScreen> {
                                           color: Styles.fontColor)),
                                 ]),
                           ),
-                          children: [
+                          children: const [
                             ListTile(
                               contentPadding: EdgeInsets.zero,
                               title: ScoringSlider(),
@@ -356,6 +355,8 @@ class _RubricScreenState extends State<RubricScreen> {
 }
 
 class ScoringSlider extends StatefulWidget {
+  const ScoringSlider({super.key});
+
   @override
   _ScoringSliderState createState() => _ScoringSliderState();
 }

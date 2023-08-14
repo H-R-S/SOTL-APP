@@ -92,13 +92,17 @@ class ObservationViewModel with ChangeNotifier {
   setObservationDetail(ApiResponse<DetailObservationModel> response) {
     observationDetail = response;
     if (response.status == Status.COMPLETED) {
-      if (observationDetail.data!.obsRequest!.status == "Ongoing") {
-        setPageController(0);
-      }
-      if (observationDetail.data!.obsRequest!.status == "Completed") {
-        // setCurrentIndex(1);
-        setPageController(1);
-        debugPrint("CurreNT iNDEX: $_currentIndex");
+      if (response.data!.obsRequest != null) {
+        if (observationDetail.data!.obsRequest!.status == "Ongoing") {
+          setPageController(0);
+        } else if (observationDetail.data!.obsRequest!.status == "Completed") {
+          // setCurrentIndex(1);
+          setPageController(1);
+          debugPrint("CurreNT iNDEX: $_currentIndex");
+        }
+      } else {
+        debugPrint(
+            "We are getting obsRequest null: ${response.data!.obsRequest}");
       }
     }
     notifyListeners();
@@ -230,11 +234,9 @@ class ObservationViewModel with ChangeNotifier {
     setLoading(true);
 
     final data = {
-      {
-        "observationsId": observationId,
-        "observerAccepted": true,
-        "status": "Completed"
-      }
+      "observationsId": observationId,
+      "observerAccepted": true,
+      "status": "Completed"
     };
 
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
@@ -255,7 +257,7 @@ class ObservationViewModel with ChangeNotifier {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (controller.hasClients) {
         controller.animateToPage(index,
-            duration: Duration(milliseconds: 1), curve: Curves.easeInOut);
+            duration: const Duration(milliseconds: 1), curve: Curves.easeInOut);
       }
     });
 
@@ -296,4 +298,14 @@ class ObservationViewModel with ChangeNotifier {
       return 1;
     }
   }
+
+  // Functionality to select slot provided by faculty
+  int _selectedChipIndex = -1; // -1 means no chip is selected initially
+
+  setSlotIndex(int index) {
+    _selectedChipIndex = index;
+    notifyListeners();
+  }
+
+  int getSlotIndex() => _selectedChipIndex;
 }

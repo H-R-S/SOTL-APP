@@ -24,9 +24,9 @@ class _FacultyState extends State<Faculty> {
   Widget build(BuildContext context) {
     List<Widget> screens = [
       FacultyHomeScreen(),
-      FacultyCourseScreen(),
-      FacultyObservationScreen(),
-      SettingsScreen()
+      const FacultyCourseScreen(),
+      const FacultyObservationScreen(),
+      const SettingsScreen()
     ];
 
     return Scaffold(

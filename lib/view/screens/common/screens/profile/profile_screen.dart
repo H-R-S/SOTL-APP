@@ -52,8 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       shape: BoxShape.circle,
                       color: Colors.transparent,
                     ),
-                    child: Stack(fit: StackFit.loose, children: [
-                      const Positioned.fill(
+                    child: const Stack(fit: StackFit.loose, children: [
+                      Positioned.fill(
                         child: CircleAvatar(
                           backgroundImage:
                               AssetImage('assets/images/profile_img.png'),

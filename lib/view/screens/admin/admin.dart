@@ -28,11 +28,11 @@ class _AdminState extends State<Admin> {
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
-      DashboardScreen(),
-      UsersScreen(),
-      CoursesScreen(),
-      ObservationScreen(),
-      SettingsScreen()
+      const DashboardScreen(),
+      const UsersScreen(),
+      const CoursesScreen(),
+      const ObservationScreen(),
+      const SettingsScreen()
     ];
 
     final themeProvider = Provider.of<ThemeProvider>(context);

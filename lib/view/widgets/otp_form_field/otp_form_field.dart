@@ -7,7 +7,7 @@ class OtpFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
 
-  const OtpFormField({required this.controller, this.validator});
+  const OtpFormField({super.key, required this.controller, this.validator});
 
   @override
   Widget build(BuildContext context) {
