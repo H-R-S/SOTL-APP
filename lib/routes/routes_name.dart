@@ -34,4 +34,6 @@ class RoutesName {
   static const String initiateObservation = "init_observation_screen";
 
   static const String rubrics = "rubrics_screen";
+
+  static const String observer = "observer_screen";
 }

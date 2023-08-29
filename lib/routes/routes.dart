@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sotl/view/screens/admin/screens/add_user/add_user_screen.dart';
+import 'package:sotl/view/screens/observer/observer.dart';
 import '../view/screens/admin/admin.dart';
 import '../view/screens/admin/screens/initiate_observation/initiate_observation_screen.dart';
 import '../view/screens/common/screens/change_password/change_password_screen.dart';
@@ -71,6 +72,10 @@ class Routes {
 
       case RoutesName.rubrics:
         return getPageRoute(const RubricScreen());
+
+      case RoutesName.observer:
+        return getPageRoute(const Observer());
+
       default:
         return getPageRoute(LoginScreen());
     }
