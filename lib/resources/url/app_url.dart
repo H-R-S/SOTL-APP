@@ -5,7 +5,7 @@ class AppUrl {
 
   static var creatUserEndPoint = "$baseUrl/create";
 
-  static var getUserEndPoint = "$baseUrl/user/";
+  static var getUserEndPoint = "$baseUrl/user";
 
   static var getAllUsersEndPoint = "$baseUrl/user";
 
