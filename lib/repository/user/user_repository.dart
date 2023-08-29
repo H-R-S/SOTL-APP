@@ -1,3 +1,5 @@
+import 'package:sotl/models/user/user_detail_model.dart';
+
 import '../../data/network/base_api_service.dart';
 import '../../data/network/network_api_service.dart';
 import '../../models/user/user_model.dart';
@@ -17,12 +19,12 @@ class UserRepository {
     }
   }
 
-  Future<UserModel> getUserApi(int id) async {
+  Future<UserDetailModel> getUserByIdApi(int id) async {
     try {
       dynamic response =
           await apiServices.getApiResponse("${AppUrl.getUserEndPoint}/$id");
 
-      return response = UserModel.fromJson(response);
+      return response = UserDetailModel.fromJson(response);
     } catch (e) {
       rethrow;
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sotl/models/user/user_detail_model.dart';
 import '../../data/responses/api_responses.dart';
 import '../../models/user/user_model.dart';
 import '../../repository/user/user_repository.dart';
@@ -54,15 +55,22 @@ class UserViewModel with ChangeNotifier {
     });
   }
 
-  // Future<void> getUserById({required int userId}) async{
-  //   setUsersList(ApiResponse.loading());
+  ApiResponse<UserDetailModel> userData = ApiResponse.loading();
 
-  //   _userRepo.getUserApi(userId).then((value) {
-  //     setUsersList(ApiResponse.completed(value));
-  //   }).onError((error, stackTrace) {
-  //     setUsersList(ApiResponse.error(error.toString()));
-  //   });
-  // }
+  setUsersData(ApiResponse<UserDetailModel> response) {
+    userData = response;
+    notifyListeners();
+  }
+
+  Future<void> getUserById() async {
+    setUsersData(ApiResponse.loading());
+
+    _userRepo.getUserByIdApi(_userId).then((value) {
+      setUsersData(ApiResponse.completed(value));
+    }).onError((error, stackTrace) {
+      setUsersData(ApiResponse.error(error.toString()));
+    });
+  }
 
   Future<void> createUser(BuildContext context, UserModel user,
       {required String password, required List<int> courseId}) async {
