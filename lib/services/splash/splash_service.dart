@@ -29,11 +29,12 @@ class SplashServices {
             value.role == "Head_of_Department") {
           Navigator.pushReplacementNamed(context, RoutesName.admin);
         }
-        // Get User By Id for Faculty
-        if (value.role == "Faculty" || value.role == "Observer") {
+        if (value.role == "Faculty" ) {
           Navigator.pushReplacementNamed(context, RoutesName.faculty);
         }
-        // Get User By Id for Observer
+        if (value.role == "Observer") {
+          Navigator.pushReplacementNamed(context, RoutesName.observer);
+        }
       }
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
