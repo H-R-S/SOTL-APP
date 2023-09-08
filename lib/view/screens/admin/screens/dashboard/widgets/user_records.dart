@@ -42,6 +42,7 @@ class _UserRecordsState extends State<UserRecords> {
           observationViewModel.getAllObservations();
           courseViewModel.getAllCourses();
           return isFaculty = true;
+
         default:
           null;
       }

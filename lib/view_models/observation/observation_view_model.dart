@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
@@ -148,21 +149,26 @@ class ObservationViewModel with ChangeNotifier {
   }
 
   Future<void> submitTeachingPlan(BuildContext context,
-      {required List<Steps> steps,
+      {required List<Map<String, dynamic>> steps,
       required int templateId,
-      required int facultyId}) async {
+      required int facultyId,
+      required int obsId}) async {
     setLoading(true);
 
     final data = {
-      {
-        "templateResponse": steps,
-        "templateId": templateId,
-        "editedBy": facultyId
-      }
+      "observationsId": obsId,
+      "templateResponse": steps,
+      "templateId": templateId,
+      "editedBy": facultyId
     };
 
+    debugPrint(
+        " templateResponse: $steps,templateId: $templateId,editedBy: $facultyId\nObservation Id: $obsId ");
+
     _observationRepo.getSubmitTeachingPlanApi(jsonEncode(data)).then((value) {
+      debugPrint("Working Properly Reponse: $value");
       notifyListeners();
+      // Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoading(false);
       MySnackBar(context, error.toString());
@@ -197,16 +203,18 @@ class ObservationViewModel with ChangeNotifier {
     final data = {
       "observationsId": observationId,
       "timeSlotByObserver": slotId,
+      "scheduledOn": newFormatDate
     };
-
+    debugPrint("Data is: $data");
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
       setLoading(false);
-      MySnackBar(context, "Slot Updated");
-
+      // MySnackBar(context, "Slot Updated");
+      debugPrint("Slot Updated: $value");
       notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
-      MySnackBar(context, error.toString());
+      debugPrint("Slot Updated: $error");
+      // MySnackBar(context, error.toString());
     });
   }
 
@@ -300,12 +308,97 @@ class ObservationViewModel with ChangeNotifier {
   }
 
   // Functionality to select slot provided by faculty
-  int _selectedChipIndex = -1; // -1 means no chip is selected initially
 
+  int _selectedChipIndex = -1; // -1 means no chip is selected initially
+  DateTime _selectedDate = DateTime.now(); // Select DateTime for Observation
+  String datePicked = "dd/mm/yyyy";
+  String? newFormatDate;
   setSlotIndex(int index) {
     _selectedChipIndex = index;
     notifyListeners();
   }
 
+  getselectedDate() => _selectedDate;
   int getSlotIndex() => _selectedChipIndex;
+
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    debugPrint(picked.toString());
+
+    if (picked != null && picked != _selectedDate) {
+      newFormatDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(picked);
+      debugPrint("New Format is $newFormatDate");
+      _selectedDate = picked;
+      datePicked =
+          "${picked.day.toString()}-${picked.month.toString()}-${picked.year.toString()}"; // Update the TextField value
+      notifyListeners();
+    }
+  }
+
+  // Show teachingPlan
+
+  bool _showTeachingPlan = false;
+
+  setshowTeachingPlan() {
+    _showTeachingPlan = !_showTeachingPlan;
+    notifyListeners();
+  }
+
+  getshowTeachingPlan() => _showTeachingPlan;
+
+  // Working For Observer Rubric screen
+
+  List<String> Part1 = [
+    "1. Instruction (including class activities) shows alignment with the programme and course learning outcomes (PLOs and CLOs) and any specified standards.",
+    "2. Instruction (including class activities) demonstrates knowledge of the content area, relevant terminology and discipline-specific concepts and skills.",
+    "3. Instruction (including class activities) engages students as members of a learning community within their content and/or discipline.",
+    "4. Instruction (including class activities) encourages students to utilize their prior content knowledge and to acknowledge their preconceptions about the topic.",
+    "5. Instruction (including class activities) explores connections with other content disciplines and/or real world situations."
+  ];
+
+  List<String> Part2 = [
+    "6. Instruction (including class activities) demonstrates ANY of the following instructional strategies: student-centered approaches (e.g. Active Learning), differentiated instruction (e.g. Universal Design for Learning), experiential learning approaches (e.g. field tours, authentic real-world examples) and/or resources to fit varied student learning styles and needs.",
+    "7. Instruction (including class activities) demonstrates a visible movement (e.g. factual knowledge > understanding > application > analysis > integration) and/or learning progression (e.g. easy to difficult and/or basic to complex).",
+    "8. Instruction (including class activities) demonstrates use of student engagement strategies such as purposeful questions, strategic grouping, instructional pacing, use of technologies, digital media, and other learning resources.",
+    "9. Instruction (including class activities) is responsive to students’ questions, input and examples.",
+    "10. Instruction (including class activities) generates a high proportion of student talk between and among students to discuss ideas."
+  ];
+
+  List<String> Part3 = [
+    "11. Assessments (formative and/or summative) show alignment with the programme and course learning outcomes (PLOs and CLOs) and any specified standards.",
+    "12. Assessments (formative and/or summative) are ranged across formative and summative types.",
+    "13. Assessments (formative and/or summative) are SMART i.e. specific, measurable, achievable, relevant, and time-bound.",
+    "14. Assessments (formative and/or summative) offer a visible movement (e.g. factual knowledge > understanding > application > analysis > integration) and/or learning progression (e.g. easy to difficult and/or basic to complex).",
+    "15. Assessments (formative and/or summative) clearly communicate how the students will be assessed (e.g. rubrics, marking guides, etc.)"
+  ];
+
+  List<String> Part4 = [
+    "16. Instruction, class activities and/or assessments enable the following amongst students: self-directed learning, self-awareness, self-regulation, social awareness, independence, and responsible decision-making.",
+    "17. Instruction, class activities and/or assessments support an enabling environment for collaboration across mixed-ability and multilevel student groups.",
+    "18. Instruction, class activities and/or assessments encourage a culture of respect for diverse opinions, reflections and unconventional ideas.",
+    "19. Instruction, class activities and/or assessments support students who are grappling with challenging material and difficult tasks.",
+    "20. Instruction, class activities and/or assessments support communication of ideas through a variety of resources (e.g. digital technologies, learning games, platforms, media, slideshow, models, drawings, graphs, concrete materials, manipulatives, etc.)"
+  ];
+
+  List<List<bool>> sliderValueChangedList = [
+    [false, false, false, false, false], // Part 1
+    [false, false, false, false, false], // Part 2
+    [false, false, false, false, false], // Part 3
+    [false, false, false, false, false], // Part 4
+  ];
+  void setValueChanged(int elementNo, int index, bool value) {
+    sliderValueChangedList[elementNo][index] = value;
+    notifyListeners();
+  }
+
+  // Check if all indexes are true else false
+  bool checkIfAllIndexesAreTrue(int elementNo) {
+    debugPrint("All Indexex boolean value are: ${sliderValueChangedList[0]}");
+    return sliderValueChangedList[elementNo].every((value) => value == true);
+  }
 }

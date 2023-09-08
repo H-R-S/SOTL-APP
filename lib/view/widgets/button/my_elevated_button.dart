@@ -3,14 +3,15 @@ import '../../../resources/constants/style.dart';
 
 class MyElevatedButton extends StatelessWidget {
   final String title;
-  final Function() onTap;
+  final Function()? onTap;
   final double? customWidth;
   final Color? buttonColor;
   final Color? contentColor;
   final bool isLoading;
 
   const MyElevatedButton(
-      {super.key, required this.title,
+      {super.key,
+      required this.title,
       required this.onTap,
       this.customWidth,
       this.isLoading = false,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
@@ -65,7 +63,7 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
               );
             case Status.COMPLETED:
               return Scaffold(
-                resizeToAvoidBottomInset: false,
+                resizeToAvoidBottomInset: true,
                 appBar: MyAppBar(
                   scaffoldKey,
                   context,
