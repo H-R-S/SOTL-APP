@@ -41,64 +41,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
         appBar: MyAppBar(scaffoldKey, context, title: "Settings"),
-        body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: ListView(physics: const BouncingScrollPhysics(), children: [
-              UserInfoContainer(
-                  onTap: () {
-                    Navigator.pushNamed(context, RoutesName.profile);
-                  },
-                  name: nameController.text,
-                  email: emailController.text,
-                  role: roleController.text),
-              headingText("General"),
-              SettingsContainer(
-                  icon: Icons.person_outline,
-                  title: "Profile",
-                  onTap: () {
-                    Navigator.pushNamed(context, RoutesName.profile);
-                  }),
-              SettingsContainer(
-                  icon: Icons.lock_outline,
-                  title: "Change Password",
-                  onTap: () {}),
-              SettingsContainer(
-                  title: "Notifications",
-                  icon: Icons.notifications_none_outlined,
-                  onTap: () {}),
-              Consumer<ThemeProvider>(builder: (context, value, child) {
-                final isDark = value.currentTheme == ThemeData.dark();
-
-                return SettingsContainer(
-                  isSwitch: true,
-                  title: "${isDark ? "Light" : "Dark"} Mode",
-                  icon: isDark
-                      ? Icons.dark_mode_outlined
-                      : Icons.dark_mode_outlined,
-                  // onTap: value.toggleTheme
-                );
+        body: ListView(physics: const BouncingScrollPhysics(), children: [
+          UserInfoContainer(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.profile);
+              },
+              name: nameController.text,
+              email: emailController.text,
+              role: roleController.text),
+          headingText("General"),
+          SettingsContainer(
+              icon: Icons.person_outline,
+              title: "Profile",
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.profile);
               }),
-              const SizedBox(height: 10),
-              headingText("Support"),
-              SettingsContainer(
-                  title: "Rate & Review",
-                  icon: Icons.star_border,
-                  onTap: () {}),
-              SettingsContainer(
-                  title: "Help",
-                  icon: Icons.help_outline_outlined,
-                  onTap: () {}),
-              SettingsContainer(
-                  icon: Icons.logout,
-                  title: "Logout",
-                  trailingIcon: false,
-                  onTap: () {
-                    authViewModel.logOut().then((value) {
-                      Navigator.of(context, rootNavigator: true)
-                          .pushReplacementNamed(RoutesName.login);
-                    });
-                  })
-            ])));
+          SettingsContainer(
+              icon: Icons.lock_outline, title: "Change Password", onTap: () {}),
+          SettingsContainer(
+              title: "Notifications",
+              icon: Icons.notifications_none_outlined,
+              onTap: () {}),
+          Consumer<ThemeProvider>(builder: (context, value, child) {
+            final isDark = value.currentTheme == ThemeData.dark();
+
+            return SettingsContainer(
+              isSwitch: true,
+              title: "${isDark ? "Light" : "Dark"} Mode",
+              icon:
+                  isDark ? Icons.dark_mode_outlined : Icons.dark_mode_outlined,
+              // onTap: value.toggleTheme
+            );
+          }),
+          const SizedBox(height: 10),
+          headingText("Support"),
+          SettingsContainer(
+              title: "Rate & Review", icon: Icons.star_border, onTap: () {}),
+          SettingsContainer(
+              title: "Help", icon: Icons.help_outline_outlined, onTap: () {}),
+          SettingsContainer(
+              icon: Icons.logout,
+              title: "Logout",
+              trailingIcon: false,
+              onTap: () {
+                authViewModel.logOut().then((value) {
+                  Navigator.of(context, rootNavigator: true)
+                      .pushReplacementNamed(RoutesName.login);
+                });
+              })
+        ]));
   }
 
   Widget headingText(String text) {

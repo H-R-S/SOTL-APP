@@ -26,7 +26,7 @@ class AuthViewModel with ChangeNotifier {
       if (value.token != null) {
         final userPreference =
             Provider.of<UserViewModel>(context, listen: false);
-
+        userPreference.setUserId(value.id!);
         userPreference.saveUser(UserModel(
             id: value.id,
             email: value.email,

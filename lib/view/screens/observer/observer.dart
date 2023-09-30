@@ -23,7 +23,7 @@ class _ObserverState extends State<Observer> {
   Widget build(BuildContext context) {
     List<Widget> screens = [
       ObserverHomeScreen(),
-      Container(),
+      // Container(),
       FacultyObservationScreen(),
       SettingsScreen()
     ];
@@ -48,8 +48,8 @@ class _ObserverState extends State<Observer> {
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(Icons.dashboard_outlined), label: "Dashboard"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.library_books_outlined), label: "Courses"),
+              // BottomNavigationBarItem(
+              //     icon: Icon(Icons.library_books_outlined), label: "Courses"),
               BottomNavigationBarItem(
                   activeIcon: Icon(Icons.calendar_month),
                   icon: Icon(Icons.calendar_today),

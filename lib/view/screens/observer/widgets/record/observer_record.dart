@@ -38,10 +38,18 @@ class _ObserverRecordsState extends State<ObserverRecords> {
 
               debugPrint("obs: ${user.observations!.length.toString()}");
 
-              return AllUsersCard(
-                  title: "Observations",
-                  value: user.observations?.length ?? 0,
-                  onTap: () {});
+              return GridView.count(
+                shrinkWrap: true,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 2,
+                children: [
+                  AllUsersCard(
+                      title: "Observations",
+                      value: user.observations?.length ?? 0,
+                      onTap: () {}),
+                ],
+              );
 
             default:
               return GridView.count(

@@ -1,5 +1,9 @@
+// ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/resources/constants/icons.dart';
+import 'package:sotl/theme/theme.dart';
 import '../../../resources/constants/style.dart';
 import '../../../theme/theme_provider.dart';
 import 'screens/courses/courses_screen.dart';
@@ -40,22 +44,17 @@ class _AdminState extends State<Admin> {
     bool isDark = themeProvider.currentTheme == ThemeData.dark();
 
     return Scaffold(
-        backgroundColor: light,
-        // body: screens[selectedIndex],
-        body: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: controller,
-            children: screens),
+        backgroundColor: Colors.white,
+        body: screens[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: Colors.white,
             type: BottomNavigationBarType.fixed,
-            backgroundColor: isDark ? dark : Styles.scaffoldBgColor,
-            onTap: (index) {
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            onTap: (value) {
               setState(() {
-                selectedIndex = index;
+                selectedIndex = value;
               });
-              controller.animateToPage(selectedIndex,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeOutQuad);
             },
             iconSize: 30,
             selectedItemColor: isDark ? Colors.white : primary,
@@ -63,29 +62,29 @@ class _AdminState extends State<Admin> {
             currentIndex: selectedIndex,
             items: [
               BottomNavigationBarItem(
-                  icon: selectedIndex == 0
-                      ? const Icon(Icons.home)
-                      : const Icon(Icons.home_outlined),
+                  icon: SvgPicture.asset(IconUtils.home),
+                  activeIcon: SvgPicture.asset(IconUtils.homeActice,
+                      color: LightColorTheme.kPrimary),
                   label: 'Admin'),
               BottomNavigationBarItem(
-                  icon: Icon(selectedIndex == 1
-                      ? Icons.person
-                      : Icons.person_outlined),
+                  icon: SvgPicture.asset(IconUtils.user),
+                  activeIcon: SvgPicture.asset(IconUtils.userActive,
+                      color: LightColorTheme.kPrimary),
                   label: 'Users'),
               BottomNavigationBarItem(
-                  icon: Icon(selectedIndex == 2
-                      ? Icons.file_copy
-                      : Icons.file_copy_outlined),
+                  icon: SvgPicture.asset(IconUtils.course),
+                  activeIcon: SvgPicture.asset(IconUtils.courseActive,
+                      color: LightColorTheme.kPrimary),
                   label: 'Course'),
               BottomNavigationBarItem(
-                  icon: Icon(selectedIndex == 3
-                      ? Icons.calendar_month
-                      : Icons.calendar_today_outlined),
+                  icon: SvgPicture.asset(IconUtils.observation),
+                  activeIcon: SvgPicture.asset(IconUtils.observationActive,
+                      color: LightColorTheme.kPrimary),
                   label: 'Observations'),
               BottomNavigationBarItem(
-                  icon: selectedIndex == 4
-                      ? const Icon(Icons.settings)
-                      : const Icon(Icons.settings_outlined),
+                  icon: SvgPicture.asset(IconUtils.settings),
+                  activeIcon: SvgPicture.asset(IconUtils.settingsActive,
+                      color: LightColorTheme.kPrimary),
                   label: 'Settings')
             ]));
   }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../resources/constants/style.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sotl/resources/constants/icons.dart';
 
 class UserCard extends StatelessWidget {
   final String name, designation, email;
-  final Function() onTap;
+  final Function()? onTap;
 
   const UserCard(
       {super.key,
@@ -15,45 +16,52 @@ class UserCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
       decoration: BoxDecoration(
-          color: Colors.transparent, borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        isThreeLine: true,
-        trailing: const Icon(Icons.more_vert),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FittedBox(
-              alignment: Alignment.centerLeft,
-              fit: BoxFit.scaleDown,
-              child: Text(
-                email,
-                style: TextStyle(
-                    color: Styles.fontLightColor,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500),
+          border: Border.all(color: Colors.grey.shade200),
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(8)),
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade200, shape: BoxShape.circle),
+                child: SvgPicture.asset(IconUtils.user2),
               ),
-            )
-          ],
-        ),
-        horizontalTitleGap: 2.0,
-        contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
-        leading: Container(
-          height: 70,
-          decoration: BoxDecoration(
-            color: primary.withOpacity(0.2),
-            shape: BoxShape.circle,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Text(
+                      email,
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Text(
+                    designation.replaceAll('_', ' '),
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              )
+            ],
           ),
-          margin: const EdgeInsets.only(right: 5),
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          child: const Icon(Icons.person_outline, size: 30, color: primary),
         ),
-        title: Text(name,
-            style: TextStyle(
-                color: Styles.fontColor,
-                fontSize: 14,
-                fontWeight: FontWeight.w500)),
       ),
     );
   }

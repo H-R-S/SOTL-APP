@@ -34,87 +34,83 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: MyAppBar(scaffoldKey, context,
             title: "Users", actionIcon: Icons.add, onTapAction: () {
           Navigator.pushNamed(context, RoutesName.addUser);
         }),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(children: [
-              MySearchBar(
-                  onTapSufix: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) => Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  MyTextField(
-                                      isReadable: true,
-                                      controller: roleController,
-                                      dropDownList: const [
-                                        "Observer",
-                                        "Faculty"
-                                      ],
-                                      hint: "Select Role"),
-                                  MyTextField(
-                                      isReadable: true,
-                                      controller: roleController,
-                                      dropDownList: const ["FEST"],
-                                      hint: "Select Department"),
-                                  const SizedBox(height: 20),
-                                  MyElevatedButton(
-                                      title: "Apply Filter", onTap: () {}),
-                                  const SizedBox(height: 40)
-                                ],
-                              ),
-                            ));
-                  },
-                  sufixIcon: Icons.filter_list_rounded,
-                  hint: "Search Users",
-                  controller: searchController,
-                  onChanged: (value) {}),
-              const SizedBox(height: 10),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: ChangeNotifierProvider<UserViewModel>(
-                      create: (context) => userViewModel,
-                      child: Consumer<UserViewModel>(
-                          builder: (context, value, child) {
-                        switch (value.usersList.status) {
-                          case Status.ERROR:
-                            debugPrint(value.usersList.message);
-                            return Container();
+        body: Column(children: [
+          MySearchBar(
+              onTapSufix: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              MyTextField(
+                                  isReadable: true,
+                                  controller: roleController,
+                                  dropDownList: const ["Observer", "Faculty"],
+                                  hint: "Select Role"),
+                              MyTextField(
+                                  isReadable: true,
+                                  controller: roleController,
+                                  dropDownList: const ["FEST"],
+                                  hint: "Select Department"),
+                              const SizedBox(height: 20),
+                              MyElevatedButton(
+                                  title: "Apply Filter", onTap: () {}),
+                              const SizedBox(height: 40)
+                            ],
+                          ),
+                        ));
+              },
+              sufixIcon: Icons.filter_list_rounded,
+              hint: "Search Users",
+              controller: searchController,
+              onChanged: (value) {}),
+          const SizedBox(height: 10),
+          Expanded(
+            child: SingleChildScrollView(
+              child: ChangeNotifierProvider<UserViewModel>(
+                  create: (context) => userViewModel,
+                  child:
+                      Consumer<UserViewModel>(builder: (context, value, child) {
+                    switch (value.usersList.status) {
+                      case Status.ERROR:
+                        debugPrint(value.usersList.message);
+                        return Container();
 
-                          case Status.COMPLETED:
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: value.usersList.data!.length,
-                                itemBuilder: (context, index) {
-                                  final user = value.usersList.data![index];
+                      case Status.COMPLETED:
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: value.usersList.data!.length,
+                            itemBuilder: (context, index) {
+                              final user = value.usersList.data![index];
 
-                                  return UserCard(
-                                      onTap: () {},
-                                      name: user.name ?? "",
-                                      designation: user.role ?? "",
-                                      email: user.email ?? "");
-                                });
+                              return UserCard(
+                                  onTap: () {},
+                                  name: user.name ?? "",
+                                  designation: user.role ?? "",
+                                  email: user.email ?? "");
+                            });
 
-                          default:
-                            return ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: 5,
-                              itemBuilder: (context, index) =>
-                                  const UserSkeletonCard(),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 30),
-                            );
-                        }
-                      })),
-                ),
-              )
-            ])));
+                      default:
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (context, index) =>
+                              const UserSkeletonCard(),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 30),
+                        );
+                    }
+                  })),
+            ),
+          )
+        ]));
   }
 }

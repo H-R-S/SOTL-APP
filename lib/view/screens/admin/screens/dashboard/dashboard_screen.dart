@@ -50,6 +50,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: MyAppBar(scaffoldKey, context,
             isActionButtonCircle: false,
             actionIcon: Icons.notifications_none_outlined),

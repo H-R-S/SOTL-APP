@@ -65,10 +65,12 @@ class UserViewModel with ChangeNotifier {
   Future<void> getUserById() async {
     setUsersData(ApiResponse.loading());
 
-    _userRepo.getUserByIdApi(_userId).then((value) {
-      setUsersData(ApiResponse.completed(value));
-    }).onError((error, stackTrace) {
-      setUsersData(ApiResponse.error(error.toString()));
+    getUser().then((value) {
+      _userRepo.getUserByIdApi(value.id!).then((value) {
+        setUsersData(ApiResponse.completed(value));
+      }).onError((error, stackTrace) {
+        setUsersData(ApiResponse.error(error.toString()));
+      });
     });
   }
 

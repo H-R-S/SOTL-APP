@@ -38,52 +38,54 @@ class _SettingsContainerState extends State<SettingsContainer> {
 
     bool isDark = themeProvider.currentTheme == ThemeData.dark();
 
-    return SizedBox(
-        height: 60,
-        child: InkWell(
-            onTap: widget.onTap,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(children: [
-                    SizedBox(
-                        width: 25,
-                        child: Stack(children: [
-                          Center(
-                              child: Icon(
-                            widget.icon,
-                            color: widget.iconColor ?? Styles.fontColor,
-                          ))
-                        ])),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          widget.title == null ? "" : widget.title!,
-                          style:
-                              TextStyle(fontSize: 16, color: Styles.fontColor),
-                        ))
-                  ]),
-                  if (widget.onTap != null)
-                    widget.isSwitch
-                        ? Switch(
-                            inactiveTrackColor: Colors.grey,
-                            activeTrackColor: primary,
-                            value: isDark,
-                            onChanged: (value) {
-                              setState(() {
-                                isDark = value;
-                              });
-                            })
-                        : widget.trailingIcon != true
-                            ? const SizedBox(
-                                width: 0.0,
-                                height: 0.0,
-                              )
-                            : Icon(
-                                Icons.arrow_forward_ios,
-                                size: 20,
-                                color: Styles.fontColor,
-                              )
-                ])));
+    return InkWell(
+        onTap: widget.onTap,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(children: [
+              SizedBox(
+                  width: 25,
+                  child: Stack(children: [
+                    Center(
+                        child: Icon(
+                      widget.icon,
+                      color: widget.iconColor ?? Styles.fontColor,
+                    ))
+                  ])),
+              Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Text(
+                    widget.title == null ? "" : widget.title!,
+                    style: TextStyle(fontSize: 16, color: Styles.fontColor),
+                  ))
+            ]),
+            if (widget.onTap != null)
+              widget.isSwitch
+                  ? Switch(
+                      inactiveTrackColor: Colors.grey,
+                      activeTrackColor: primary,
+                      value: isDark,
+                      onChanged: (value) {
+                        setState(() {
+                          isDark = value;
+                        });
+                      })
+                  : widget.trailingIcon != true
+                      ? const SizedBox(
+                          width: 0.0,
+                          height: 0.0,
+                        )
+                      : Icon(
+                          Icons.arrow_forward_ios,
+                          size: 20,
+                          color: Styles.fontColor,
+                        )
+          ]),
+        ));
   }
 }

@@ -8,7 +8,6 @@ import 'package:sotl/view_models/observation/observation_view_model.dart';
 import '../../../../../../data/enums/status.dart';
 import '../../../../../../view_models/user/user_view_model.dart';
 import '../../../../../widgets/all_users_card/all_users_card.dart';
-import '../../add_user/add_user_screen.dart';
 
 class UserRecords extends StatefulWidget {
   const UserRecords({super.key});
@@ -32,6 +31,7 @@ class _UserRecordsState extends State<UserRecords> {
 
   @override
   void initState() {
+    observationViewModel.getAllObservations();
     userViewModel.getAllUsers();
     userViewModel.getUser().then((value) {
       saveUserId = value.id!;
@@ -64,162 +64,45 @@ class _UserRecordsState extends State<UserRecords> {
                 case Status.COMPLETED:
                   final users = value.usersList.data!;
 
-                  return Column(children: [
-                    if (isAdmin)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AllUsersCard(
-                            title: "Campus Directors",
-                            value: users
-                                .where((user) => user.role == "Campus_Director")
-                                .length,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AddUserScreen(
-                                          title: "Campus Directors")));
-                            },
-                          ),
-                          AllUsersCard(
-                            title: "Deans",
-                            value: users
-                                .where((user) => user.role == "Dean")
-                                .length,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AddUserScreen(title: "Deans")));
-                            },
-                          ),
-                        ],
-                      )
-                    else if (isAdmin || isCampusDirector || isDean)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AllUsersCard(
-                            title: "Head of Departments",
-                            value: users
-                                .where(
-                                    (user) => user.role == "Head_of_Department")
-                                .length,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AddUserScreen(
-                                          title: "Head of Departments")));
-                            },
-                          ),
-                          AllUsersCard(
-                            title: "Observers",
-                            value: users
-                                .where((user) => user.role == "Observer")
-                                .length,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AddUserScreen(
-                                          title: "Observer")));
-                            },
-                          ),
-                        ],
-                      )
-                    else if (isAdmin || isCampusDirector || isDean || isHOD)
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: 150,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                          crossAxisCount: 2,
-                        ),
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          final title = index == 0 ? "Observers" : "Faculty";
-                          final value = index == 0
-                              ? users
-                                  .where((user) => user.role == "Observer")
-                                  .length
-                              : users
-                                  .where((user) => user.role == "Faculty")
-                                  .length;
-
-                          return AllUsersCard(
-                            title: title,
-                            value: value,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const AddUserScreen(
-                                          title: "Observer")));
-                            },
-                          );
-                        },
-                      )
-                    else if (isFaculty)
-                      RecordsForFaculty(
-                          courseViewModel: courseViewModel,
-                          saveUserId: saveUserId,
-                          observationViewModel: observationViewModel)
-                    //  AllUsersCard(
-                    //             title: "Assigned Courses",
-                    //             value: value,
-                    //             onTap: () {
-                    //               Navigator.push(
-                    //                   context,
-                    //                   MaterialPageRoute(
-                    //                       builder: (context) => const AddUserScreen(
-                    //                           title: "Observer")));
-                    //             },
-                    //           );,
-                    // ))
-
-                    // Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       AllUsersCard(
-                    //         title: "Observers",
-                    //         value: users
-                    //             .where((user) => user.role == "Observer")
-                    //             .length,
-                    //         onTap: () {
-                    //           Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(
-                    //                   builder: (context) =>
-                    //                       const AddUserScreen(
-                    //                           title: "Observer")));
-                    //         },
-                    //       ),
-                    //       AllUsersCard(
-                    //           title: "Faculty",
-                    //           value: users
-                    //               .where((user) => user.role == "Faculty")
-                    //               .length,
-                    //           onTap: () {
-                    //             Navigator.push(
-                    //                 context,
-                    //                 MaterialPageRoute(
-                    //                     builder: (context) =>
-                    //                         const AddUserScreen(
-                    //                             title: "Faculty")));
-                    //           })
-                    //     ])
-                  ]);
+                  return GridView.count(
+                    shrinkWrap: true,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    children: [
+                      AllUsersCard(
+                        title: "Observer(s)",
+                        value: users
+                            .where((user) => user.role == "Observer")
+                            .length,
+                        onTap: () {},
+                      ),
+                      AllUsersCard(
+                        title: "Faculty(s)",
+                        value: users
+                            .where((user) => user.role == "Faculty")
+                            .length,
+                        onTap: () {},
+                      ),
+                      AllUsersCard(
+                        title: "Observation(s)",
+                        value: observationViewModel.observationsList.data
+                                ?.where((obs) => obs.hodId == value.userId)
+                                .length ??
+                            0,
+                        onTap: () {},
+                      ),
+                    ],
+                  );
 
                 default:
-                  return const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                  return GridView.count(
+                    shrinkWrap: true,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    children: const [
+                      AllUsersSkeletonCard(),
                       AllUsersSkeletonCard(),
                       AllUsersSkeletonCard(),
                     ],

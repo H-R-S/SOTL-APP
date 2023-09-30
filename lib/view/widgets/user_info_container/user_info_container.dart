@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:sotl/resources/constants/icons.dart';
 import '../../../resources/constants/style.dart';
 
 class UserInfoContainer extends StatelessWidget {
@@ -17,6 +19,7 @@ class UserInfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20), color: Colors.grey.shade200),
@@ -26,8 +29,7 @@ class UserInfoContainer extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             decoration: const BoxDecoration(
                 shape: BoxShape.circle, color: Colors.white),
-            child:
-                const Icon(Icons.person_outline, size: 50, color: Colors.grey),
+            child: SvgPicture.asset(IconUtils.user2),
           ),
           const SizedBox(width: 20),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
