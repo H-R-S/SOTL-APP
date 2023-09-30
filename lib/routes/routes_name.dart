@@ -9,7 +9,15 @@ class RoutesName {
 
   static const String changePassword = "change_password_screen";
 
+  static const String changeUserPassword = "change_user_password_screen";
+
   static const String home = "home_screen";
+
+  static const String course = "course_screen";
+
+  static const String addCourse = "add_course_screen";
+
+  static const String assignedCourse = "assigned_course_screen";
 
   static const String dashboard = "dashboard_screen";
 
@@ -36,4 +44,6 @@ class RoutesName {
   static const String rubrics = "rubrics_screen";
 
   static const String observer = "observer_screen";
+
+  static const String notification = "notification_screen";
 }

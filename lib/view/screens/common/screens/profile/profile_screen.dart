@@ -34,9 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-            appBar: MyAppBar(
-              scaffoldKey,
-              context,
+            appBar: const MyAppBar(
               title: "Profile",
               isBack: true,
             ),

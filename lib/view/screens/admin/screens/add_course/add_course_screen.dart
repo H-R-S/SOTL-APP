@@ -25,8 +25,10 @@ class AddCourseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:
-            MyAppBar(scaffoldKey, context, title: "Add Course", isBack: true),
+        appBar: const MyAppBar(title: "Create Course", isBack: true),
+        persistentFooterButtons: [
+          MyElevatedButton(title: "Create Course", onTap: () {}),
+        ],
         body: SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -90,8 +92,6 @@ class AddCourseScreen extends StatelessWidget {
                           controller: slotLocationController,
                           hint: "E-201"),
                       const SizedBox(height: 20),
-                      MyElevatedButton(title: "Add Course", onTap: () {}),
-                      const SizedBox(height: 40)
                     ]))));
   }
 }

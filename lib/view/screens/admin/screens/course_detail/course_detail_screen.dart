@@ -12,14 +12,13 @@ class CourseDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(scaffoldKey, context, title: course.name),
-      body: SingleChildScrollView(
-        child: Padding(padding: const EdgeInsets.all(20), child: Column(
-          children: [
-            Container()
-          ],
-        )),
-      )
-    );
+        appBar: MyAppBar(title: course.name),
+        body: SingleChildScrollView(
+          child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [Container()],
+              )),
+        ));
   }
 }

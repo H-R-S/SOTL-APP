@@ -83,6 +83,10 @@ class ObservationModel {
     }
     return data;
   }
+
+  static List<ObservationModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => ObservationModel.fromJson(json)).toList();
+  }
 }
 
 class Faculty {

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sotl/view/screens/admin/screens/add_course/add_course_screen.dart';
 import 'package:sotl/view/screens/admin/screens/add_user/add_user_screen.dart';
+import 'package:sotl/view/screens/admin/screens/assigned_course/assigned_course_screen.dart';
+import 'package:sotl/view/screens/admin/screens/courses/courses_screen.dart';
+import 'package:sotl/view/screens/common/screens/change_user_password/change_user_password_screen.dart';
+import 'package:sotl/view/screens/common/screens/notification/notification_screen.dart';
 import 'package:sotl/view/screens/observer/observer.dart';
 import '../view/screens/admin/admin.dart';
 import '../view/screens/admin/screens/initiate_observation/initiate_observation_screen.dart';
@@ -37,6 +42,9 @@ class Routes {
       case RoutesName.changePassword:
         return getPageRoute(ChangePasswordScreen());
 
+      case RoutesName.changeUserPassword:
+        return getPageRoute(const ChangeUserPasswordScreen());
+
       case RoutesName.dashboard:
         return getPageRoute(const DashboardScreen());
 
@@ -48,6 +56,15 @@ class Routes {
 
       case RoutesName.observations:
         return getPageRoute(const ObservationScreen());
+
+      case RoutesName.course:
+        return getPageRoute(const CoursesScreen());
+
+      case RoutesName.addCourse:
+        return getPageRoute(AddCourseScreen());
+
+      case RoutesName.assignedCourse:
+        return getPageRoute(const AssignedCourseScreen());
 
       case RoutesName.settings:
         return getPageRoute(const SettingsScreen());
@@ -75,6 +92,9 @@ class Routes {
 
       case RoutesName.observer:
         return getPageRoute(const Observer());
+
+      case RoutesName.notification:
+        return getPageRoute(const NotificationScreen());
 
       default:
         return getPageRoute(LoginScreen());

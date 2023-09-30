@@ -34,7 +34,7 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
     });
 
     return Scaffold(
-        appBar: MyAppBar(scaffoldKey, context, title: "Courses"),
+        appBar: const MyAppBar(title: "Courses"),
         body: Padding(
             padding: const EdgeInsets.all(20),
             child: ChangeNotifierProvider<CourseViewModel>(
@@ -66,12 +66,9 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
                             final course = filteredCourses[index];
 
                             return CourseCard(
-                                onTap: () {},
-                                name: course.name ?? "",
-                                timings:
-                                    "${course.slots![0].location} (${course.slots![0].time})",
-                                instructorName:
-                                    course.slots![0].faculty!.name ?? "");
+                              onTap: () {},
+                              course: course,
+                            );
                           });
 
                     default:

@@ -56,13 +56,13 @@ class MySearchBar extends StatelessWidget {
               hintText: hint,
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(12)),
+                  borderRadius: BorderRadius.circular(30)),
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(12)),
+                  borderRadius: BorderRadius.circular(30)),
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(12)))),
+                  borderRadius: BorderRadius.circular(30)))),
     );
   }
 }

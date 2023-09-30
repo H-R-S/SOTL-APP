@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/routes/routes_name.dart';
 import '../../../../../resources/constants/style.dart';
 import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
@@ -51,8 +52,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: MyAppBar(scaffoldKey, context,
+        appBar: MyAppBar(
+            title: "SOTL SYSTEM",
             isActionButtonCircle: false,
+            onTapAction: () {
+              Navigator.pushNamed(context, RoutesName.notification);
+            },
             actionIcon: Icons.notifications_none_outlined),
         body: SingleChildScrollView(
             child: Padding(

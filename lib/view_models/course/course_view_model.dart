@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../data/responses/api_responses.dart';
 import '../../models/course/course_model.dart';
@@ -13,6 +15,15 @@ class CourseViewModel with ChangeNotifier {
 
   setLoading(bool value) {
     _loading = value;
+    notifyListeners();
+  }
+
+  bool _faculty = false;
+
+  bool get faculty => _faculty;
+
+  setFaculty(bool value) {
+    _faculty = value;
     notifyListeners();
   }
 
@@ -39,7 +50,7 @@ class CourseViewModel with ChangeNotifier {
 
     final body = {"slots": slotId};
 
-    _courseRepo.assignedCourseApi(facultyId, body).then((value) {
+    _courseRepo.assignedCourseApi(facultyId, jsonEncode(body)).then((value) {
       setLoading(false);
       MySnackBar(context, "Course Assigned");
     }).onError((error, stackTrace) {

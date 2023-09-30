@@ -65,8 +65,6 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
               return Scaffold(
                 resizeToAvoidBottomInset: true,
                 appBar: MyAppBar(
-                  scaffoldKey,
-                  context,
                   title: "Detail Observation",
                   isBack: true,
                   bottom: PreferredSize(

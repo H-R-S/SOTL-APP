@@ -35,11 +35,16 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: MyAppBar(scaffoldKey, context,
-            title: "Users", actionIcon: Icons.add, onTapAction: () {
-          Navigator.pushNamed(context, RoutesName.addUser);
-        }),
+        appBar: MyAppBar(
+            title: "Users",
+            actionIcon: Icons.add,
+            onTapAction: () {
+              Navigator.pushNamed(context, RoutesName.addUser);
+            }),
         body: Column(children: [
+          const SizedBox(
+            height: 16,
+          ),
           MySearchBar(
               onTapSufix: () {
                 showModalBottomSheet(
@@ -71,7 +76,7 @@ class _UsersScreenState extends State<UsersScreen> {
               hint: "Search Users",
               controller: searchController,
               onChanged: (value) {}),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
           Expanded(
             child: SingleChildScrollView(
               child: ChangeNotifierProvider<UserViewModel>(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sotl/theme/theme_provider.dart';
+import 'package:sotl/resources/constants/icons.dart';
 import '../../../../../resources/constants/style.dart';
 import '../../../../../routes/routes_name.dart';
 import '../../../../../view_models/auth/auth_view_model.dart';
@@ -40,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final authViewModel = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
-        appBar: MyAppBar(scaffoldKey, context, title: "Settings"),
+        appBar: MyAppBar(title: "Settings"),
         body: ListView(physics: const BouncingScrollPhysics(), children: [
           UserInfoContainer(
               onTap: () {
@@ -51,36 +51,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
               role: roleController.text),
           headingText("General"),
           SettingsContainer(
-              icon: Icons.person_outline,
+              icon: IconUtils.user2,
               title: "Profile",
               onTap: () {
                 Navigator.pushNamed(context, RoutesName.profile);
               }),
           SettingsContainer(
-              icon: Icons.lock_outline, title: "Change Password", onTap: () {}),
+              icon: IconUtils.password,
+              title: "Change Password",
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.changeUserPassword);
+              }),
           SettingsContainer(
               title: "Notifications",
-              icon: Icons.notifications_none_outlined,
-              onTap: () {}),
-          Consumer<ThemeProvider>(builder: (context, value, child) {
-            final isDark = value.currentTheme == ThemeData.dark();
+              icon: IconUtils.notification,
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              }),
+          // Consumer<ThemeProvider>(builder: (context, value, child) {
+          //   final isDark = value.currentTheme == ThemeData.dark();
 
-            return SettingsContainer(
-              isSwitch: true,
-              title: "${isDark ? "Light" : "Dark"} Mode",
-              icon:
-                  isDark ? Icons.dark_mode_outlined : Icons.dark_mode_outlined,
-              // onTap: value.toggleTheme
-            );
-          }),
-          const SizedBox(height: 10),
+          //   return SettingsContainer(
+          //     isSwitch: true,
+          //     title: "${isDark ? "Light" : "Dark"} Mode",
+          //     icon: isDark ? IconUtils.user2 : IconUtils.user2,
+          // onTap: value.toggleTheme
+          //   );
+          // }),
+          // const SizedBox(height: 10),
           headingText("Support"),
           SettingsContainer(
-              title: "Rate & Review", icon: Icons.star_border, onTap: () {}),
+              title: "Rate & Review", icon: IconUtils.user2, onTap: () {}),
+          SettingsContainer(title: "Help", icon: IconUtils.user2, onTap: () {}),
           SettingsContainer(
-              title: "Help", icon: Icons.help_outline_outlined, onTap: () {}),
-          SettingsContainer(
-              icon: Icons.logout,
+              icon: IconUtils.logout,
               title: "Logout",
               trailingIcon: false,
               onTap: () {
@@ -94,7 +98,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget headingText(String text) {
     return Padding(
-        padding: const EdgeInsets.only(top: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5)
+            .copyWith(top: 20),
         child: Row(children: [
           Text(text,
               textScaleFactor: 1.1,

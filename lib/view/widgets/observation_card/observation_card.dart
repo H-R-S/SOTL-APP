@@ -83,6 +83,7 @@ class ObservationCard extends StatelessWidget {
               horizontalTitleGap: 0.0,
               minLeadingWidth: 0,
               child: ExpansionTile(
+                  iconColor: statusColor,
                   tilePadding: const EdgeInsets.symmetric(
                       vertical: 5.0, horizontal: 10.0),
                   childrenPadding: const EdgeInsets.symmetric(

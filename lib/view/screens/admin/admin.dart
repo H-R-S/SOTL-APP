@@ -46,46 +46,52 @@ class _AdminState extends State<Admin> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: screens[selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            onTap: (value) {
-              setState(() {
-                selectedIndex = value;
-              });
-            },
-            iconSize: 30,
-            selectedItemColor: isDark ? Colors.white : primary,
-            unselectedItemColor: Colors.grey,
-            currentIndex: selectedIndex,
-            items: [
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(IconUtils.home),
-                  activeIcon: SvgPicture.asset(IconUtils.homeActice,
-                      color: LightColorTheme.kPrimary),
-                  label: 'Admin'),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(IconUtils.user),
-                  activeIcon: SvgPicture.asset(IconUtils.userActive,
-                      color: LightColorTheme.kPrimary),
-                  label: 'Users'),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(IconUtils.course),
-                  activeIcon: SvgPicture.asset(IconUtils.courseActive,
-                      color: LightColorTheme.kPrimary),
-                  label: 'Course'),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(IconUtils.observation),
-                  activeIcon: SvgPicture.asset(IconUtils.observationActive,
-                      color: LightColorTheme.kPrimary),
-                  label: 'Observations'),
-              BottomNavigationBarItem(
-                  icon: SvgPicture.asset(IconUtils.settings),
-                  activeIcon: SvgPicture.asset(IconUtils.settingsActive,
-                      color: LightColorTheme.kPrimary),
-                  label: 'Settings')
-            ]));
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(color: LightColorTheme.kBorderLightColor))),
+          child: BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: Colors.white,
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              onTap: (value) {
+                setState(() {
+                  selectedIndex = value;
+                });
+              },
+              iconSize: 30,
+              selectedItemColor: isDark ? Colors.white : primary,
+              unselectedItemColor: Colors.grey,
+              currentIndex: selectedIndex,
+              items: [
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(IconUtils.home),
+                    activeIcon: SvgPicture.asset(IconUtils.homeActive,
+                        color: LightColorTheme.kPrimary),
+                    label: 'Admin'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(IconUtils.user),
+                    activeIcon: SvgPicture.asset(IconUtils.userActive,
+                        color: LightColorTheme.kPrimary),
+                    label: 'Users'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(IconUtils.course),
+                    activeIcon: SvgPicture.asset(IconUtils.courseActive,
+                        color: LightColorTheme.kPrimary),
+                    label: 'Course'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(IconUtils.observation),
+                    activeIcon: SvgPicture.asset(IconUtils.observationActive,
+                        color: LightColorTheme.kPrimary),
+                    label: 'Observations'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(IconUtils.settings),
+                    activeIcon: SvgPicture.asset(IconUtils.settingsActive,
+                        color: LightColorTheme.kPrimary),
+                    label: 'Settings')
+              ]),
+        ));
   }
 }

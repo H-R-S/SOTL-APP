@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../data/enums/status.dart';
-import '../../../../../resources/constants/style.dart';
 import '../../../../../view_models/course/course_view_model.dart';
 import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
@@ -37,11 +36,22 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: light,
-        appBar: MyAppBar(scaffoldKey, context,
-            isBack: true, title: "Assigned Course"),
+        appBar: const MyAppBar(isBack: true, title: "Assigned Course"),
+        persistentFooterButtons: [
+          Consumer<CourseViewModel>(builder: (context, value, child) {
+            return MyElevatedButton(
+                isLoading: value.loading,
+                title: "Assigned Course",
+                onTap: () {
+                  value.assignedCourse(
+                      context,
+                      int.parse(facultyController.text),
+                      [int.parse(slotController.text)]);
+                });
+          }),
+        ],
         body: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             child: Column(children: [
               ChangeNotifierProvider<UserViewModel>(
                   create: (context) => userViewModel,
@@ -100,7 +110,7 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
                                 onChanged: (value) {
                                   slotController.value = slotController.value
                                       .copyWith(text: value!.id.toString());
-                                })
+                            })
                         ]);
 
                       default:
@@ -108,8 +118,6 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
                     }
                   })),
               const SizedBox(height: 20),
-              MyElevatedButton(title: "Assigned Course", onTap: () {}),
-              const SizedBox(height: 40),
             ])));
   }
 }

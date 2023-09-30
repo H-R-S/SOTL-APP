@@ -29,9 +29,9 @@ class UserViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int _userId = 0;
+  int? _userId;
 
-  int get userId => _userId;
+  int? get userId => _userId;
 
   setUserId(int value) {
     _userId = value;

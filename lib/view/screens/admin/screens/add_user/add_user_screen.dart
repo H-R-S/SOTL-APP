@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../data/enums/campus.dart';
 import '../../../../../data/enums/departments.dart';
-import '../../../../../data/enums/roles.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../models/course/course_model.dart';
 import '../../../../../models/user/user_model.dart';
@@ -57,8 +56,39 @@ class _AddUserScreenState extends State<AddUserScreen> {
     return GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-            appBar: MyAppBar(scaffoldKey, context,
-                title: "Create User", isBack: true),
+            appBar: const MyAppBar(title: "Create User", isBack: true),
+            persistentFooterButtons: [
+              MyElevatedButton(
+                  isLoading: userViewModel.loading,
+                  title: "Add Faculty",
+                  onTap: () {
+                    final isValidate = formKey.currentState!.validate();
+
+                    if (isValidate) {
+                      userViewModel
+                          .createUser(
+                              context,
+                              UserModel(
+                                  name: nameController.text.trim(),
+                                  email: emailController.text.trim(),
+                                  campus: campusController.text,
+                                  department: Department(),
+                                  role: roleController.text),
+                              password: passwordController.text.trim(),
+                              courseId: courseIdList)
+                          .then((value) {
+                        nameController.clear();
+                        emailController.clear();
+                        campusController.clear();
+                        departmentController.clear();
+                        roleController.clear();
+                        courseIdController.clear();
+                        passwordController.clear();
+                        confirmPasswordController.clear();
+                      });
+                    }
+                  }),
+            ],
             body: SingleChildScrollView(
                 child: Form(
                     key: formKey,
@@ -127,24 +157,24 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                         header: "Role",
                                         isRequired: true,
                                         isReadable: true,
-                                        onChanged: (value) {
-                                          if (value == "Faculty") {
-                                            setState(() {
-                                              isFaculty = true;
-                                            });
+                                        onChanged: (newValue) {
+                                          if (newValue == "Faculty") {
+                                            value.setFaculty(true);
+                                          } else {
+                                            value.setFaculty(false);
                                           }
                                         },
-                                        dropDownList: Roles.values
-                                            .map((i) =>
-                                                i.toString().split('.').last)
-                                            .toList(),
+                                        dropDownList: const [
+                                          "Faculty",
+                                          "Observer"
+                                        ],
                                         validator: (value) =>
                                             Validator.validateForm(
                                                 value, "Role"),
                                         controller: roleController,
                                         hint: "Role"),
                                     const SizedBox(height: 10),
-                                    if (roleController.text == "Faculty")
+                                    if (value.faculty) ...[
                                       CourseDropDown(
                                           header: "Courses",
                                           isRequired: true,
@@ -157,15 +187,16 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                                     slot.facultyId == null));
                                             debugPrint(value.slots.toString());
                                           }),
-                                    const SizedBox(height: 15),
-                                    SlotDropDown(
-                                        header: "Slots",
-                                        isRequired: true,
-                                        items: slots,
-                                        hint: "Select Slots",
-                                        onChanged: (value) {
-                                          courseIdList.add(value!.id!);
-                                        }),
+                                      const SizedBox(height: 15),
+                                      SlotDropDown(
+                                          header: "Slots",
+                                          isRequired: true,
+                                          items: slots,
+                                          hint: "Select Slots",
+                                          onChanged: (value) {
+                                            courseIdList.add(value!.id!);
+                                          })
+                                    ],
                                     MyTextField(
                                         header: "Password",
                                         isRequired: true,
@@ -187,47 +218,6 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                         isVisible: true,
                                         hint: "Confirm Password"),
                                     const SizedBox(height: 40),
-                                    MyElevatedButton(
-                                        isLoading: userViewModel.loading,
-                                        title: "Add Faculty",
-                                        onTap: () {
-                                          final isValidate =
-                                              formKey.currentState!.validate();
-
-                                          if (isValidate) {
-                                            userViewModel
-                                                .createUser(
-                                                    context,
-                                                    UserModel(
-                                                        name: nameController
-                                                            .text
-                                                            .trim(),
-                                                        email: emailController
-                                                            .text
-                                                            .trim(),
-                                                        campus: campusController
-                                                            .text,
-                                                        department:
-                                                            Department(),
-                                                        role: roleController
-                                                            .text),
-                                                    password: passwordController
-                                                        .text
-                                                        .trim(),
-                                                    courseId: courseIdList)
-                                                .then((value) {
-                                              nameController.clear();
-                                              emailController.clear();
-                                              campusController.clear();
-                                              departmentController.clear();
-                                              roleController.clear();
-                                              courseIdController.clear();
-                                              passwordController.clear();
-                                              confirmPasswordController.clear();
-                                            });
-                                          }
-                                        }),
-                                    const SizedBox(height: 40)
                                   ]);
 
                                 default:

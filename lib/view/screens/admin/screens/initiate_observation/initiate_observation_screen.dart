@@ -42,8 +42,7 @@ class _InitiateObservationScreenState extends State<InitiateObservationScreen> {
     final observationViewModel = Provider.of<ObservationViewModel>(context);
 
     return Scaffold(
-        appBar: MyAppBar(scaffoldKey, context,
-            isBack: true, title: "Initiate Observation"),
+        appBar: MyAppBar(isBack: true, title: "Initiate Observation"),
         body: SingleChildScrollView(
             child: Padding(
                 padding: const EdgeInsets.all(20),

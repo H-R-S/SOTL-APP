@@ -65,6 +65,7 @@ class _UserRecordsState extends State<UserRecords> {
                   final users = value.usersList.data!;
 
                   return GridView.count(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,

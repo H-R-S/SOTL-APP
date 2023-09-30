@@ -12,7 +12,7 @@ class ObserverHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(scaffoldKey, context, title: "Dashboard"),
+      appBar: MyAppBar(title: "Dashboard"),
       body: const SingleChildScrollView(
           child: Padding(
         padding: EdgeInsets.all(20),

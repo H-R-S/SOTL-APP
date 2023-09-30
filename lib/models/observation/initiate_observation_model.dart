@@ -7,12 +7,9 @@ class InitiateObservationModel {
   InitiateObservationModel({this.observations, this.existed});
 
   InitiateObservationModel.fromJson(Map<String, dynamic> json) {
-    if (json['observations'] != null) {
-      observations = <ObservationModel>[];
-      json['observations'].forEach((v) {
-        observations!.add(ObservationModel.fromJson(v));
-      });
-    }
+    json['observations'] != null
+        ? ObservationModel.fromJsonList(json['observations'])
+        : null;
     if (json['existed'] != null) {
       existed = <Existed>[];
       json['existed'].forEach((v) {

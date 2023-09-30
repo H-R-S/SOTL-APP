@@ -31,7 +31,7 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
     final userViiewModel = Provider.of<UserViewModel>(context);
 
     return Scaffold(
-        appBar: MyAppBar(scaffoldKey, context, title: "Observations"),
+        appBar: MyAppBar(title: "Observations"),
         body: Padding(
             padding: const EdgeInsets.all(20),
             child: ChangeNotifierProvider<ObservationViewModel>(

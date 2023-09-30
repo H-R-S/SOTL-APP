@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../resources/constants/style.dart';
-import '../../../theme/theme_provider.dart';
 
-// ignore: must_be_immutable
-class SettingsContainer extends StatefulWidget {
+class SettingsContainer extends StatelessWidget {
   final bool isHeader;
   final String? title;
-  final IconData icon;
+  final String icon;
   final Function()? onTap;
   final bool isDrawer;
   final bool isSwitch;
   final Color? iconColor;
-  bool isDark;
-  bool trailingIcon;
+  final bool isDark;
+  final bool trailingIcon;
 
-  SettingsContainer(
+  const SettingsContainer(
       {super.key,
       this.isHeader = false,
       this.title,
@@ -28,63 +26,60 @@ class SettingsContainer extends StatefulWidget {
       this.trailingIcon = true});
 
   @override
-  State<SettingsContainer> createState() => _SettingsContainerState();
-}
-
-class _SettingsContainerState extends State<SettingsContainer> {
-  @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    // final themeProvider = Provider.of<ThemeProvider>(context);
 
-    bool isDark = themeProvider.currentTheme == ThemeData.dark();
+    // bool isDark = themeProvider.currentTheme == ThemeData.dark();
 
     return InkWell(
-        onTap: widget.onTap,
+        onTap: onTap,
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 16),
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey.shade200))),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(children: [
-              SizedBox(
-                  width: 25,
-                  child: Stack(children: [
-                    Center(
-                        child: Icon(
-                      widget.icon,
-                      color: widget.iconColor ?? Styles.fontColor,
-                    ))
-                  ])),
+              Center(
+                  child: SvgPicture.asset(
+                icon,
+                height: 20,
+                width: 20,
+                color: iconColor ?? Colors.black,
+              )),
               Padding(
-                  padding: const EdgeInsets.only(left: 30),
+                  padding: const EdgeInsets.only(left: 16),
                   child: Text(
-                    widget.title == null ? "" : widget.title!,
-                    style: TextStyle(fontSize: 16, color: Styles.fontColor),
+                    title == null ? "" : title!,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Styles.fontColor),
                   ))
             ]),
-            if (widget.onTap != null)
-              widget.isSwitch
-                  ? Switch(
-                      inactiveTrackColor: Colors.grey,
-                      activeTrackColor: primary,
-                      value: isDark,
-                      onChanged: (value) {
-                        setState(() {
-                          isDark = value;
-                        });
-                      })
-                  : widget.trailingIcon != true
-                      ? const SizedBox(
-                          width: 0.0,
-                          height: 0.0,
-                        )
-                      : Icon(
-                          Icons.arrow_forward_ios,
-                          size: 20,
-                          color: Styles.fontColor,
-                        )
+            if (onTap != null)
+              // widget.isSwitch
+              //     ? Switch(
+              //         inactiveTrackColor: Colors.grey,
+              //         activeTrackColor: primary,
+              //         value: isDark,
+              //         onChanged: (value) {
+              //           setState(() {
+              //             isDark = value;
+              //           });
+              //         })
+              //     :
+              trailingIcon != true
+                  ? const SizedBox(
+                      width: 0.0,
+                      height: 0.0,
+                    )
+                  : Icon(
+                      Icons.arrow_forward_ios,
+                      size: 20,
+                      color: Styles.fontColor,
+                    )
           ]),
         ));
   }

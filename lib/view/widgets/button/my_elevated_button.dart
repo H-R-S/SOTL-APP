@@ -30,8 +30,8 @@ class MyElevatedButton extends StatelessWidget {
             child: Center(
               child: isLoading
                   ? SizedBox(
-                      height: 25,
-                      width: 25,
+                      height: 20,
+                      width: 20,
                       child: Center(
                           child: CircularProgressIndicator(
                               color: contentColor ?? Colors.white)))
