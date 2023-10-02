@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/resources/constants/icons.dart';
 import '../../../resources/constants/style.dart';
 import '../../../theme/theme_provider.dart';
 
@@ -46,7 +47,9 @@ class AllUsersCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 SvgPicture.asset(
-                  "assets/images/icons/person.svg",
+                  IconUtils.user2,
+                  height: 50,
+                  width: 50,
                   color: value != '45' ? primary : Colors.white,
                 ),
                 const SizedBox(height: 10),

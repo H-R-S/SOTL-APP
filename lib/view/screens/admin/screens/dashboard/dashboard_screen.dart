@@ -86,7 +86,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         TextStyle(color: grey, fontWeight: FontWeight.bold, fontSize: 14);
     String text;
     if (value == 0) {
-      text = '1';
+      text = '0';
     } else if (value == 5) {
       text = '5';
     } else if (value == 10) {
@@ -99,7 +99,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    final titles = <String>['Jan', 'Feb', 'Mar', 'April', 'May', 'June'];
+    final titles = <String>['Spring', 'Summer', 'Fall'];
 
     final Widget text = Text(titles[value.toInt()],
         style: const TextStyle(
@@ -143,30 +143,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 maxY: 10,
                 barGroups: [
                   BarChartGroupData(x: 1, barRods: [
-                    BarChartRodData(color: primary, toY: 5),
-                    BarChartRodData(color: active, toY: 9),
-                    BarChartRodData(color: secondary, toY: 7)
+                    BarChartRodData(color: primary, toY: 0),
+                    BarChartRodData(color: active, toY: 4),
+                    BarChartRodData(color: secondary, toY: 0)
                   ]),
-                  BarChartGroupData(x: 2, barRods: [
-                    BarChartRodData(color: primary, toY: 3),
-                    BarChartRodData(color: active, toY: 1),
-                    BarChartRodData(color: secondary, toY: 4)
-                  ]),
-                  BarChartGroupData(x: 3, barRods: [
-                    BarChartRodData(color: primary, toY: 6),
-                    BarChartRodData(color: active, toY: 9),
-                    BarChartRodData(color: secondary, toY: 7)
-                  ]),
-                  BarChartGroupData(x: 4, barRods: [
-                    BarChartRodData(color: primary, toY: 5),
-                    BarChartRodData(color: active, toY: 3),
-                    BarChartRodData(color: secondary, toY: 8)
-                  ]),
-                  BarChartGroupData(x: 5, barRods: [
-                    BarChartRodData(color: primary, toY: 5),
-                    BarChartRodData(color: active, toY: 6),
-                    BarChartRodData(color: secondary, toY: 7)
-                  ])
                 ],
                 titlesData: FlTitlesData(
                     bottomTitles: AxisTitles(

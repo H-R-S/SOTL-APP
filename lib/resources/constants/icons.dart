@@ -13,6 +13,7 @@ class IconUtils {
 
   // Arrow
   static const String arrowBack = "assets/icons/arrow_back.svg";
+  static const String arrowForward = "assets/icons/arrow_forward.svg";
 
   //
   static const String user2 = "assets/icons/user2.svg";
@@ -22,4 +23,10 @@ class IconUtils {
   static const String add = "assets/icons/add.svg";
   static const String logout = "assets/icons/logout.svg";
   static const String notification = "assets/icons/notification.svg";
+  static const String download = "assets/icons/download.svg";
+  static const String upload = "assets/icons/upload.svg";
+  static const String fileQuestion = "assets/icons/file_question.svg";
+  static const String messageQuestion = "assets/icons/message_question.svg";
+  static const String share = "assets/icons/share.svg";
+  static const String star = "assets/icons/star.svg";
 }

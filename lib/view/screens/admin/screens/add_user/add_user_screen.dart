@@ -60,7 +60,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
             persistentFooterButtons: [
               MyElevatedButton(
                   isLoading: userViewModel.loading,
-                  title: "Add Faculty",
+                  title: "Add User",
                   onTap: () {
                     final isValidate = formKey.currentState!.validate();
 
@@ -158,11 +158,15 @@ class _AddUserScreenState extends State<AddUserScreen> {
                                         isRequired: true,
                                         isReadable: true,
                                         onChanged: (newValue) {
-                                          if (newValue == "Faculty") {
-                                            value.setFaculty(true);
-                                          } else {
-                                            value.setFaculty(false);
-                                          }
+                                          print(newValue);
+                                          setState(() {
+                                            if (newValue == "Faculty") {
+                                              value.setFaculty(true);
+                                            } else {
+                                              value.setFaculty(false);
+                                            }
+                                          });
+                                          print("isFaculty:${value.faculty}");
                                         },
                                         dropDownList: const [
                                           "Faculty",

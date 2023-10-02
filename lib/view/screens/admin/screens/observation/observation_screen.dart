@@ -94,7 +94,7 @@ class _ObservationScreenState extends State<ObservationScreen> {
                             itemBuilder: (context, index) =>
                                 const ObservationSkeletonCard(),
                             separatorBuilder: (context, index) =>
-                                const SizedBox(height: 30),
+                                const SizedBox(height: 16),
                           );
                       }
                     })),

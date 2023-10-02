@@ -68,7 +68,7 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
                   title: "Detail Observation",
                   isBack: true,
                   bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(60),
+                    preferredSize: const Size.fromHeight(100),
                     child: SizedBox(
                       width: width * 0.90,
                       child: Column(

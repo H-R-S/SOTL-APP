@@ -81,8 +81,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           // const SizedBox(height: 10),
           headingText("Support"),
           SettingsContainer(
-              title: "Rate & Review", icon: IconUtils.user2, onTap: () {}),
-          SettingsContainer(title: "Help", icon: IconUtils.user2, onTap: () {}),
+              title: "Rate & Review", icon: IconUtils.star, onTap: () {}),
+          SettingsContainer(
+              title: "Help", icon: IconUtils.messageQuestion, onTap: () {}),
           SettingsContainer(
               icon: IconUtils.logout,
               title: "Logout",

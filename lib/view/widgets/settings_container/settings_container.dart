@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sotl/resources/constants/icons.dart';
 import '../../../resources/constants/style.dart';
 
 class SettingsContainer extends StatelessWidget {
@@ -75,10 +76,10 @@ class SettingsContainer extends StatelessWidget {
                       width: 0.0,
                       height: 0.0,
                     )
-                  : Icon(
-                      Icons.arrow_forward_ios,
-                      size: 20,
-                      color: Styles.fontColor,
+                  : SvgPicture.asset(
+                      IconUtils.arrowForward,
+                      height: 20,
+                      width: 20,
                     )
           ]),
         ));

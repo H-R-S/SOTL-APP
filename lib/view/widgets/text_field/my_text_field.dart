@@ -14,12 +14,14 @@ class MyTextField extends StatefulWidget {
   List<String>? dropDownList;
   bool isVisible;
   final bool isReadable;
-  final Function()? onTap;
+  final Function()? onTap, onEditingComplete;
   final String? Function(String?)? validator;
 
   MyTextField(
-      {super.key, required this.controller,
+      {super.key,
+      required this.controller,
       required this.hint,
+      this.onEditingComplete,
       this.dropDownList,
       this.onChanged,
       this.contentPadding,
@@ -45,8 +47,7 @@ class _MyTextFieldState extends State<MyTextField> {
           if (widget.header != null)
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Text(widget.header!,
-                  style:
-                      TextStyle(fontSize: 16, color: Styles.fontColor)),
+                  style: TextStyle(fontSize: 16, color: Styles.fontColor)),
               const SizedBox(width: 3),
               if (widget.isRequired)
                 const Text("*",
@@ -54,6 +55,7 @@ class _MyTextFieldState extends State<MyTextField> {
             ]),
           const SizedBox(height: 5),
           TextFormField(
+              onEditingComplete: widget.onEditingComplete,
               onChanged: widget.onChanged,
               maxLines: widget.minLine,
               readOnly: widget.isReadable,
@@ -91,7 +93,7 @@ class _MyTextFieldState extends State<MyTextField> {
                                       value: value, child: Text(value));
                                 }).toList();
                               })
-                      : null,
+                          : null,
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide(color: Colors.grey)),
