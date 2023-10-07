@@ -11,9 +11,9 @@ class ObserverHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: MyAppBar(title: "Dashboard"),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Padding(
         padding: EdgeInsets.all(20),
         child: Column(

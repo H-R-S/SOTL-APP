@@ -18,8 +18,10 @@ class CourseRepository {
 
   Future<void> assignedCourseApi(int userId, dynamic data) async {
     try {
-      dynamic response = await apiServices.getPutApiResponse(
-          "${AppUrl.getAllCoursesEndPoint}/user/$userId", data);
+      dynamic response = await apiServices.getPutApiResponseWithHeader(
+          "${AppUrl.getAllCoursesEndPoint}/user/$userId",
+          {'Content-Type': 'application/json'},
+          data);
 
       return response;
     } catch (e) {

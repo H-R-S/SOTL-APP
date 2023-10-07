@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sotl/routes/routes_name.dart';
-import 'package:sotl/view/widgets/button/my_elevated_button.dart';
-import 'package:sotl/view/widgets/user_card/user_skeleton_card.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
+import '../../../../widgets/button/my_elevated_button.dart';
 import '../../../../widgets/search_bar/my_search_bar.dart';
 import '../../../../widgets/text_field/my_text_field.dart';
 import '../../../../widgets/user_card/user_card.dart';
+import '../../../../widgets/user_card/user_skeleton_card.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({super.key});
@@ -35,12 +34,13 @@ class _UsersScreenState extends State<UsersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: MyAppBar(
-            title: "Users",
-            actionIcon: Icons.add,
-            onTapAction: () {
-              Navigator.pushNamed(context, RoutesName.addUser);
-            }),
+        appBar: const MyAppBar(
+          title: "Users",
+          // actionIcon: Icons.add,
+          // onTapAction: () {
+          //   Navigator.pushNamed(context, RoutesName.addUser);
+          // }
+        ),
         body: Column(children: [
           const SizedBox(
             height: 16,

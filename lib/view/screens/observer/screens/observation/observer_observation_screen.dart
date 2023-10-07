@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/observation/observation_view_model.dart';
+import '../../../../../view_models/user/user_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/observation_card/observation_card.dart';
 import '../../../../widgets/observation_card/observation_skeleton_card.dart';
 import '../../../../widgets/search_bar/my_search_bar.dart';
-import 'widgets/observation_filter.dart';
 
-class ObservationScreen extends StatefulWidget {
-  const ObservationScreen({super.key});
+class ObserverObservationScreen extends StatefulWidget {
+  const ObserverObservationScreen({super.key});
 
   @override
-  State<ObservationScreen> createState() => _ObservationScreenState();
+  State<ObserverObservationScreen> createState() =>
+      _ObserverObservationScreenState();
 }
 
-class _ObservationScreenState extends State<ObservationScreen> {
+class _ObserverObservationScreenState extends State<ObserverObservationScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   final TextEditingController searchController = TextEditingController();
@@ -33,6 +34,8 @@ class _ObservationScreenState extends State<ObservationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userViewModel = Provider.of<UserViewModel>(context);
+
     return Scaffold(
         appBar: const MyAppBar(
           title: "Observations",
@@ -46,15 +49,15 @@ class _ObservationScreenState extends State<ObservationScreen> {
             height: 16,
           ),
           MySearchBar(
-              onTapSufix: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) => ObservationFilter(
-                        course: courseController,
-                        faculty: facultyController,
-                        observer: observerController));
-              },
-              sufixIcon: Icons.filter_list_rounded,
+              // onTapSufix: () {
+              //   showModalBottomSheet(
+              //       context: context,
+              //       builder: (context) => ObservationFilter(
+              //           course: courseController,
+              //           faculty: facultyController,
+              //           observer: observerController));
+              // },
+              // sufixIcon: Icons.filter_list_rounded,
               hint: "Search",
               controller: searchController,
               onChanged: (value) {}),
@@ -78,11 +81,16 @@ class _ObservationScreenState extends State<ObservationScreen> {
                           return ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: value.observationsList.data!.length,
+                              itemCount: value.observationsList.data!
+                                  .where((obs) =>
+                                      obs.observerId == userViewModel.userId)
+                                  .toList()
+                                  .length,
                               itemBuilder: (context, index) {
-                                final obs = value.observationsList.data![index];
-                                debugPrint(value.observationsList.data!.length
-                                    .toString());
+                                final obs = value.observationsList.data!
+                                    .where((obs) =>
+                                        obs.observerId == userViewModel.userId)
+                                    .toList()[index];
 
                                 return ObservationCard(obs: obs);
                               });

@@ -46,7 +46,11 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
                   value.assignedCourse(
                       context,
                       int.parse(facultyController.text),
-                      [int.parse(slotController.text)]);
+                      [int.parse(slotController.text)]).then((value) {
+                    facultyController.clear();
+                    courseController.clear();
+                    slotController.clear();
+                  });
                 });
           }),
         ],
@@ -110,7 +114,7 @@ class _AssignedCourseScreenState extends State<AssignedCourseScreen> {
                                 onChanged: (value) {
                                   slotController.value = slotController.value
                                       .copyWith(text: value!.id.toString());
-                            })
+                                })
                         ]);
 
                       default:

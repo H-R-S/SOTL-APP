@@ -4,7 +4,7 @@ import '../../../resources/constants/style.dart';
 
 class CourseCard extends StatelessWidget {
   final CourseModel course;
-  final Function() onTap;
+  final Function()? onTap;
 
   const CourseCard({super.key, required this.onTap, required this.course});
 
@@ -38,7 +38,7 @@ class CourseCard extends StatelessWidget {
                         "${course.slots!.first.day} ${course.slots!.first.time}",
                         style: Styles.h3),
                     const SizedBox(height: 5),
-                    Text("${course.slots!.first.faculty!.name}",
+                    Text(course.slots?.first.faculty?.name ?? "N/A",
                         style: Styles.subHeading.copyWith(
                             fontWeight: FontWeight.normal, color: Colors.grey))
                   ]),

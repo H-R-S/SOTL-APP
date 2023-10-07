@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sotl/view/widgets/course/course_bottom_sheet.dart';
-import 'package:sotl/view/widgets/course_card/course_skeleton_card.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/course/course_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
 import '../../../../widgets/course_card/course_card.dart';
+import '../../../../widgets/course_card/course_skeleton_card.dart';
 import '../../../../widgets/search_bar/my_search_bar.dart';
 
 class CoursesScreen extends StatefulWidget {
@@ -30,10 +29,11 @@ class _CoursesScreenState extends State<CoursesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(
-            title: "Courses",
-            actionIcon: Icons.add,
-            onTapAction: () => showCourseBottomSheet(context)),
+        appBar: const MyAppBar(
+          title: "Courses",
+          // actionIcon: Icons.add,
+          // onTapAction: () => showCourseBottomSheet(context)
+        ),
         body: Column(children: [
           const SizedBox(
             height: 16,
