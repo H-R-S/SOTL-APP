@@ -35,52 +35,47 @@ class _FacultyCourseScreenState extends State<FacultyCourseScreen> {
 
     return Scaffold(
         appBar: const MyAppBar(title: "Courses"),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ChangeNotifierProvider<CourseViewModel>(
-                create: (context) => courseViewModel,
-                child:
-                    Consumer<CourseViewModel>(builder: (context, value, child) {
-                  switch (value.courseList.status) {
-                    case Status.ERROR:
-                      debugPrint(value.courseList.message);
-                      return Container();
+        body: ChangeNotifierProvider<CourseViewModel>(
+            create: (context) => courseViewModel,
+            child: Consumer<CourseViewModel>(builder: (context, value, child) {
+              switch (value.courseList.status) {
+                case Status.ERROR:
+                  debugPrint(value.courseList.message);
+                  return Container();
 
-                    case Status.COMPLETED:
-                      final filteredCourses =
-                          value.courseList.data!.where((course) {
-                        return course.slots!.any(
-                          (slot) => slot.facultyId == userViewModel.userId,
+                case Status.COMPLETED:
+                  final filteredCourses =
+                      value.courseList.data!.where((course) {
+                    return course.slots!.any(
+                      (slot) => slot.facultyId == userViewModel.userId,
+                    );
+                  }).toList();
+
+                  debugPrint(userViewModel.userId.toString());
+                  debugPrint("Filtered  ${filteredCourses.length.toString()}");
+
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: filteredCourses.length,
+                      itemBuilder: (context, index) {
+                        final course = filteredCourses[index];
+
+                        return CourseCard(
+                          onTap: () {},
+                          course: course,
                         );
-                      }).toList();
+                      });
 
-                      debugPrint(userViewModel.userId.toString());
-                      debugPrint(
-                          "Filtered  ${filteredCourses.length.toString()}");
-
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: filteredCourses.length,
-                          itemBuilder: (context, index) {
-                            final course = filteredCourses[index];
-
-                            return CourseCard(
-                              onTap: () {},
-                              course: course,
-                            );
-                          });
-
-                    default:
-                      return ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) =>
-                            const CourseSkeletonCard(),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 30),
-                      );
-                  }
-                }))));
+                default:
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    itemBuilder: (context, index) => const CourseSkeletonCard(),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 30),
+                  );
+              }
+            })));
   }
 }

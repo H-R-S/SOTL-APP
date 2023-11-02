@@ -64,20 +64,21 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
             case Status.COMPLETED:
               return Scaffold(
                 resizeToAvoidBottomInset: true,
-                appBar: MyAppBar(
+                appBar: const MyAppBar(
                   title: "Detail Observation",
                   isBack: true,
-                  bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(100),
-                    child: SizedBox(
+                ),
+                body: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    SizedBox(
                       width: width * 0.90,
                       child: Column(
                         children: [
                           SizedBox(
                             height: 20,
-                            child: ListView(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text("SCHEDULING",
                                     style: TextStyle(
@@ -85,25 +86,10 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
                                         color: value.getCurrentIndex() == 0
                                             ? primary
                                             : Colors.black)),
-                                const SizedBox(width: 10),
                                 Text("OBSERVATION",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: value.getCurrentIndex() == 1
-                                            ? primary
-                                            : Colors.black)),
-                                const SizedBox(width: 10),
-                                Text("MEETING",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: value.getCurrentIndex() == 2
-                                            ? primary
-                                            : Colors.black)),
-                                const SizedBox(width: 10),
-                                Text("UNINFORMED",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: value.getCurrentIndex() == 3
                                             ? primary
                                             : Colors.black)),
                               ],
@@ -120,23 +106,25 @@ class ObservationDetailScreenState extends State<ObservationDetailScreen> {
                         ],
                       ),
                     ),
-                  ),
+                    Expanded(
+                      child: PageView(
+                          onPageChanged: (index) {
+                            value.setCurrentIndex(index);
+                          },
+                          controller: value.controller,
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            InformedObservationScheduling(
+                              observationId: widget.observationId,
+                              observationModel: observationModel,
+                            ),
+                            const RubricScreen(),
+                            Container(),
+                            Container(),
+                          ]),
+                    ),
+                  ],
                 ),
-                body: PageView(
-                    onPageChanged: (index) {
-                      value.setCurrentIndex(index);
-                    },
-                    controller: value.controller,
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      InformedObservationScheduling(
-                        observationId: widget.observationId,
-                        observationModel: observationModel,
-                      ),
-                      const RubricScreen(),
-                      Container(),
-                      Container(),
-                    ]),
               );
             default:
               return const Scaffold(

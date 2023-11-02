@@ -23,6 +23,15 @@ class ObservationViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  int _steps = 3;
+
+  int get steps => _steps;
+
+  setSteps(int value) {
+    _steps = value;
+    notifyListeners();
+  }
+
   Future<void> initiateObservation(
       BuildContext context, String facultyId, observerId, semester) async {
     setLoading(true);
@@ -281,27 +290,9 @@ class ObservationViewModel with ChangeNotifier {
 
   getCurrentIndex() => _currentIndex;
 
-  // getIndex(observationId) {
-  //   debugPrint("OBS ID: $observationId");
-
-  //   getAllObservationById(observationId).then((value) {
-  //     debugPrint("Status: ${observationDetail.data!.obsRequest!.status}");
-
-  //     notifyListeners();
-  //   }).onError((error, stackTrace) {
-  //     debugPrint("err: ${error.toString()}");
-  //     setPageController(0);
-  //     // setCurrentIndex(0);
-  //   });
-  // }
-
   double valuefunction() {
     if (getCurrentIndex() == 0) {
-      return 0.25;
-    } else if (getCurrentIndex() == 1) {
       return 0.5;
-    } else if (getCurrentIndex() == 2) {
-      return 0.75;
     } else {
       return 1;
     }

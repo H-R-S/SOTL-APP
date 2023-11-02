@@ -13,9 +13,9 @@ import 'package:sotl/view_models/user/user_view_model.dart';
 
 class InformedObservationScheduling extends StatefulWidget {
   final int observationId;
-  ObservationViewModel observationModel;
+  final ObservationViewModel observationModel;
 
-  InformedObservationScheduling(
+  const InformedObservationScheduling(
       {super.key, required this.observationId, required this.observationModel});
 
   @override
@@ -27,12 +27,6 @@ class _InformedObservationSchedulingState
     extends State<InformedObservationScheduling> {
   final TextEditingController courseIdController = TextEditingController();
 
-  // // Show Dialog after Delat
-  // void _showAlertDialogDelayed(ObservationViewModel observationModel) {
-  //   Future.delayed(const Duration(milliseconds: 1000), () {
-  //     _showAlertDialog(context, observationModel);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

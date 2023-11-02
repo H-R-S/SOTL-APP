@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sotl/view/screens/admin/screens/dashboard/widgets/user_records.dart';
 import 'package:sotl/view/screens/admin/widgets/welcome_container.dart';
 import 'package:sotl/view/widgets/all_users_card/all_users_card.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
@@ -12,17 +11,17 @@ class FacultyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: "Dashboard"),
-      body: const SingleChildScrollView(
+      appBar: const MyAppBar(title: "Dashboard"),
+      body: SingleChildScrollView(
           child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            SotlWelcomeContainer(),
-            SizedBox(height: 20),
-            UserRecords(),
+            const SotlWelcomeContainer(),
+            const SizedBox(height: 20),
+            records(),
             // records(),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             // Consumer<ObservationViewModel>(builder: (context, value, child) {
             //   return AllUsersCard(
             //       title: "Observations", value: 1, onTap: () {});

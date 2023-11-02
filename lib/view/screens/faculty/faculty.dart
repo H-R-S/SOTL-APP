@@ -1,4 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sotl/resources/constants/icons.dart';
+import 'package:sotl/theme/theme.dart';
 import '../../../resources/constants/style.dart';
 import '../common/screens/settings/settings_screen.dart';
 import 'screens/course/course_screen.dart';
@@ -46,17 +51,27 @@ class _FacultyState extends State<Faculty> {
                 currentIndex = value;
               });
             },
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.dashboard_outlined), label: "Dashboard"),
+                  icon: SvgPicture.asset(IconUtils.home),
+                  activeIcon: SvgPicture.asset(IconUtils.homeActive,
+                      color: LightColorTheme.kPrimary),
+                  label: 'Dashboard'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.library_books_outlined), label: "Courses"),
+                  icon: SvgPicture.asset(IconUtils.course),
+                  activeIcon: SvgPicture.asset(IconUtils.courseActive,
+                      color: LightColorTheme.kPrimary),
+                  label: 'Course'),
               BottomNavigationBarItem(
-                  activeIcon: Icon(Icons.calendar_month),
-                  icon: Icon(Icons.calendar_today),
-                  label: "Observations"),
+                  icon: SvgPicture.asset(IconUtils.observation),
+                  activeIcon: SvgPicture.asset(IconUtils.observationActive,
+                      color: LightColorTheme.kPrimary),
+                  label: 'Observations'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined), label: "Settings")
+                  icon: SvgPicture.asset(IconUtils.settings),
+                  activeIcon: SvgPicture.asset(IconUtils.settingsActive,
+                      color: LightColorTheme.kPrimary),
+                  label: 'Settings')
             ]));
   }
 }

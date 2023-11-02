@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:sotl/view/screens/faculty/screens/observation_detail/observation_detail_screen.dart';
+import 'package:sotl/view/screens/observer/screens/observation_detail/observation_detail_screen.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../models/observation/observation_model.dart';
 import '../../../resources/constants/style.dart';

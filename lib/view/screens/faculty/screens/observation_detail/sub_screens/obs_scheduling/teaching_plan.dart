@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
 import 'package:sotl/resources/constants/style.dart';
-import 'package:sotl/view_models/observation/observation_view_model.dart';
 
 class TeachingPlanWidget extends StatefulWidget {
   final TeachingPlan teachingPlan;
@@ -10,7 +9,7 @@ class TeachingPlanWidget extends StatefulWidget {
   final int facultyId;
   final int observationId;
 
-  TeachingPlanWidget(
+  const TeachingPlanWidget(
       {super.key,
       required this.teachingPlan,
       required this.submitPlan,

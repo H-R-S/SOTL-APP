@@ -8,6 +8,7 @@ import 'package:sotl/theme/theme_provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int? index;
+  final double height;
   final bool isDrawer, isProfile, isBack, isCenter, isActionButtonCircle;
   final Function()? onTapAction, onTapProfile, onTapBackButton;
   final Widget? bottom;
@@ -22,6 +23,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.isProfile = false,
       this.isBack = false,
       this.isCenter = true,
+      this.height = 56,
       this.isActionButtonCircle = true,
       this.index,
       this.onTapAction,
@@ -81,7 +83,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
         bottom: bottom != null
             ? PreferredSize(
-                preferredSize: const Size.fromHeight(60), child: bottom!)
+                preferredSize: Size.fromHeight(height), child: bottom!)
             : PreferredSize(
                 preferredSize: preferredSize,
                 child: Divider(
@@ -99,5 +101,5 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height);
 }
