@@ -31,7 +31,7 @@ class SelectCourseBottomSheet extends StatelessWidget {
               onChanged: (value) {
                 courseId.value =
                     courseId.value.copyWith(text: value!.courseId.toString());
-                print("course: ${value.courseId}");
+                debugPrint("course: ${value.courseId}");
               }),
           const SizedBox(height: 40),
           MyElevatedButton(
@@ -46,7 +46,9 @@ class SelectCourseBottomSheet extends StatelessWidget {
                         observationId: observationId,
                         facultyId: facultyId,
                         courseId: int.parse(courseId.text))
-                    .then((value) {});
+                    .then((value) {
+                  observationViewModel.getAllObservationById(observationId);
+                });
               }),
           const SizedBox(height: 40)
         ],

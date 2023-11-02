@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/view/screens/faculty/screens/observation_detail/faculty_observation_detail_screen.dart';
 import 'package:sotl/view/widgets/observation_card/observation_skeleton_card.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../../../data/enums/status.dart';
@@ -59,7 +60,17 @@ class _FacultyObservationScreenState extends State<FacultyObservationScreen> {
                                       obs.facultyId == userViiewModel.userId)
                                   .toList()[index];
 
-                              return ObservationCard(obs: obs);
+                              return ObservationCard(
+                                obs: obs,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FacultyObservationDetailScreen(
+                                                  observationId: obs.id!)));
+                                },
+                              );
                             });
                       } else {
                         return ListView.builder(

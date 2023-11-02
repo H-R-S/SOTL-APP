@@ -48,27 +48,27 @@ class _MyAppState extends State<MyApp> {
 
               return MaterialApp(
                   theme: theme.currentTheme.copyWith(
-                      bottomSheetTheme: const BottomSheetThemeData(
-                        showDragHandle: true,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
+                    bottomSheetTheme: const BottomSheetThemeData(
+                      showDragHandle: true,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
                         ),
-                        dragHandleSize: Size(76, 8),
-                        dragHandleColor: Colors.white,
                       ),
-                      pageTransitionsTheme: const PageTransitionsTheme(
-                        builders: {
-                          TargetPlatform.android:
-                              CupertinoPageTransitionsBuilder(),
-                          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-                        },
-                      ),
-                      // useMaterial3: true
-                      ),
+                      dragHandleSize: Size(76, 8),
+                      dragHandleColor: Colors.white,
+                    ),
+                    pageTransitionsTheme: const PageTransitionsTheme(
+                      builders: {
+                        TargetPlatform.android:
+                            CupertinoPageTransitionsBuilder(),
+                        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                      },
+                    ),
+                    // useMaterial3: true
+                  ),
                   debugShowCheckedModeBanner: false,
                   title: 'SOTL-APP',
                   initialRoute: RoutesName.splash,

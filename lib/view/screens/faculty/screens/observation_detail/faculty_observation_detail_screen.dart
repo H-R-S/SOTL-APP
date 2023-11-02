@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
-import 'package:sotl/view/screens/faculty/screens/observation_detail/widgets/select_course_bottom_sheet.dart';
+import 'package:sotl/view/screens/faculty/screens/select_slot/select_slot_screen.dart';
 import 'package:sotl/view/screens/common/screens/teaching_plan/teaching_plan_screen.dart';
 import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
 import 'package:sotl/view/widgets/observation_card/observation_detail_card.dart';
-import 'package:sotl/view_models/course/course_view_model.dart';
 import 'package:sotl/view_models/observation/observation_view_model.dart';
 
-class ObserverObservationDetailScreen extends StatefulWidget {
+class FacultyObservationDetailScreen extends StatefulWidget {
   final int observationId;
 
-  const ObserverObservationDetailScreen(
+  const FacultyObservationDetailScreen(
       {super.key, required this.observationId});
 
   @override
-  State<ObserverObservationDetailScreen> createState() =>
-      _ObserverObservationDetailScreenState();
+  State<FacultyObservationDetailScreen> createState() =>
+      _FacultyObservationDetailScreenState();
 }
 
-class _ObserverObservationDetailScreenState
-    extends State<ObserverObservationDetailScreen> {
+class _FacultyObservationDetailScreenState
+    extends State<FacultyObservationDetailScreen> {
   ObservationViewModel observationModel = ObservationViewModel();
-  CourseViewModel courseViewModel = CourseViewModel();
 
   @override
   void initState() {
-    courseViewModel.getAllCourses();
     observationModel.getAllObservationById(widget.observationId);
     super.initState();
   }
@@ -72,7 +69,6 @@ class _ObserverObservationDetailScreenState
                           isNotStarted: obs.course == null,
                           isButton: obs.course == null,
                           obs: obs,
-                          title: "INFORMED OBSERVATION SCHEDULING",
                           onTapPlan: obs.obsRequest!.teachingPlan!.editedBy !=
                                   null
                               ? () {
@@ -98,22 +94,42 @@ class _ObserverObservationDetailScreenState
                                                       .setshowTeachingPlan())));
                                 }
                               : null,
+                          title: "INFORMED OBSERVATION SCHEDULING",
                           onTap: () {
-                            if (obs.course == null) {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => SelectCourseBottomSheet(
-                                      courses: obs.faculty!.courseSlots!,
-                                      observationId: obs.id!,
-                                      facultyId: obs.facultyId!));
+                            if (obs.course != null &&
+                                obs.obsRequest?.teachingPlan != null &&
+                                obs.obsRequest!.teachingPlan!.editedBy ==
+                                    null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TeachingPlanScreen(
+                                          teachingPlan:
+                                              obs.obsRequest!.teachingPlan!,
+                                          submitPlan:
+                                              (stepAns, templateId, editedBy) {
+                                            value.submitTeachingPlan(context,
+                                                obsId: obs.id!,
+                                                steps: stepAns,
+                                                templateId: templateId,
+                                                facultyId: editedBy);
+                                          },
+                                          facultyId: obs.facultyId!,
+                                          observationId: obs.id!,
+                                          hideTeachinPlan: null)));
                             }
-                            if (!obs.obsRequest!.observerAccepted!) {}
+                            if (!obs.obsRequest!.facultyAccepted!) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SelectSlotScreen(obs: obs)));
+                            }
                           },
                         ),
                         ObservationDetailCard(
                             obs: value.observationDetail.data!,
                             isNotStarted: true,
-                            isDisabled: true,
                             title: "INFORMED OBSERVATION"),
                       ],
                     ),

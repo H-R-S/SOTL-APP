@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:sotl/view/screens/observer/screens/observation_detail/observation_detail_screen.dart';
 import 'package:sotl/view_models/user/user_view_model.dart';
 import '../../../models/observation/observation_model.dart';
 import '../../../resources/constants/style.dart';
@@ -10,9 +9,13 @@ import '../../../resources/constants/style.dart';
 class ObservationCard extends StatelessWidget {
   Color statusColor;
   final ObservationModel obs;
+  final Function()? onTap;
 
   ObservationCard(
-      {super.key, required this.obs, this.statusColor = Colors.white});
+      {super.key,
+      required this.obs,
+      this.statusColor = Colors.white,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +92,7 @@ class ObservationCard extends StatelessWidget {
                   childrenPadding: const EdgeInsets.symmetric(
                       vertical: 5.0, horizontal: 10.0),
                   title: GestureDetector(
-                    onTap: () {
-                      debugPrint("Value of obs.id: ${obs.id}");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ObservationDetailScreen(
-                                  observationId: obs.id!)));
-                    },
+                    onTap: onTap,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,

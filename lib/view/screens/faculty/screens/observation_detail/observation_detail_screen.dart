@@ -18,13 +18,7 @@ class ObservationDetailScreen extends StatefulWidget {
 
 class ObservationDetailScreenState extends State<ObservationDetailScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-  // @override
-  // void dispose() {
-  //   observationModel.controller.dispose();
-  //   super.dispose();
-  // }
-
+  
   final style =
       const TextStyle(fontWeight: FontWeight.bold, color: Colors.black);
 

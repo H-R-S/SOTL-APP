@@ -176,8 +176,8 @@ class ObservationViewModel with ChangeNotifier {
 
     _observationRepo.getSubmitTeachingPlanApi(jsonEncode(data)).then((value) {
       debugPrint("Working Properly Reponse: $value");
-      notifyListeners();
-      // Navigator.pop(context);
+      // notifyListeners();
+      Navigator.pop(context);
     }).onError((error, stackTrace) {
       setLoading(false);
       MySnackBar(context, error.toString());
@@ -198,6 +198,7 @@ class ObservationViewModel with ChangeNotifier {
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
       setLoading(false);
       MySnackBar(context, "Slot Updated");
+      Navigator.pop(context);
       notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
