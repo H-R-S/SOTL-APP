@@ -45,7 +45,7 @@ class _ObserverRecordsState extends State<ObserverRecords> {
                 crossAxisCount: 2,
                 children: [
                   AllUsersCard(
-                      title: "Observations",
+                      title: "Observation(s)",
                       value: user.observations?.length ?? 0,
                       onTap: () {}),
                 ],
@@ -58,7 +58,6 @@ class _ObserverRecordsState extends State<ObserverRecords> {
                 mainAxisSpacing: 10,
                 crossAxisCount: 2,
                 children: const [
-                  AllUsersSkeletonCard(),
                   AllUsersSkeletonCard(),
                 ],
               );

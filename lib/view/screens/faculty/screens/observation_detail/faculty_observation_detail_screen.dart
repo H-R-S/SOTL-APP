@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
 import 'package:sotl/view/screens/faculty/screens/select_slot/faculty_select_slot_screen.dart';
 import 'package:sotl/view/screens/common/screens/teaching_plan/teaching_plan_screen.dart';
+import 'package:sotl/view/screens/observer/screens/rubrics/observer_rubric_screen.dart';
 import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
 import 'package:sotl/view/widgets/observation_card/observation_detail_card.dart';
@@ -128,9 +129,23 @@ class _FacultyObservationDetailScreenState
                           },
                         ),
                         ObservationDetailCard(
-                            obs: value.observationDetail.data!,
-                            isNotStarted: true,
-                            title: "INFORMED OBSERVATION"),
+                          obs: obs,
+                          isScheduling: false,
+                          isNotStarted:
+                              obs.meetings!.informedObservation!.status ==
+                                  "Pending",
+                          isDisabled:
+                              obs.meetings!.informedObservation!.status ==
+                                  "Pending",
+                          title: "INFORMED OBSERVATION",
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ObserverRubricScreen(obs: obs)));
+                          },
+                        ),
                       ],
                     ),
                   ),

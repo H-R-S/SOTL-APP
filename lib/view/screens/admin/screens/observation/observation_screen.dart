@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sotl/view/screens/observer/screens/observation_detail/observation_detail_screen.dart';
 import '../../../../../data/enums/status.dart';
 import '../../../../../view_models/observation/observation_view_model.dart';
 import '../../../../widgets/app_bar/my_app_bar.dart';
@@ -84,7 +85,17 @@ class _ObservationScreenState extends State<ObservationScreen> {
                                 debugPrint(value.observationsList.data!.length
                                     .toString());
 
-                                return ObservationCard(obs: obs);
+                                return ObservationCard(
+                                  obs: obs,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ObserverObservationDetailScreen(
+                                                    observationId: obs.id!)));
+                                  },
+                                );
                               });
 
                         default:

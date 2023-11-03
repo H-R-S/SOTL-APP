@@ -40,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final authViewModel = Provider.of<AuthViewModel>(context);
 
     return Scaffold(
-        appBar: MyAppBar(title: "Settings"),
+        appBar: const MyAppBar(title: "Settings"),
         body: ListView(physics: const BouncingScrollPhysics(), children: [
           UserInfoContainer(
               onTap: () {
