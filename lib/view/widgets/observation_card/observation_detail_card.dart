@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sotl/models/observation/detail_observation_model.dart';
+import 'package:sotl/services/formatter/date_formatter.dart';
 import 'package:sotl/theme/theme.dart';
 import 'package:sotl/view/widgets/button/my_elevated_button.dart';
 
 class ObservationDetailCard extends StatelessWidget {
   final DetailObservationModel obs;
   final String title;
-  final bool isNotStarted, isDisabled, isButton;
+  final bool isNotStarted, isDisabled, isButton, isScheduling;
   final Function()? onTap, onTapPlan;
 
   const ObservationDetailCard(
@@ -15,6 +16,7 @@ class ObservationDetailCard extends StatelessWidget {
       required this.title,
       this.onTapPlan,
       this.onTap,
+      this.isScheduling = true,
       this.isButton = false,
       this.isDisabled = false,
       this.isNotStarted = false});
@@ -71,34 +73,60 @@ class ObservationDetailCard extends StatelessWidget {
               ),
             ]
           ] else ...[
-            Column(
-              children: [
-                customWidget(
-                    title: "Slot By Observer",
-                    value: obs.obsRequest?.timeSlotByObserver != null &&
-                            obs.obsRequest!.timeSlotByObserver!.isNotEmpty
-                        ? "${obs.obsRequest?.timeSlotByObserver?[0].day} ${obs.obsRequest?.timeSlotByObserver?[0].time}"
-                        : "---"),
-                customWidget(
-                    title: "Slot By Faculty",
-                    value: obs.obsRequest?.timeSlotsByFaculty != null &&
-                            obs.obsRequest!.timeSlotsByFaculty!.isNotEmpty
-                        ? "${obs.obsRequest?.timeSlotsByFaculty?[0].day} ${obs.obsRequest?.timeSlotsByFaculty?[0].time}"
-                        : "---"),
-                customWidget(
-                    title: "Teaching Plan", isView: true, onTap: onTapPlan),
-                customWidget(
-                    title: "Status",
-                    value: obs.obsRequest?.status ?? "Incompleted"),
-              ],
-            )
+            if (isScheduling) ...[
+              Column(
+                children: [
+                  customWidget(context,
+                      title: "Slot By Observer",
+                      value: obs.obsRequest?.timeSlotByObserver != null &&
+                              obs.obsRequest!.timeSlotByObserver!.isNotEmpty
+                          ? "${obs.obsRequest?.timeSlotByObserver?[0].day} ${obs.obsRequest?.timeSlotByObserver?[0].time}"
+                          : "---"),
+                  customWidget(context,
+                      title: "Slot By Faculty",
+                      value: obs.obsRequest?.timeSlotsByFaculty != null &&
+                              obs.obsRequest!.timeSlotsByFaculty!.isNotEmpty
+                          ? "${obs.obsRequest?.timeSlotsByFaculty?[0].day} ${obs.obsRequest?.timeSlotsByFaculty?[0].time}"
+                          : "---"),
+                  customWidget(context,
+                      title: "Teaching Plan", isView: true, onTap: onTapPlan),
+                  customWidget(context,
+                      title: "Status",
+                      value: obs.obsRequest?.status ?? "Incompleted",
+                      textColor: obs.obsRequest!.status! == "Completed"
+                          ? Colors.green
+                          : obs.obsRequest!.status! == "Ongoing"
+                              ? Colors.blue
+                              : null),
+                ],
+              )
+            ] else ...[
+              customWidget(context,
+                  title: "Rubrics Score (avg. observer and faculty)",
+                  value:
+                      "${obs.meetings!.informedObservation!.facultyScore!.toDouble() + obs.meetings!.informedObservation!.observerScore!.toDouble()} / 80.0"),
+              customWidget(context,
+                  title: "Schedule on",
+                  value: DateFormatter.dateFormatter(
+                      obs.obsRequest!.scheduledOn!)),
+              customWidget(context,
+                  title: "Status",
+                  value: obs.meetings!.informedObservation!.status ??
+                      "Incompleted",
+                  textColor: obs.meetings!.informedObservation!.status ==
+                          "Completed"
+                      ? Colors.green
+                      : obs.meetings!.informedObservation!.status == "Ongoing"
+                          ? Colors.blue
+                          : null),
+            ]
           ]
         ],
       ),
     );
   }
 
-  Widget customWidget(
+  Widget customWidget(context,
       {required String title,
       String? value,
       bool isView = false,
@@ -109,11 +137,14 @@ class ObservationDetailCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title,
-              style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600)),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width * 0.4,
+            child: Text(title,
+                style: TextStyle(
+                    color: Colors.grey.shade700,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600)),
+          ),
           if (isView) ...[
             InkWell(
               onTap: onTap,
@@ -124,8 +155,10 @@ class ObservationDetailCard extends StatelessWidget {
             )
           ] else ...[
             Text(value!,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                style: TextStyle(
+                    color: textColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600)),
           ]
         ],
       ),

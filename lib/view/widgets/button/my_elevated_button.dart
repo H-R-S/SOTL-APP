@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import '../../../resources/constants/style.dart';
+import 'package:sotl/theme/theme.dart';
 
 class MyElevatedButton extends StatelessWidget {
   final String title;
   final Function()? onTap;
   final double? customWidth;
-  final Color? buttonColor;
-  final Color? contentColor;
+  final Color? buttonColor, contentColor, borderColor;
   final bool isLoading;
 
   const MyElevatedButton(
       {super.key,
       required this.title,
       required this.onTap,
+      this.borderColor,
       this.customWidth,
       this.isLoading = false,
       this.contentColor = Colors.white,
-      this.buttonColor = primary});
+      this.buttonColor = const Color(0xff071285)});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,10 @@ class MyElevatedButton extends StatelessWidget {
             width: customWidth ?? double.infinity,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: buttonColor),
+                border:
+                    Border.all(color: borderColor ?? LightColorTheme.kPrimary),
+                borderRadius: BorderRadius.circular(10),
+                color: buttonColor),
             child: Center(
               child: isLoading
                   ? SizedBox(

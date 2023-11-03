@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
 import 'package:sotl/view/screens/faculty/screens/observation_detail/widgets/select_course_bottom_sheet.dart';
 import 'package:sotl/view/screens/common/screens/teaching_plan/teaching_plan_screen.dart';
+import 'package:sotl/view/screens/observer/screens/rubrics/observer_rubric_screen.dart';
+import 'package:sotl/view/screens/observer/screens/select_course/observer_select_course_screen.dart';
 import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
 import 'package:sotl/view/widgets/observation_card/observation_detail_card.dart';
@@ -63,9 +65,9 @@ class _ObserverObservationDetailScreenState
                   title: "Observation Detail",
                   isBack: true,
                 ),
-                body: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: SingleChildScrollView(
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         ObservationDetailCard(
@@ -107,14 +109,46 @@ class _ObserverObservationDetailScreenState
                                       observationId: obs.id!,
                                       facultyId: obs.facultyId!));
                             }
-                            if (!obs.obsRequest!.observerAccepted!) {}
+                            if (!obs.obsRequest!.observerAccepted!) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ObserverSelectSlotScreen(
+                                            obs: obs,
+                                          )));
+                            }
                           },
                         ),
                         ObservationDetailCard(
-                            obs: value.observationDetail.data!,
+                          obs: obs,
+                          isScheduling: false,
+                          isNotStarted:
+                              obs.meetings!.informedObservation!.status ==
+                                  "Pending",
+                          isDisabled:
+                              obs.meetings!.informedObservation!.status ==
+                                  "Pending",
+                          title: "INFORMED OBSERVATION",
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ObserverRubricScreen(obs: obs)));
+                          },
+                        ),
+                        ObservationDetailCard(
+                            obs: obs,
+                            isScheduling: false,
                             isNotStarted: true,
                             isDisabled: true,
-                            title: "INFORMED OBSERVATION"),
+                            title: "UNINFORMED OBSERVATION"),
+                        ObservationDetailCard(
+                            obs: obs,
+                            isScheduling: false,
+                            isNotStarted: obs.meetings!.postObservation == null,
+                            isDisabled: obs.meetings!.postObservation == null,
+                            title: "POST OBSERVATION MEETING (FACE TO FACE)"),
                       ],
                     ),
                   ),

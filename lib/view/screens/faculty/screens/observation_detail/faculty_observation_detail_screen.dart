@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sotl/data/enums/status.dart';
-import 'package:sotl/view/screens/faculty/screens/select_slot/select_slot_screen.dart';
+import 'package:sotl/view/screens/faculty/screens/select_slot/faculty_select_slot_screen.dart';
 import 'package:sotl/view/screens/common/screens/teaching_plan/teaching_plan_screen.dart';
 import 'package:sotl/view/widgets/app_bar/my_app_bar.dart';
 import 'package:sotl/view/widgets/loading_indicator/my_loading_indicator.dart';
@@ -123,7 +123,7 @@ class _FacultyObservationDetailScreenState
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          SelectSlotScreen(obs: obs)));
+                                          FacultySelectSlotScreen(obs: obs)));
                             }
                           },
                         ),

@@ -129,7 +129,8 @@ class ObservationCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                             child: LinearProgressIndicator(
-                                value: obs.observationScore!.toDouble(),
+                                value:
+                                    obs.observationProgress!.toDouble() / 100,
                                 color: statusColor,
                                 backgroundColor: Colors.transparent),
                           )

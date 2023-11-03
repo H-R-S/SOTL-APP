@@ -218,7 +218,8 @@ class ObservationViewModel with ChangeNotifier {
     debugPrint("Data is: $data");
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
       setLoading(false);
-      // MySnackBar(context, "Slot Updated");
+      MySnackBar(context, "Slot Updated");
+      Navigator.pop(context);
       debugPrint("Slot Updated: $value");
       notifyListeners();
     }).onError((error, stackTrace) {
@@ -232,14 +233,12 @@ class ObservationViewModel with ChangeNotifier {
       {required int observationId}) async {
     setLoading(true);
 
-    final data = {
-      {"observationsId": observationId, "facultyAccepted": true}
-    };
+    final data = {"observationsId": observationId, "facultyAccepted": true};
 
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
       setLoading(false);
       MySnackBar(context, "Observation Updated");
-
+      Navigator.pop(context);
       notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
@@ -260,7 +259,7 @@ class ObservationViewModel with ChangeNotifier {
     _observationRepo.getUpdateTimeSlotApi(jsonEncode(data)).then((value) {
       setLoading(false);
       MySnackBar(context, "Observation Updated");
-
+      Navigator.pop(context);
       notifyListeners();
     }).onError((error, stackTrace) {
       setLoading(false);
